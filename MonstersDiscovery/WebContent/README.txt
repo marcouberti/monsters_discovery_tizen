@@ -1,0 +1,1 @@
+File fittizio per GIT, altrimenti non capisce cosa fare della cartella
