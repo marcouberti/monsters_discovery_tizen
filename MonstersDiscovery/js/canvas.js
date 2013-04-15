@@ -6,6 +6,4 @@ $(document).ready(function() {
 	//TODO
 	//Chiamo un restart level per refreshare il canvas (disegna il background sotto e il contorno ad ogni draw)
 	//TODO
-	
-	INVENKTION.SoundManager.playBackgroundMusic();
 });

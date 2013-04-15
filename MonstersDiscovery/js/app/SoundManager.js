@@ -43,11 +43,15 @@
 	var mod = {
 		 playBackgroundMusic : function() {
 			 var backgroundSound = document.querySelector("audio.background");
-			 backgroundSound.play();
+			 if(backgroundSound) {
+				 backgroundSound.play();
+			 }
 		 },
 		 stopBackgroundMusic : function() {
 			 var backgroundSound = document.querySelector("audio.background");
-			 backgroundSound.pause();
+			 if(backgroundSound) {
+				 backgroundSound.pause();
+			 }
 		 }
 	};
 

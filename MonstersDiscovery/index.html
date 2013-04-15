@@ -1,42 +1,77 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <title>WEB APP MONSTER DISCOVERY</title>
-        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="js/script.js"></script>
-        
-        <!-- IMPORT UFFICIALE NELLA VERSIONE DEFINITIVA -->
-        <script type="text/javascript" src="js/app/application.js"></script>
-        <script type="text/javascript" src="js/app/DrawCanvasManager.js"></script>
-        <script type="text/javascript" src="js/app/StorageManager.js"></script>
-        <script type="text/javascript" src="js/app/SoundManager.js"></script>
-        <script type="text/javascript" src="js/app/LevelManager.js"></script>
-        
-        <script type="text/javascript" src="js/canvas.js"></script>
-		<link href="css/agr.css" rel="stylesheet" type="text/css">
-    </head>
-    <body><!-- ::: BODY ::: -->
-    	<div class="mainContainer overflowHidden">
-        	<div class="imgContainer">
-        		<div id="canvas" class="mubcanvas"></div>
-            	<img class="imgTR" src="images/mostri/w1_monster1_tr.png"/>
-                <img class="imgBG" src="images/mostri/w1_monster1.png"/>
-            </div>
-            <div class="paletteContainer">
-            	<div class="paletteContainerInn">
-                	<div class="colorsContainer">
-                    	<img class="colours1" src="images/inkPalette1.png"/>
-                        <img class="colours2" src="images/inkPalette2.png"/>
-                        <img class="colours3" src="images/inkPalette3.png"/>
-                        <img class="colours4" src="images/inkPalette4.png"/>
-                    </div>
-            		<img class="palette" src="images/tavolozza.png"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    
+    <title>WEB APP MONSTER DISCOVERY</title>
+    <!--NOTE:
+        jquery.js and web-ui-fw.js must be included.
+        DO NOT REMOVE below code!
+    -->
+    <script src="tizen-web-ui-fw/latest/js/jquery.js"></script>
+    <script src="tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.js"></script>
+    <script src="tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
+        data-framework-theme="tizen-white"></script>
+
+    <!--NOTE:
+        Additional scripts and css files are to be placed here.
+        You can use jQuery namespace($) and all functionalities in jQuery
+        in your script.  For example:
+
+            <script src="main.js"></script>
+            <link rel="stylesheet" href="my.css">
+    -->
+    <!-- IMPORT UFFICIALE NELLA VERSIONE DEFINITIVA -->
+    <script type="text/javascript" src="js/app/application.js"></script>
+    <script type="text/javascript" src="js/app/DrawCanvasManager.js"></script>
+    <script type="text/javascript" src="js/app/StorageManager.js"></script>
+    <script type="text/javascript" src="js/app/SoundManager.js"></script>
+    <script type="text/javascript" src="js/app/LevelManager.js"></script>
+    <script type="text/javascript" src="js/app/PageShowManager.js"></script>
+    
+    <script type="text/javascript" src="./js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+
+<body>
+    <!-- Start of first page: #one -->
+    <div data-role="page" id="home" data-dom-cache="false">
+        <div data-role="content">
+            <h2>One</h2>
+            <h3>Show internal pages:</h3>
+            <p><a href="#sezioni" data-role="button">PLAY</a></p>
+            <p><a href="canvas.html" data-ajax="false" data-role="button">CANVAS</a></p>
+            <p><a href="#credits"  data-role="button" data-position-to="window" data-rel="popup">Show page "popup" (as a dialog)</a></p>
+
+            <div id="credits" data-role="popup" data-style="center_title_1btn">
+                <div class="ui-popup-title">
+                    <h1>Credits</h1>
                 </div>
+                <div class="ui-popup-text">www.invenktion.com</div>
+                <a href="#" data-inlie="true" data-role="button" onclick="javascript:$('#credits').popup('close');">Close</a>
             </div>
-            <div class="bgContainer"></div>
-        </div>
-        <audio class="background" loop="true" preload="auto"><source src="audio/sound.mp3" type="audio/mp3" /></audio>
-    </body><!-- ::: eBODY ::: -->
+        </div><!-- /content -->
+    </div><!-- /page one -->
+
+
+    <!-- Start of second page: #two -->
+    <div data-role="page" id="sezioni" data-dom-cache="false">
+        <div data-role="content">
+            <div data-role="gallery" id="gallery" data-vertical-align="middle" data-index="0">
+			   <!--  
+			   <img src="images/mostri/w1_monster1.png">
+			   <img src="images/mostri/w1_monster2.png">
+			   <img src="images/mostri/w1_monster3.png">
+			   <img src="images/mostri/w1_monster4.png">
+			   -->
+			</div>
+        </div><!-- /content -->
+    </div><!-- /page two -->
+   
+    
+	<audio class="background" loop="true" preload="auto"><source src="audio/sound.mp3" type="audio/mp3" /></audio>
+    
+</body>
 </html>

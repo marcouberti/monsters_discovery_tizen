@@ -4,7 +4,9 @@ var init = function () {
         var currentApp = tizen.application.getCurrentApplication();
         currentApp.exit();
     });
-    // TODO:: Do your initialization job
+	//Faccio partire la musica
+    INVENKTION.SoundManager.playBackgroundMusic();
+    
     console.log("init() called");
 };
 $(document).bind('pageinit', init);
