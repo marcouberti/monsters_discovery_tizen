@@ -54,6 +54,8 @@
 			prev_x = x;
 			prev_y = y;
 		}
+		//TODO
+		//Ridisegno il tr
 	}
 
 
@@ -142,6 +144,7 @@
 		paint = false;
 	}
 
+	/*
 	function drawImageOnCanvas() {//prova di disegna di una immagine sul canvas
 		var imageObj = new Image();
 	    imageObj.onload = function() {
@@ -150,9 +153,18 @@
 	    };
 	    imageObj.src = 'images/w3_monster3.png';
 	}
-
+	*/
+	var level;
+	var bgImage;
+	var trImage;
 	//Il nostro oggetto da esporre
 	var mod = {
+	     setLevel: function(lev) {
+	    	 level = lev;
+	     },
+	     getLevel: function() {
+	    	 return level;
+	     },
 		 initCanvas: function(){
 			console.log("### INVENKTION initCanvas");
 			if(isMobile) {
@@ -174,9 +186,14 @@
 			document.getElementById('canvas').appendChild(canvas);
 			ctx = canvas.getContext("2d");
 		 },
-		 //input: colorExadecimal (#FF0000)
-		 setBrushColor : function(colorExadecimal) {
-			 current_color = colorExadecimal;
+		 restartLevel: function(level) {
+			 this.clearCanvas();
+			 //Ridisegno il background in trasparenza
+			 //uso la variabile privata level che contiene il livello
+		 },
+		 //input: r,g,b
+		 setBrushColor : function(r,g,b) {
+			 current_color = rgb(r,g,b);
 		 },
 		 setBrushType: function(type) {
 			 brush_type = type;
@@ -186,6 +203,26 @@
 		 },
 		 getBrushType: function() {
 			 return brush_type;
+		 },
+		 getImageData: function() {
+			 //Prendo i dati dell'immagine, ma solo la parte centrale che mi interessa
+			 var x = canvas.width/2 - canvas.height/2;
+		     var y = 0;
+		     var W = canvas.height;
+		     var H = canvas.height;
+			 var imgd = ctx.getImageData(x, y, W, H);
+			 var pix = imgd.data;
+			 return pix;
+		 },
+		 drawImage: function(imageObj) {
+			 var x = canvas.width/2 - canvas.height/2;
+		     var y = 0;
+		     var W = canvas.height;
+		     var H = canvas.height;
+			 ctx.drawImage(imageObj, x, y, W, H);
+		 },
+		 clearCanvas: function() {
+			 ctx.clearRect(0, 0, canvas.width, canvas.height);
 		 }
 	};
 

@@ -18,8 +18,11 @@
 
 	//Il nostro oggetto da esporre
 	var mod = {
-		 saveLevelResult : function(levelCode,percentage) {
-				//TODO
+		 getItem : function(key) {
+			 return localStorage.getItem(key);
+		 },
+		 setItem : function(key,value) {
+			 localStorage.setItem(key,value);
 		 }
 	};
 
