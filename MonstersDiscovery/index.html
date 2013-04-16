@@ -31,19 +31,23 @@
     <script type="text/javascript" src="js/app/LevelManager.js"></script>
     <script type="text/javascript" src="js/app/PageShowManager.js"></script>
     
+	<link href="css/agr.css" rel="stylesheet" type="text/css">
+    
     <script type="text/javascript" src="./js/main.js"></script>
+  
     <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+
 </head>
 
 <body>
-    <!-- Start of first page: #one -->
-    <div data-role="page" id="home" data-dom-cache="false">
+    <!-- Start of home page: #home -->
+    <div data-role="page" id="home">
         <div data-role="content">
-            <h2>One</h2>
-            <h3>Show internal pages:</h3>
+            <h2>Monsters Discovery</h2>
             <p><a href="#sezioni" data-role="button">PLAY</a></p>
-            <p><a href="canvas.html" data-ajax="false" data-role="button">CANVAS</a></p>
-            <p><a href="#credits"  data-role="button" data-position-to="window" data-rel="popup">Show page "popup" (as a dialog)</a></p>
+            <p><a href="#newspecies" data-role="button">NEW SPECIES</a></p>
+            <p><a href="#canvas" data-role="button">CANVAS</a></p>
+            <p><a href="#credits" data-role="button" data-position-to="window" data-rel="popup">Credits</a></p>
 
             <div id="credits" data-role="popup" data-style="center_title_1btn">
                 <div class="ui-popup-title">
@@ -53,24 +57,52 @@
                 <a href="#" data-inlie="true" data-role="button" onclick="javascript:$('#credits').popup('close');">Close</a>
             </div>
         </div><!-- /content -->
-    </div><!-- /page one -->
+    </div><!-- /page home -->
 
 
-    <!-- Start of second page: #two -->
-    <div data-role="page" id="sezioni" data-dom-cache="false">
+    <!-- Start of sezioni page: #sezioni -->
+    <div data-role="page" id="sezioni">
         <div data-role="content">
-            <div data-role="gallery" id="gallery" data-vertical-align="middle" data-index="0">
-			   <!--  
-			   <img src="images/mostri/w1_monster1.png">
-			   <img src="images/mostri/w1_monster2.png">
-			   <img src="images/mostri/w1_monster3.png">
-			   <img src="images/mostri/w1_monster4.png">
-			   -->
-			</div>
+            <div id="gallery">
+            </div>
         </div><!-- /content -->
-    </div><!-- /page two -->
+    </div><!-- /page sezioni -->
    
+   <!-- Start of livelli page: #livelli -->
+    <div data-role="page" id="livelli">
+        <div data-role="content">
+            <div id="levelgallery">
+            </div>
+        </div><!-- /content -->
+    </div><!-- /page livelli -->
     
+    <!-- Start of canvas page: #canvas -->
+    <div data-role="page" id="canvas">
+            <div class="mainContainer overflowHidden">
+        	<div class="imgContainer">
+        		<div id="canvascontainer" class="mubcanvas"></div>
+            	<img class="imgTR" src="images/mostri/w1_monster1_tr.png"/>
+                <img class="imgBG" src="images/mostri/w1_monster1.png"/>
+            </div>
+            <div class="paletteContainer">
+            	<div class="paletteContainerInn">
+                	<div class="colorsContainer">
+                    	<img class="colours1" src="images/inkPalette1.png"/>
+                        <img class="colours2" src="images/inkPalette2.png"/>
+                        <img class="colours3" src="images/inkPalette3.png"/>
+                        <img class="colours4" src="images/inkPalette4.png"/>
+                    </div>
+            		<img class="palette" src="images/tavolozza.png"/>
+                </div>
+            </div>
+            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.setBrushColor(0,0,255);" style="position:fixed; top:0; left:10px;z-index:10001;">BLU</a>
+            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.setBrushColor(0,255,0);" style="position:fixed; top:0; left:60px;z-index:10001;">VERDE</a>
+            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.setBrushType('ERASER');" style="position:fixed; top:0; left:160px;z-index:10001;">GOMMA</a>
+            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.setBrushType('BRUSH');" style="position:fixed; top:0; left:250px;z-index:10001;">PEN</a>
+            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.clearCanvas();" style="position:fixed; top:0; left:320px;z-index:10001;">CANCELLA TUTTO</a>
+            <div class="bgContainer"></div>
+        </div>
+    </div><!-- /page canvas -->
 	<audio class="background" loop="true" preload="auto"><source src="audio/sound.mp3" type="audio/mp3" /></audio>
     
 </body>

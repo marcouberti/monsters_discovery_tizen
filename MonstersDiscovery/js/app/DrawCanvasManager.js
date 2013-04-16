@@ -155,6 +155,7 @@
 	}
 	*/
 	var level;
+	var section;
 	var bgImage;
 	var trImage;
 	//Il nostro oggetto da esporre
@@ -165,8 +166,27 @@
 	     getLevel: function() {
 	    	 return level;
 	     },
+	     setSection: function(sec) {
+	    	 section = sec;
+	     },
+	     getSection: function() {
+	    	 return section;
+	     },
 		 initCanvas: function(){
 			console.log("### INVENKTION initCanvas");
+			//Prelevo la sezione e livello corrente
+			var sectionindex = INVENKTION.StorageManager.getItem("currentSection");
+			var levindex = INVENKTION.StorageManager.getItem("currentLevel");
+			var section = INVENKTION.LevelManager.getSection(parseInt(sectionindex));
+			var level = INVENKTION.LevelManager.getSectionLevel(section, parseInt(levindex));
+			INVENKTION.DrawCanvasManager.setSection(section);
+			INVENKTION.DrawCanvasManager.setLevel(level);
+			//Setto le immagini di sfondo e i contorni giusti
+			$(".imgBG").attr("src",level.immagine);
+			$(".imgTR").attr("src",level.contorno);
+			$(".bgContainer").css("background","url("+section.sfondo+") no-repeat fixed center center / cover");
+			
+			$("#canvascontainer").html("");
 			if(isMobile) {
 				document.addEventListener("touchstart", onTouchStart, false);
 				document.addEventListener("touchmove", onTouchMove, false);
@@ -183,7 +203,8 @@
 			canvas = document.createElement('canvas');
 			canvas.height = screen.availHeight;
 			canvas.width = screen.availWidth;
-			document.getElementById('canvas').appendChild(canvas);
+			
+			document.getElementById('canvascontainer').appendChild(canvas);
 			ctx = canvas.getContext("2d");
 		 },
 		 restartLevel: function(level) {
@@ -193,7 +214,8 @@
 		 },
 		 //input: r,g,b
 		 setBrushColor : function(r,g,b) {
-			 current_color = rgb(r,g,b);
+			 current_color = "rgb("+r+","+g+","+b+")";
+			 INVENKTION.DrawCanvasManager.setBrushType('BRUSH');
 		 },
 		 setBrushType: function(type) {
 			 brush_type = type;

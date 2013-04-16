@@ -42,7 +42,7 @@ body,html {
 
 .bgContainer {
 	z-index:1;
-	background:url(./../images/sfondo3.png) no-repeat fixed center center / cover;
+	background:url(./../images/sfondi/sfondo3.png) no-repeat fixed center center / cover;
 }
 
 .paletteContainer,
