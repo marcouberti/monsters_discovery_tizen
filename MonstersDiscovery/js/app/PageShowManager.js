@@ -9,9 +9,50 @@
 (function($, exports){
 	
 	//Metodi e variabili private
-	var privateFunction = function(){};
+	//Gestione visibilità pagina, per abilitare e disabilitare il suono in automatico
+	var hidden, visibilityState, visibilityChange;
+	var music = document.getElementById("music");
+	if (typeof document.hidden !== "undefined") {
+	        hidden = "hidden"; visibilityChange = "visibilitychange"; visibilityState = "visibilityState";
+	}
+	else if (typeof document.mozHidden !== "undefined") {
+	        hidden = "mozHidden"; visibilityChange = "mozvisibilitychange"; visibilityState = "mozVisibilityState";
+	}
+	else if (typeof document.msHidden !== "undefined") {
+	        hidden = "msHidden"; visibilityChange = "msvisibilitychange"; visibilityState = "msVisibilityState";
+	}
+	else if (typeof document.webkitHidden !== "undefined") {
+	        hidden = "webkitHidden"; visibilityChange = "webkitvisibilitychange"; visibilityState = "webkitVisibilityState";
+	}
+	
+	document.addEventListener(visibilityChange, function() {
+	        console.log("hidden: " + document[hidden]);
+	        console.log(document[visibilityState]);
+	
+	        switch (document[visibilityState]) {
+	        case "visible":
+	        	INVENKTION.SoundManager.playBackgroundMusic();
+	        	INVENKTION.TimerManager.resume();
+	            break;
+	        case "hidden":
+	        	INVENKTION.SoundManager.stopBackgroundMusic();
+	        	INVENKTION.TimerManager.pause();
+	            break;
+	        }
+	});
 	//Modello che contiene i tag fino ad ora ricevuti (una sorta di cache per i miei controlli e matching)
 	var currentPage;
+	
+	//Evento dopo che la pagina è stata lasciata
+	$(document).bind('pagehide', function(event){
+		currentPage = $(event.target).attr("id");
+		console.log("--> uscito dalla pagina..."+currentPage);
+		//### HOME
+		if(currentPage == 'canvas') {
+			console.log("fermo eventuale worker timer");
+			INVENKTION.TimerManager.stop();
+		}
+	});
 	
 	//Con questo metodo riesco a intercettare quando una pagina sta per essere mostrata
 	//e di conseguenza fare gli aggiornamenti alla UI del caso
@@ -83,6 +124,8 @@
 			});
 			//Inizializzo il canvas
 			INVENKTION.DrawCanvasManager.initCanvas();
+			//Faccio partire il tempo
+			INVENKTION.TimerManager.start();
 		}
 	});
 

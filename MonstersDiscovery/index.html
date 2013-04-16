@@ -30,6 +30,7 @@
     <script type="text/javascript" src="js/app/SoundManager.js"></script>
     <script type="text/javascript" src="js/app/LevelManager.js"></script>
     <script type="text/javascript" src="js/app/PageShowManager.js"></script>
+    <script type="text/javascript" src="js/app/TimerManager.js"></script>
     
 	<link href="css/agr.css" rel="stylesheet" type="text/css">
     
@@ -99,8 +100,11 @@
             <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.setBrushColor(186, 143, 185);" style="position:fixed; top:0; left:60px;z-index:10001;">VERDE</a>
             <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.setBrushType('ERASER');" style="position:fixed; top:0; left:160px;z-index:10001;">GOMMA</a>
             <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.setBrushType('BRUSH');" style="position:fixed; top:0; left:250px;z-index:10001;">PEN</a>
-            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.clearCanvas();" style="position:fixed; top:0; left:320px;z-index:10001;">CANCELLA TUTTO</a>
-            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.checkUserDrawing();" style="position:fixed; top:0; left:580px;z-index:10001;">CHECK</a>
+            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.clearCanvas();" style="position:fixed; top:0; left:320px;z-index:10001;">CANC</a>
+            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.checkUserDrawing();" style="position:fixed; top:0; left:450px;z-index:10001;">CHECK</a>
+            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.executeTrap();" style="position:fixed; top:0; left:540px;z-index:10001;">TRAP</a>
+            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.executeTrick();" style="position:fixed; top:0; left:620px;z-index:10001;">TRICK</a>
+            <a id="timer" style="position:fixed; top:80px; left:620px;z-index:10001;">45</a>
             <div class="bgContainer"></div>
         </div>
     </div><!-- /page canvas -->

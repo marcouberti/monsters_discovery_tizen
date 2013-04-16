@@ -258,13 +258,38 @@
 		 clearCanvas: function() {
 			 ctx.clearRect(0, 0, canvas.width, canvas.height);
 		 },
+		 executeTrap: function() {
+			 //Eseguo una trappola in una posizione casuale (candeggina)
+			 var x = canvas.width/2 - canvas.height/2;
+		     var y = 0;
+		     var W = canvas.height;
+		     var H = canvas.height;
+			 var randomX = Math.floor(Math.random()*W);
+			 var randomY = Math.floor(Math.random()*H);
+			 ctx.globalCompositeOperation = "destination-out";
+			 ctx.beginPath();
+			 ctx.fillStyle="red";
+			 ctx.arc(x+randomX,y+randomY,W/4,0,2*Math.PI);
+			 ctx.fill();
+		 },
+		 executeTrick: function() {
+			 //Eseguo un trick (CONTORNI MAGICI)
+			 var x = canvas.width/2 - canvas.height/2;
+		     var y = 0;
+		     var W = canvas.height;
+		     var H = canvas.height;
+		     //E ne ottengo un cerchio casuale corretto
+			 ctx.globalCompositeOperation = "destination-in";
+			 ctx.drawImage(originalImage, x, y, W, H);
+		 },
 		 checkUserDrawing: function() {
 			 var x = canvas.width/2 - canvas.height/2;
 		     var y = 0;
 		     var W = canvas.height;
 		     var H = canvas.height;
+		     
 		     //Salvo la versione utente
-		     var userRawData = ctx.getImageData(x, y, W, H);
+		     var userRawData = ctx.getImageData(0, 0, canvas.width, H);
 			 //var userRawPix = userData.data;
 			 //Incollo sul disegno utente il contorno originale
 			 ctx.drawImage(trImage, x, y, W, H);
@@ -288,7 +313,7 @@
 			 }
 			 //Cancello e ripristino l'immagine raw dell'utente
 			 INVENKTION.DrawCanvasManager.clearCanvas();
-			 ctx.putImageData(userRawData, x, y);
+			 ctx.putImageData(userRawData, 0, 0);
 			 //Rilascio le risorse
 			 userRawData = null;
 			 userData = null;
