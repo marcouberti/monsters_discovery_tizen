@@ -23,6 +23,8 @@
 
 	//Line from the last position to current position
 	function drawLine(x, y) {
+		ctx.save();
+		
 		ctx.lineWidth = brush_size;
 		ctx.lineCap = 'round';//mub
 		if(brush_type == 'BRUSH') {
@@ -36,6 +38,8 @@
 		ctx.moveTo(prev_x, prev_y);
 		ctx.lineTo(x, y);
 		ctx.stroke();
+		
+		ctx.restore();
 	}
 
 	//Check if touch is valid for drawing line and draw the line
@@ -156,7 +160,7 @@
 	*/
 	var level;
 	var section;
-	var bgImage;
+	var originalImage;
 	var trImage;
 	//Il nostro oggetto da esporre
 	var mod = {
@@ -181,6 +185,14 @@
 			var level = INVENKTION.LevelManager.getSectionLevel(section, parseInt(levindex));
 			INVENKTION.DrawCanvasManager.setSection(section);
 			INVENKTION.DrawCanvasManager.setLevel(level);
+			//Salvo gli oggetti immagine del contorno e immagine completa
+			originalImage = new Image();
+			originalImage.onload = function() {};
+		    originalImage.src = level.immagine;
+		    trImage = new Image();
+		    trImage.onload = function() {};
+		    trImage.src = level.contorno;
+			
 			//Setto le immagini di sfondo e i contorni giusti
 			$(".imgBG").attr("src",level.immagine);
 			$(".imgTR").attr("src",level.contorno);
@@ -245,6 +257,47 @@
 		 },
 		 clearCanvas: function() {
 			 ctx.clearRect(0, 0, canvas.width, canvas.height);
+		 },
+		 checkUserDrawing: function() {
+			 var x = canvas.width/2 - canvas.height/2;
+		     var y = 0;
+		     var W = canvas.height;
+		     var H = canvas.height;
+		     //Salvo la versione utente
+		     var userRawData = ctx.getImageData(x, y, W, H);
+			 //var userRawPix = userData.data;
+			 //Incollo sul disegno utente il contorno originale
+			 ctx.drawImage(trImage, x, y, W, H);
+			 //Salvo il disegno utente
+			 var userData = ctx.getImageData(x, y, W, H);
+			 var userPix = userData.data;
+			 //Cancello la lavagna e ci incollo l'immagine completa originale
+			 INVENKTION.DrawCanvasManager.clearCanvas();
+			 ctx.drawImage(originalImage, x, y, W, H);
+			 
+			 //Esporto l'immagine originale
+			 var originalData = ctx.getImageData(x, y, W, H);
+			 var originalPix = originalData.data;
+			 //Confronto le due immagini
+			 var errori = 0;
+			 for (var i = 0, n = originalPix.length; i < n; i += 4) {
+				 if( originalPix[i  ] != userPix[i] || originalPix[i+1 ] != userPix[i+1] || originalPix[i+2 ] != userPix[i+2]) {
+					 errori = errori+1;
+				 }
+			    // i+3 is alpha (the fourth element)
+			 }
+			 //Cancello e ripristino l'immagine raw dell'utente
+			 INVENKTION.DrawCanvasManager.clearCanvas();
+			 ctx.putImageData(userRawData, x, y);
+			 //Rilascio le risorse
+			 userRawData = null;
+			 userData = null;
+			 userPix = null;
+			 originalData = null;
+			 originalPix = null;
+			 //Mostro il risultato con un alert
+			 alert("pixel errati = "+errori);
+			 
 		 }
 	};
 
