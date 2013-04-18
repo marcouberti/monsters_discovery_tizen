@@ -198,6 +198,18 @@
 			$(".imgTR").attr("src",level.contorno);
 			$(".bgContainer").css("background","url("+section.sfondo+") no-repeat fixed center center / cover");
 			
+			//Popolo la tavolozza colori
+			var colori =level.colori;
+			var numColori = colori.length;
+			for(var c=0; c<numColori; c++) {
+				var r,g,b;
+				r = colori[c][0];
+				g = colori[c][1];
+				b = colori[c][2];
+				var colorEL = "<a href='#' onclick='javascript:INVENKTION.DrawCanvasManager.setBrushColor("+r+","+g+","+b+")' style='position:fixed; top:"+50*c+"px; left:10px;z-index:10001;'>Color "+(c+1)+"</a>";
+				$("#canvas").append(colorEL);
+			}
+			
 			$("#canvascontainer").html("");
 			if(isMobile) {
 				document.addEventListener("touchstart", onTouchStart, false);
@@ -266,11 +278,13 @@
 		     var H = canvas.height;
 			 var randomX = Math.floor(Math.random()*W);
 			 var randomY = Math.floor(Math.random()*H);
+			 ctx.save();
 			 ctx.globalCompositeOperation = "destination-out";
 			 ctx.beginPath();
 			 ctx.fillStyle="red";
 			 ctx.arc(x+randomX,y+randomY,W/4,0,2*Math.PI);
 			 ctx.fill();
+			 ctx.restore();
 		 },
 		 executeTrick: function() {
 			 //Eseguo un trick (CONTORNI MAGICI)
@@ -279,8 +293,10 @@
 		     var W = canvas.height;
 		     var H = canvas.height;
 		     //E ne ottengo un cerchio casuale corretto
+		     ctx.save();
 			 ctx.globalCompositeOperation = "destination-in";
 			 ctx.drawImage(originalImage, x, y, W, H);
+			 ctx.restore();
 		 },
 		 checkUserDrawing: function() {
 			 var x = canvas.width/2 - canvas.height/2;
@@ -303,9 +319,10 @@
 			 //Esporto l'immagine originale
 			 var originalData = ctx.getImageData(x, y, W, H);
 			 var originalPix = originalData.data;
+			 var totPixel = originalPix.length/4;
 			 //Confronto le due immagini
 			 var errori = 0;
-			 for (var i = 0, n = originalPix.length; i < n; i += 4) {
+			 for (var i = 0, n = originalPix.length; i < n; i += 4) {		
 				 if( originalPix[i  ] != userPix[i] || originalPix[i+1 ] != userPix[i+1] || originalPix[i+2 ] != userPix[i+2]) {
 					 errori = errori+1;
 				 }
@@ -321,7 +338,8 @@
 			 originalData = null;
 			 originalPix = null;
 			 //Mostro il risultato con un alert
-			 alert("pixel errati = "+errori);
+			 var percentageError = (100*errori)/totPixel;
+			 alert("RESULT = "+parseInt(100 - percentageError)+ "%");
 			 
 		 }
 	};
