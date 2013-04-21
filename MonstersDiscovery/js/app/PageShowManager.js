@@ -9,7 +9,9 @@
 (function($, exports){
 	
 	//Metodi e variabili private
+	
 	//Gestione visibilità pagina, per abilitare e disabilitare il suono in automatico
+	//o tutte quelle cose che vanno stoppate, ad esempio il tempo
 	var hidden, visibilityState, visibilityChange;
 	var music = document.getElementById("music");
 	if (typeof document.hidden !== "undefined") {
@@ -59,6 +61,7 @@
 	$(document).bind('pagebeforeshow', function(event){
 		currentPage = $(event.target).attr("id");
 		console.log("sono nella pagina..."+currentPage);
+		
 		//### HOME
 		if(currentPage == 'home') {
 			
@@ -84,6 +87,9 @@
 		}
 		//### LIVELLI
 		if(currentPage == 'livelli') {
+			//Altero la history inserendo tra questa pagina e quella del canvas una pagina di dialog
+			history.pushState({}, "Monsters Discovery", "index.html#dialog");
+			
 			//Costruisco la gallery
 			$("#levelgallery").html("");
 			var index = INVENKTION.StorageManager.getItem("currentSection");
