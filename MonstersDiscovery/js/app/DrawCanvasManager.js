@@ -20,7 +20,7 @@
 	var current_color = "#F00";
 	var brush_size = 15;
 	var brush_type = 'BRUSH';//BRUSH , ERASER
-
+	
 	//Line from the last position to current position
 	function drawLine(x, y) {
 		ctx.save();
@@ -298,7 +298,7 @@
 			 ctx.drawImage(originalImage, x, y, W, H);
 			 ctx.restore();
 		 },
-		 checkUserDrawing: function() {
+		 checkUserDrawing: function() {//se è init vuol dire che sto calcolando la percentuale di base
 			 var x = canvas.width/2 - canvas.height/2;
 		     var y = 0;
 		     var W = canvas.height;
@@ -339,8 +339,18 @@
 			 originalPix = null;
 			 //Mostro il risultato con un alert
 			 var percentageError = (100*errori)/totPixel;
-			 alert("RESULT = "+parseInt(100 - percentageError)+ "%");
+			 var percentage = parseInt(100 - percentageError);
+			 //Prima di iniziare il gioco, vedo quale è la percentuale di base del livello corrente
+			 //var basePercentage = level.basePercentage;
+			 //console.log("PERC="+percentage+"BASE PERCENTAGE = "+basePercentage);
+			 //return (100*(percentage-basePercentage))/(100-basePercentage);
+			 console.log("percentage = "+percentage);
+			 if(percentage >= 85) alert("3 star");
+			 else if(percentage >= 80) alert("2 star");
+			 else if(percentage >= 75) alert("1 star");
+			 else alert("bad result");
 			 
+			 return percentage;
 		 }
 	};
 
