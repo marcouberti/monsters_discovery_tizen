@@ -23,4 +23,5 @@ function initVar () {
 
 $(document).ready(function() {
 	initVar ();
+	
 });
