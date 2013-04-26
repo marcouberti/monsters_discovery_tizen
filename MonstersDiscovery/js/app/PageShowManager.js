@@ -88,7 +88,7 @@
 		//### LIVELLI
 		if(currentPage == 'livelli') {
 			//Altero la history inserendo tra questa pagina e quella del canvas una pagina di dialog
-			history.pushState({}, "Monsters Discovery", "index.html#dialog");
+			//history.pushState({}, "Monsters Discovery", "index.html#dialog");
 			
 			//Costruisco la gallery
 			$("#levelgallery").html("");
