@@ -1,4 +1,4 @@
-monstersdiscoverytizen
+mdtztest
 ======================
 
-HTML5 version of Monsters Discovery for the TIZEN platform
+HTML5 mdtztest
