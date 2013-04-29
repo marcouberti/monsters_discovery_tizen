@@ -1,12 +1,10 @@
 
-.bgContainer {
-	z-index:1;
-	background:url(./../images/sfondi/sfondo3.png) no-repeat fixed center center / cover;
-}
-
 @charset "UTF-8";
 /* CSS Document */
 
+.h100,body,html{
+	height:100%;
+}
 body,html {
 	margin:0;
 	width:100%;
@@ -137,6 +135,17 @@ body,html {
 .home_logoInvenktion img{
 	width:100%;
 	height:100%;
+}
+.home_creditsBtn img,
+.home_audioBtn img{
+	bottom: 1%;
+    left: 7%;
+    position: absolute;
+    width: 6%;
+    z-index:10;
+}
+.home_audioBtn img {
+	left:1%;
 }
 
 .mubcanvas {
