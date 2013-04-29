@@ -64,7 +64,9 @@
 		
 		//### HOME
 		if(currentPage == 'home') {
-			
+			setInterval(function() {
+		    	$('.bg1').fadeToggle(3000);
+			}, 7000);
 		}
 		//### SEZIONI
 		if(currentPage == 'sezioni') {
