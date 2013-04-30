@@ -126,7 +126,7 @@
 		if(currentPage == 'canvas') {
 			mainHeight = $(window).height();
 			$('.imgContainer').css('width',mainHeight);
-			$('.paletteContainerInn').css('margin-top',(mainHeight*-0.7)/2);
+			//$('.paletteContainerInn').css('margin-top',(mainHeight*-0.7)/2);
 			
 			$(document).bind("click",function(event){
 				if($(event.target).attr("class") == 'palette') {

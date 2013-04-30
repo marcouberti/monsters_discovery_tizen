@@ -85,20 +85,27 @@
     </div><!-- /page livelli -->
     
     <!-- Start of canvas page: #canvas -->
-    <div data-role="page" id="canvas">
+    <div data-role="page" id="canvas" class="h100">
             <div class="mainContainer overflowHidden">
         	<div class="imgContainer h100">
         		<div id="canvascontainer" class="mubcanvas"></div>
             	<img class="imgTR" src="images/mostri/w1_monster1_tr.png"/>
                 <img class="imgBG" src="images/mostri/w1_monster1.png"/>
             </div>
-            <div class="paletteContainer">
-            	<div class="paletteContainerInn">
+            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.setBrushType('ERASER');" class="canvas_rubber"><img class="colours1" src="images/gomma_size_1.png"/></a>
+            <div class="brushSizerContainer">
+            	<a href="#"><img class="sizer_add" src="images/brush-sizer_add.png"/></a>
+            	<a href="#"><img class="sizer_less" src="images/brush-sizer_less.png"/></a>
+           		<img class="sizerBg" src="images/brush-sizer.png"/>
+            </div>
+            <div class="paletteContainer h100">
+            	<div class="paletteContainerInn h100">
                 	<div class="colorsContainer">
                     	<img class="colours1" src="images/inkPalette1.png"/>
                         <img class="colours2" src="images/inkPalette2.png"/>
                         <img class="colours3" src="images/inkPalette3.png"/>
                         <img class="colours4" src="images/inkPalette4.png"/>
+                        <img class="colours5" src="images/inkPalette5.png"/>
                     </div>
             		<img class="palette" src="images/tavolozza.png"/>
                 </div>
@@ -122,7 +129,7 @@
         </div><!-- /content -->
     </div><!-- /page livelli -->
     
-	<audio class="background" loop="true" preload="auto"><source src="audio/sound.mp3" type="audio/mp3" /></audio>
+	<!--<audio class="background" loop="true" preload="auto"><source src="audio/sound.mp3" type="audio/mp3" /></audio>-->
     
 </body>
 </html>

@@ -4,6 +4,7 @@
 
 .h100,body,html{
 	height:100%;
+	width:100%;
 }
 body,html {
 	margin:0;
@@ -16,87 +17,15 @@ body,html {
 .hidden{
 	display:none;
 }
-.mainContainer,
-.bgContainer {
-	width:100%;
-	height:100%;
-}
-.imgContainer {
-	position:relative;
-	margin:0 auto;
-	text-align:center;
-	z-index:100;
-}
-.imgContainer img,
-.bgContainer{
-	height:100%;
-	top:0;
-	left:0;
-	position:absolute;
-}
-.imgBG {
-	opacity:0.30;
-}
 
-.bg {
-	width:100%;
-	height:100%;
-	position:absolute;
-	top:0;
-	left:0;
-	z-index:1;
-}
-.bg1 {
-	z-index:2;
-}
-.paletteContainer,
-.paletteContainerInn  {
-	position:absolute;
-	top:0;
-	left:0;
-}
-.paletteContainerInn {
-	top:50%;
-}
-.paletteContainer .palette {
-	height:70%;
-	position:relative;
-	z-index:20;
-	top:0;
-	left:-50px;
-}
-.colorsContainer {
-	height:auto;
-	position: relative;
-    z-index: 100;
-}
-.colorsContainer img{
-	position:absolute;
-}
-.colorsContainer img.colours1{
-	right: 99px;
-    top: 51px;
-	background:red;
-}
-.colorsContainer img.colours2{
-	right: 77px;
-    top: 135px;
-	background:green;
-}
-.colorsContainer img.colours3{	
-	right: 88px;
-    top: 230px;
-	background:orange;
-}
-.colorsContainer img.colours4{
-	right: 127px;
-    top: 319px;
-	background:pink;
-}
-.colorsContainer img.colours5{
-	top:400px;
-	right:200px;
-}
+/* =================================================================*/
+/* ========= DA QUI LE CLASSI SONO SUDDIVISE PER SEZIONI ===========*/
+/* =================================================================*/
+
+/* ========================================*/
+/* ================= HOME =================*/
+/* ========================================*/
+
 .homeButunera {
 	position:absolute;
 	z-index:10;
@@ -148,6 +77,103 @@ body,html {
 	left:1%;
 }
 
+
+/* ========================================*/
+/* ================ SEZIONI ===============*/
+/* ========================================*/
+
+
+
+/* ========================================*/
+/* ================ LIVELLI ===============*/
+/* ========================================*/
+
+
+
+
+
+/* ========================================*/
+/* ================= CANVAS ===============*/
+/* ========================================*/
+.bg {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:1;
+}
+.bg1 {
+	z-index:2;
+}
+.brushSizerContainer img {
+	position:absolute;
+	right:0;
+	bottom:13%;
+	width:10%;
+	z-index:100;
+}
+.brushSizerContainer .sizer_add,
+.brushSizerContainer .sizer_less {
+	width:4%;
+	z-index:101;
+	bottom: 22%;
+}
+.brushSizerContainer .sizer_less {
+	bottom:12%;
+	right:7%
+}
+.canvas_rubber img{
+	position:absolute;
+	right:0;
+	bottom:0;
+	width:10%;
+	z-index: 100;
+}
+.colorsContainer {
+	height:87%;
+	position: absolute;
+    z-index: 1001;
+    width:21%;
+    left: -5%;
+}
+.colorsContainer img{
+	position:absolute;
+	width: 21%;
+	z-index: 1002;
+	
+}
+.colorsContainer img.colours1{
+	right: 40%;
+    top: 10%;
+	background:red;
+	
+}
+.colorsContainer img.colours2{
+	right: 33%;
+    top: 20%;
+	background:green;
+}
+.colorsContainer img.colours3{	
+	right: 34%;
+    top: 33%;
+	background:orange;
+}
+.colorsContainer img.colours4{
+	right: 38%;
+    top: 43%;
+	background:pink;
+}
+.colorsContainer img.colours5{
+	right: 44%;
+    top: 54%;
+    background:yellow;
+}
+.mainContainer,
+.bgContainer {
+	width:100%;
+	height:100%;
+}
 .mubcanvas {
 	position: fixed;
 	z-index: 15;
@@ -156,3 +182,43 @@ body,html {
 	left:0px;
 	border: 1pt solid #000;
 }
+.imgContainer {
+	position:relative;
+	margin:0 auto;
+	text-align:center;
+	z-index:100;
+}
+.imgContainer img,
+.bgContainer{
+	height:100%;
+	top:0;
+	left:0;
+	position:absolute;
+}
+.imgBG {
+	opacity:0.30;
+}
+.imgTR {
+	z-index:1000;
+}
+
+.paletteContainer,
+.paletteContainerInn  {
+	position:absolute;
+	top:0;
+	left:0;
+}
+.paletteContainerInn {
+	top:10%;
+}
+.paletteContainer .palette {
+	height:85%;
+	position:relative;
+	z-index:100;
+	top:0;
+	left:-7em;
+}
+
+/* ========================================*/
+/* ============== UI E DIALOG =============*/
+/* ========================================*/
