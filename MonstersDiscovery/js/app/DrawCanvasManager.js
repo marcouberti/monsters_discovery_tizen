@@ -212,8 +212,8 @@
 				r = colori[c][0];
 				g = colori[c][1];
 				b = colori[c][2];
-				var colorEL = "<a href='#' onclick='javascript:INVENKTION.DrawCanvasManager.setBrushColor("+r+","+g+","+b+")' style='position:fixed; top:"+50*c+"px; left:10px;z-index:10001;'>Color "+(c+1)+"</a>";
-				$("#canvas").append(colorEL);
+				//var colorEL = "<a href='#' onclick='javascript:INVENKTION.DrawCanvasManager.setBrushColor("+r+","+g+","+b+")' style='position:fixed; top:"+50*c+"px; left:10px;z-index:10001;'>Color "+(c+1)+"</a>";
+				//$("#canvas").append(colorEL);
 				
 				//Setto il colore alle macchie della tavolozza
 				$(".colours"+(c+1)).show();
@@ -249,6 +249,11 @@
 		 //input: r,g,b
 		 setBrushColor : function(r,g,b) {
 			 current_color = "rgb("+r+","+g+","+b+")";
+			 INVENKTION.DrawCanvasManager.setBrushType('BRUSH');
+		 },
+		 //input "rgb(r,g,b)"
+		 setBrushColor : function(value) {
+			 current_color = value;
 			 INVENKTION.DrawCanvasManager.setBrushType('BRUSH');
 		 },
 		 setBrushType: function(type) {

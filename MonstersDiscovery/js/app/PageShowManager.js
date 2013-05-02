@@ -129,15 +129,8 @@
 			//$('.paletteContainerInn').css('margin-top',(mainHeight*-0.7)/2);
 			
 			$(document).bind("click",function(event){
-				if($(event.target).attr("class") == 'palette') {
-					alert("ho cliccato sulla TAVOLOZZA");
-					if(INVENKTION.DrawCanvasManager.getBrushType() == 'BRUSH') {
-						INVENKTION.DrawCanvasManager.setBrushType('ERASER');
-					}else {
-						INVENKTION.DrawCanvasManager.setBrushType('BRUSH');
-					}
-					
-					INVENKTION.DrawCanvasManager.setBrushColor('#00F');
+				if($(event.target).attr("class") && $(event.target).attr("class").indexOf("tavcol") != -1) {
+					INVENKTION.DrawCanvasManager.setBrushColor($(event.target).css("background-color"));
 				}
 			});
 			//Inizializzo il canvas
