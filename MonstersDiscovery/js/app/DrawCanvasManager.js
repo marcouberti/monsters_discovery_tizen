@@ -201,6 +201,12 @@
 			//Popolo la tavolozza colori
 			var colori =level.colori;
 			var numColori = colori.length;
+			
+			//nascondo tutti i colori prima
+			for(var c=1; c<=5; c++) {
+				$(".colours"+(c)).hide();
+			}
+			
 			for(var c=0; c<numColori; c++) {
 				var r,g,b;
 				r = colori[c][0];
@@ -208,6 +214,10 @@
 				b = colori[c][2];
 				var colorEL = "<a href='#' onclick='javascript:INVENKTION.DrawCanvasManager.setBrushColor("+r+","+g+","+b+")' style='position:fixed; top:"+50*c+"px; left:10px;z-index:10001;'>Color "+(c+1)+"</a>";
 				$("#canvas").append(colorEL);
+				
+				//Setto il colore alle macchie della tavolozza
+				$(".colours"+(c+1)).show();
+				$(".colours"+(c+1)).css("background-color","rgb("+r+","+g+","+b+")");
 			}
 			
 			$("#canvascontainer").html("");
