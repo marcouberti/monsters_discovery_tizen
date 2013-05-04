@@ -10,6 +10,12 @@
 
 	//Il nostro oggetto da esporre
 	var mod = {
+		 playSound : function(className) {
+			 var sound = document.querySelector("audio."+className);
+			 if(sound) {
+				 sound.play();
+			 }
+		 },
 		 playBackgroundMusic : function() {
 			 var backgroundSound = document.querySelector("audio.background");
 			 if(backgroundSound) {

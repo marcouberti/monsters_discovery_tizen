@@ -259,6 +259,14 @@
 		 setBrushType: function(type) {
 			 brush_type = type;
 		 },
+		 increaseBrushSize: function() {
+			 brush_size += 5;
+			 if(brush_size > 50) brush_size = 50;//non può andare oltre 50 il pennello
+		 },
+		 decreaseBrushSize: function() {
+			 brush_size -= 5;
+			 if(brush_size < 5) brush_size = 5;//non può andare sotto 5 il pennello
+		 },
 		 getBrushColor : function() {
 			 return current_color;
 		 },
