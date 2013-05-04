@@ -70,18 +70,50 @@
 
     <!-- Start of sezioni page: #sezioni -->
     <div data-role="page" id="sezioni">
-        <div data-role="content">
-            <div id="gallery">
-            </div>
+        <div class="posAbs overflowHidden h100">
+            <div id="gallery" class="galleryContainer h100">
+       			<ul class="listReset h100">
+       				<!-- POPOLATO DINAMICAMENTE -->
+       			</ul>
+       		</div>
+            <!-- <div id="levelgallery" class=""></div> DA RIMUOVERE -->
         </div><!-- /content -->
+        
+        <div class="paginatorShowGallery">
+ 			<a href="#" class="prev">
+      			<img src="images/btn_left_black.png"/>
+      		</a>
+			<span id="sectionCurrent">1</span>/<span id="sectionTotal">1</span>
+   			<a href="#" class="next">
+   				<img src="images/btn_right_black.png"/>
+   			</a>
+      	</div>
+        <img class="jhonny" src="images/jhonnybrush_9.png" />
+        <div class="livelli_bg bgContainer"></div>
     </div><!-- /page sezioni -->
    
    <!-- Start of livelli page: #livelli -->
     <div data-role="page" id="livelli">
-        <div data-role="content">
-            <div id="levelgallery">
-            </div>
+        <div class="posAbs overflowHidden h100">
+            <div id="levelShowGallery" class="galleryContainer h100">
+       			<ul class="listReset h100">
+       				<!-- POPOLATO DINAMICAMENTE -->
+       			</ul>
+       		</div>
+            <!-- <div id="levelgallery" class=""></div> DA RIMUOVERE -->
         </div><!-- /content -->
+        
+        <div class="paginatorShowGallery">
+ 			<a href="#" class="prev">
+      			<img src="images/btn_left_black.png"/>
+      		</a>
+			<span id="levelCurrent">1</span>/<span id="levelTotal">1</span>
+   			<a href="#" class="next">
+   				<img src="images/btn_right_black.png"/>
+   			</a>
+      	</div>
+        <img class="jhonny" src="images/jhonnybrush_10.png" />
+        <div class="livelli_bg bgContainer"></div>
     </div><!-- /page livelli -->
     
     <!-- Start of canvas page: #canvas -->
@@ -131,7 +163,7 @@
         </div><!-- /content -->
     </div><!-- /page livelli -->
     
-	<audio class="background" loop="true" preload="auto"><source src="audio/sound.mp3" type="audio/mp3" /></audio>
+	<!-- <audio class="background" loop="true" preload="auto"><source src="audio/sound.mp3" type="audio/mp3" /></audio> -->
     
 </body>
 </html>

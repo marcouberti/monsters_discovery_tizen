@@ -81,11 +81,12 @@
 		//### SEZIONI
 		if(currentPage == 'sezioni') {
 			//Costruisco la gallery
-			$("#gallery").html("");
 			var num = INVENKTION.LevelManager.getSectionCount();
+			//setto il totale
+			$('#sectionTotal').html(num);
 			for(var i=0; i<num; i++) {
 				var sec = INVENKTION.LevelManager.getSection(i);
-				$("#gallery").append("<img width='150' class='sectionImage' data-sezione='"+i+"' src='"+sec.immagine+"'/>");
+				$("#gallery ul").append("<li><img class='sectionImage' data-sezione='"+i+"' src='"+sec.immagine+"'/><h1>Section "+i+"</h1></li>");
 			}
 			
 			//Evento selezione gallery
@@ -96,6 +97,9 @@
 				INVENKTION.StorageManager.setItem("currentSection",index+"");
 				$.mobile.changePage( "#livelli");
 			});
+			//Ridimensiono la LI in base all'altezza dello schermo
+			var wGal = $(window).height()*0.6;
+			$(".galleryContainer li").css("width",wGal);
 		}
 		//### LIVELLI
 		if(currentPage == 'livelli') {
@@ -103,14 +107,14 @@
 			//history.pushState({}, "Monsters Discovery", "index.html#dialog");
 			
 			//Costruisco la gallery
-			$("#levelgallery").html("");
+			/*$("#levelgallery").html("");
 			var index = INVENKTION.StorageManager.getItem("currentSection");
 			var section = INVENKTION.LevelManager.getSection(parseInt(index));
 			var num = INVENKTION.LevelManager.getSectionLevelCount(section);
 			console.log("Numero livelli di questa sezione:"+num)
 			for(var i=0; i<num; i++) {
 				var lev = INVENKTION.LevelManager.getSectionLevel(section,i);
-				$("#levelgallery").append("<img width='150' class='levelImage' data-livello='"+i+"' src='"+lev.immagine+"'/>");
+				$("#levelgallery ul").append("<li><img width='150' class='levelImage' data-livello='"+i+"' src='"+lev.immagine+"'/></li>");
 			}
 			
 			//Evento selezione gallery
@@ -121,6 +125,31 @@
 				INVENKTION.StorageManager.setItem("currentLevel",index+"");
 				$.mobile.changePage( "#canvas");
 			});
+			*/
+			var index = INVENKTION.StorageManager.getItem("currentSection");
+			var section = INVENKTION.LevelManager.getSection(parseInt(index));
+			var num = INVENKTION.LevelManager.getSectionLevelCount(section);
+			console.log("Numero livelli di questa sezione:"+num);
+			//setto il totale
+			$('#levelTotal').html(num);
+			for(var i=0; i<num; i++) {
+				var lev = INVENKTION.LevelManager.getSectionLevel(section,i);
+				$("#levelShowGallery ul").append("<li><img class='levelImage' data-livello='"+i+"' src='"+lev.immagine+"'/><h1>Monsters "+i+"</h1></li>");
+			}
+			
+			//Evento selezione gallery
+			$(".levelImage").bind("click",function(){
+				//estraggo l'indice dell'immagine della gallery corrente
+				var index = $(this).attr('data-livello');
+				console.log("livello selezionata: "+index);
+				INVENKTION.StorageManager.setItem("currentLevel",index+"");
+				$.mobile.changePage( "#canvas");
+			});
+			
+			
+			//Ridimensiono la LI in base all'altezza dello schermo
+			var wGal = $(window).height()*0.6;
+			$(".galleryContainer li").css("width",wGal);
 		}
 		//### CANVAS
 		if(currentPage == 'canvas') {
