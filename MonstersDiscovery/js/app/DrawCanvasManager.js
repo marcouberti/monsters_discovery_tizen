@@ -368,10 +368,22 @@
 			 //console.log("PERC="+percentage+"BASE PERCENTAGE = "+basePercentage);
 			 //return (100*(percentage-basePercentage))/(100-basePercentage);
 			 console.log("percentage = "+percentage);
-			 if(percentage >= 85) alert("3 star");
-			 else if(percentage >= 80) alert("2 star");
-			 else if(percentage >= 75) alert("1 star");
-			 else alert("bad result");
+			 if(percentage >= 85) {
+				 INVENKTION.SoundManager.playSound('positive');
+				 alert("3 star");
+			 }
+			 else if(percentage >= 80) {
+				 INVENKTION.SoundManager.playSound('positive');
+				 alert("2 star");
+			 }
+			 else if(percentage >= 75) {
+				 INVENKTION.SoundManager.playSound('positive');
+				 alert("1 star");
+			 }
+			 else {
+				 INVENKTION.SoundManager.playSound('negative');
+				 alert("bad result");
+			 }
 			 
 			 return percentage;
 		 }
