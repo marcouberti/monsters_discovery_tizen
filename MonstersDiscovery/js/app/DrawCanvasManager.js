@@ -308,6 +308,7 @@
 			 ctx.arc(x+randomX,y+randomY,W/4,0,2*Math.PI);
 			 ctx.fill();
 			 ctx.restore();
+			 INVENKTION.SoundManager.playSound('negative');
 		 },
 		 executeTrick: function() {
 			 //Eseguo un trick (CONTORNI MAGICI)
@@ -320,6 +321,7 @@
 			 ctx.globalCompositeOperation = "destination-in";
 			 ctx.drawImage(originalImage, x, y, W, H);
 			 ctx.restore();
+			 INVENKTION.SoundManager.playSound('positive');
 		 },
 		 checkUserDrawing: function() {//se è init vuol dire che sto calcolando la percentuale di base
 			 var x = canvas.width/2 - canvas.height/2;
