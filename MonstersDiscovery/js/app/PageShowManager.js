@@ -72,9 +72,11 @@
 			$('.home_audioBtn').live('click', function () {
 				$('.home_audioBtn').toggleClass('hidden');
 				if (!$(this).hasClass('mute')){
-					alert('rimuovi audio');
+					INVENKTION.SoundManager.setAudio(false);
+					INVENKTION.SoundManager.stopBackgroundMusic();
 				}else{
-					alert('riparte audio');
+					INVENKTION.SoundManager.setAudio(true);
+					INVENKTION.SoundManager.playBackgroundMusic();
 				}			
 			});
 		}
