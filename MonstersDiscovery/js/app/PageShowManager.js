@@ -65,9 +65,11 @@
 		//### HOME
 		if(currentPage == 'home') {
 			//FUNZIONE TEMPORALE PER L'ANIMAZIONE IN HOME
+			/*
 			setInterval(function() {
 		    	$('.bg1').fadeToggle(3000);
 			}, 7000);
+			*/
 			//TOGGLE AUDIO
 			$('.home_audioBtn').live('click', function () {
 				$('.home_audioBtn').toggleClass('hidden');
