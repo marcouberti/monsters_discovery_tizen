@@ -84,6 +84,10 @@
 		}
 		//### SEZIONI
 		if(currentPage == 'sezioni') {
+			//Ridimensiono la LI in base all'altezza dello schermo
+			var wGal = $(window).height()*0.6;
+			$(".galleryContainer li").css("width",wGal);
+			
 			//Costruisco la gallery
 			var num = INVENKTION.LevelManager.getSectionCount();
 			//setto il totale
@@ -101,9 +105,37 @@
 				INVENKTION.StorageManager.setItem("currentSection",index+"");
 				$.mobile.changePage( "#livelli");
 			});
-			//Ridimensiono la LI in base all'altezza dello schermo
-			var wGal = $(window).height()*0.6;
-			$(".galleryContainer li").css("width",wGal);
+			
+			//IMPOSTO I BOTTONI PREV e NEXT
+			var sezioniSteps = 0;//CURRENT STEP
+			var galleryDeltaMove = wGal;//DI QUANTO SI DEVE MUOVERE
+			var timeTransition = 500;//tempo di animazione Slider
+			
+			$('.paginatorShowGallery .next').bind("click",function(){
+				if (sezioniSteps < (num-1)) {
+					sezioniSteps++;
+					//alert(sezioniSteps+" "+galleryDeltaMove);
+					sliderMoveTo(sezioniSteps);
+					$('#sectionCurrent').html(sezioniSteps+1);
+				}
+			});
+			$('.paginatorShowGallery .prev').bind("click",function(){
+				if (sezioniSteps > 0) {
+					sezioniSteps--;
+					sliderMoveTo(sezioniSteps);
+					$('#sectionCurrent').html(sezioniSteps+1);
+				}
+			});
+			
+			//Funzione per animare la gallery
+			function sliderMoveTo (d) {
+				$('.galleryContainer').animate({
+					 left: d*-galleryDeltaMove
+					 }, timeTransition, function() {
+					 // Animation complete.
+				 });
+			}
+			//
 		}
 		//### LIVELLI
 		if(currentPage == 'livelli') {
