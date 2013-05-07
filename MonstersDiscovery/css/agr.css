@@ -78,6 +78,15 @@ a {
 /* ================= HOME =================*/
 /* ========================================*/
 
+.bg1{
+	-webkit-animation: appearDisappear 5000ms infinite alternate ease-in-out;		
+}
+
+@-webkit-keyframes appearDisappear {
+	0% {opacity:  100; } 
+	100% {opacity: 0;}
+}
+
 .homeButunera {
 	position:absolute;
 	z-index:10;
