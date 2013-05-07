@@ -65,16 +65,20 @@
 		//### HOME
 		if(currentPage == 'home') {
 			//FUNZIONE TEMPORALE PER L'ANIMAZIONE IN HOME
+			/*
 			setInterval(function() {
 		    	$('.bg1').fadeToggle(3000);
 			}, 7000);
+			*/
 			//TOGGLE AUDIO
 			$('.home_audioBtn').live('click', function () {
 				$('.home_audioBtn').toggleClass('hidden');
 				if (!$(this).hasClass('mute')){
-					alert('rimuovi audio');
+					INVENKTION.SoundManager.setAudio(false);
+					INVENKTION.SoundManager.stopBackgroundMusic();
 				}else{
-					alert('riparte audio');
+					INVENKTION.SoundManager.setAudio(true);
+					INVENKTION.SoundManager.playBackgroundMusic();
 				}			
 			});
 		}
@@ -160,8 +164,25 @@
 			$(document).bind("click",function(event){
 				if($(event.target).attr("class") && $(event.target).attr("class").indexOf("tavcol") != -1) {
 					INVENKTION.DrawCanvasManager.setBrushColor($(event.target).css("background-color"));
+					INVENKTION.SoundManager.playSound('plaf');
 				}
 			});
+			
+			$(".gommaBtn").bind("click",function(event){
+				INVENKTION.DrawCanvasManager.setBrushType('ERASER');
+				INVENKTION.SoundManager.playSound('plaf');
+			});
+			
+			$(".sizer_add").bind("click",function(event){
+				INVENKTION.DrawCanvasManager.increaseBrushSize();
+				INVENKTION.SoundManager.playSound('plaf');
+			});
+			
+			$(".sizer_less").bind("click",function(event){
+				INVENKTION.DrawCanvasManager.decreaseBrushSize();
+				INVENKTION.SoundManager.playSound('plaf');
+			});
+			
 			//Inizializzo il canvas
 			INVENKTION.DrawCanvasManager.initCanvas();
 			//Faccio partire il tempo

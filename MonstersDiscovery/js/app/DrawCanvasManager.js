@@ -259,6 +259,14 @@
 		 setBrushType: function(type) {
 			 brush_type = type;
 		 },
+		 increaseBrushSize: function() {
+			 brush_size += 5;
+			 if(brush_size > 50) brush_size = 50;//non può andare oltre 50 il pennello
+		 },
+		 decreaseBrushSize: function() {
+			 brush_size -= 5;
+			 if(brush_size < 5) brush_size = 5;//non può andare sotto 5 il pennello
+		 },
 		 getBrushColor : function() {
 			 return current_color;
 		 },
@@ -300,6 +308,7 @@
 			 ctx.arc(x+randomX,y+randomY,W/4,0,2*Math.PI);
 			 ctx.fill();
 			 ctx.restore();
+			 INVENKTION.SoundManager.playSound('negative');
 		 },
 		 executeTrick: function() {
 			 //Eseguo un trick (CONTORNI MAGICI)
@@ -312,6 +321,7 @@
 			 ctx.globalCompositeOperation = "destination-in";
 			 ctx.drawImage(originalImage, x, y, W, H);
 			 ctx.restore();
+			 INVENKTION.SoundManager.playSound('positive');
 		 },
 		 checkUserDrawing: function() {//se è init vuol dire che sto calcolando la percentuale di base
 			 var x = canvas.width/2 - canvas.height/2;
@@ -360,10 +370,22 @@
 			 //console.log("PERC="+percentage+"BASE PERCENTAGE = "+basePercentage);
 			 //return (100*(percentage-basePercentage))/(100-basePercentage);
 			 console.log("percentage = "+percentage);
-			 if(percentage >= 85) alert("3 star");
-			 else if(percentage >= 80) alert("2 star");
-			 else if(percentage >= 75) alert("1 star");
-			 else alert("bad result");
+			 if(percentage >= 85) {
+				 INVENKTION.SoundManager.playSound('positive');
+				 alert("3 star");
+			 }
+			 else if(percentage >= 80) {
+				 INVENKTION.SoundManager.playSound('positive');
+				 alert("2 star");
+			 }
+			 else if(percentage >= 75) {
+				 INVENKTION.SoundManager.playSound('positive');
+				 alert("1 star");
+			 }
+			 else {
+				 INVENKTION.SoundManager.playSound('negative');
+				 alert("bad result");
+			 }
 			 
 			 return percentage;
 		 }

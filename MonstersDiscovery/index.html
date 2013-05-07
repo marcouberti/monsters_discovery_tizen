@@ -50,7 +50,7 @@
                 <a class="home_btn3" href="#newspecies"><img src="images/btn_3.png"/></a>
             </div>
             <a class="home_logoInvenktion" href="http://www.invenktion.com" target="_blank"><img src="images/home_logo_k.png"/></a>
-            <img class="bg bg1 hidden" src="images/home_face.png"/>
+            <img class="bg bg1" src="images/home_face.png"/>
             <img class="bg" src="images/home1.png"/>
         
 
@@ -70,50 +70,18 @@
 
     <!-- Start of sezioni page: #sezioni -->
     <div data-role="page" id="sezioni">
-        <div class="posAbs overflowHidden h100">
-            <div id="gallery" class="galleryContainer h100">
-       			<ul class="listReset h100">
-       				<!-- POPOLATO DINAMICAMENTE -->
-       			</ul>
-       		</div>
-            <!-- <div id="levelgallery" class=""></div> DA RIMUOVERE -->
+        <div data-role="content">
+            <div id="gallery">
+            </div>
         </div><!-- /content -->
-        
-        <div class="paginatorShowGallery">
- 			<a href="#" class="prev">
-      			<img src="images/btn_left_black.png"/>
-      		</a>
-			<span id="sectionCurrent">1</span>/<span id="sectionTotal">1</span>
-   			<a href="#" class="next">
-   				<img src="images/btn_right_black.png"/>
-   			</a>
-      	</div>
-        <img class="jhonny" src="images/jhonnybrush_9.png" />
-        <div class="livelli_bg bgContainer"></div>
     </div><!-- /page sezioni -->
    
    <!-- Start of livelli page: #livelli -->
     <div data-role="page" id="livelli">
-        <div class="posAbs overflowHidden h100">
-            <div id="levelShowGallery" class="galleryContainer h100">
-       			<ul class="listReset h100">
-       				<!-- POPOLATO DINAMICAMENTE -->
-       			</ul>
-       		</div>
-            <!-- <div id="levelgallery" class=""></div> DA RIMUOVERE -->
+        <div data-role="content">
+            <div id="levelgallery">
+            </div>
         </div><!-- /content -->
-        
-        <div class="paginatorShowGallery">
- 			<a href="#" class="prev">
-      			<img src="images/btn_left_black.png"/>
-      		</a>
-			<span id="levelCurrent">1</span>/<span id="levelTotal">1</span>
-   			<a href="#" class="next">
-   				<img src="images/btn_right_black.png"/>
-   			</a>
-      	</div>
-        <img class="jhonny" src="images/jhonnybrush_10.png" />
-        <div class="livelli_bg bgContainer"></div>
     </div><!-- /page livelli -->
     
     <!-- Start of canvas page: #canvas -->
@@ -124,12 +92,16 @@
             	<img class="imgTR" src="images/mostri/w1_monster1_tr.png"/>
                 <img class="imgBG" src="images/mostri/w1_monster1.png"/>
             </div>
-            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.setBrushType('ERASER');" class="canvas_rubber">
+            <a href="#" class="canvas_rubber">
             	<img class="gommaBtn" src="images/gomma_size_1.png"/>
             </a>
             <div class="brushSizerContainer">
-            	<a href="#"><img class="sizer_add" src="images/brush-sizer_add.png"/></a>
-            	<a href="#"><img class="sizer_less" src="images/brush-sizer_less.png"/></a>
+            	<a href="#">
+            		<img class="sizer_add" src="images/brush-sizer_add.png"/>
+            	</a>
+            	<a href="#">
+            		<img class="sizer_less" src="images/brush-sizer_less.png"/>
+            	</a>
            		<img class="sizerBg" src="images/brush-sizer.png"/>
             </div>
             <div class="paletteContainer h100">
@@ -145,8 +117,6 @@
                 </div>
             </div>
             
-            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.setBrushType('ERASER');" style="position:fixed; top:0; left:160px;z-index:10001;">GOMMA</a>
-            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.setBrushType('BRUSH');" style="position:fixed; top:0; left:250px;z-index:10001;">PEN</a>
             <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.clearCanvas();" style="position:fixed; top:0; left:320px;z-index:10001;">CANC</a>
             <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.checkUserDrawing();" style="position:fixed; top:0; left:450px;z-index:10001;">CHECK</a>
             <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.executeTrap();" style="position:fixed; top:0; left:540px;z-index:10001;">TRAP</a>
@@ -163,7 +133,9 @@
         </div><!-- /content -->
     </div><!-- /page livelli -->
     
-	<!-- <audio class="background" loop="true" preload="auto"><source src="audio/sound.mp3" type="audio/mp3" /></audio> -->
-    
+	<audio class="background" loop="true" preload="auto"><source src="audio/sound.mp3" type="audio/mp3" /></audio>
+    <audio class="plaf" preload="auto"><source src="audio/plaf.mp3" type="audio/mp3" /></audio>
+    <audio class="positive" preload="auto"><source src="audio/positive.mp3" type="audio/mp3" /></audio>
+    <audio class="negative" preload="auto"><source src="audio/negative.mp3" type="audio/mp3" /></audio>
 </body>
 </html>

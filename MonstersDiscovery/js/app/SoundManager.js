@@ -8,12 +8,24 @@
  */
 (function($, exports){
 
+	var audioON = true;
+	
 	//Il nostro oggetto da esporre
 	var mod = {
+		 playSound : function(className) {
+			 if(INVENKTION.SoundManager.isAudioOn()) {//scelta utente audio on off
+				 var sound = document.querySelector("audio."+className);
+				 if(sound) {
+					 sound.play();
+				 }
+			 }
+		 },
 		 playBackgroundMusic : function() {
-			 var backgroundSound = document.querySelector("audio.background");
-			 if(backgroundSound) {
-				 backgroundSound.play();
+			 if(INVENKTION.SoundManager.isAudioOn()) {//scelta utente audio on off
+				 var backgroundSound = document.querySelector("audio.background");
+				 if(backgroundSound) {
+					 backgroundSound.play();
+				 }
 			 }
 		 },
 		 stopBackgroundMusic : function() {
@@ -21,6 +33,12 @@
 			 if(backgroundSound) {
 				 backgroundSound.pause();
 			 }
+		 },
+		 setAudio: function(onoff) {
+			 audioON = onoff;
+		 },
+		 isAudioOn: function() {
+			 return audioON;
 		 }
 	};
 
