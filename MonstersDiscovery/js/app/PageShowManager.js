@@ -71,7 +71,7 @@
 			}, 7000);
 			*/
 			//TOGGLE AUDIO
-			$('.home_audioBtn').live('click', function () {
+			$('.home_audioBtn').unbind('click').bind('click', function () {
 				$('.home_audioBtn').toggleClass('hidden');
 				if (!$(this).hasClass('mute')){
 					INVENKTION.SoundManager.setAudio(false);
@@ -88,6 +88,9 @@
 			var wGal = $(window).height()*0.6;
 			$(".galleryContainer li").css("width",wGal);
 			
+			//Reinizializzo svuotando la gallery
+			$("#gallery ul").html("");
+			
 			//Costruisco la gallery
 			var num = INVENKTION.LevelManager.getSectionCount();
 			//setto il totale
@@ -98,7 +101,7 @@
 			}
 			
 			//Evento selezione gallery
-			$(".sectionImage").bind("click",function(){
+			$(".sectionImage").unbind('click').bind("click",function(){
 				//estraggo l'indice dell'immagine della gallery corrente
 				var index = $(this).attr('data-sezione');
 				console.log("sezione selezionata: "+index);
@@ -111,7 +114,7 @@
 			var galleryDeltaMove = wGal;//DI QUANTO SI DEVE MUOVERE
 			var timeTransition = 500;//tempo di animazione Slider
 			
-			$('.paginatorShowGallery .next').bind("click",function(){
+			$('.paginatorShowGallery .next').unbind('click').bind("click",function(){
 				if (sezioniSteps < (num-1)) {
 					sezioniSteps++;
 					//alert(sezioniSteps+" "+galleryDeltaMove);
@@ -119,7 +122,7 @@
 					$('#sectionCurrent').html(sezioniSteps+1);
 				}
 			});
-			$('.paginatorShowGallery .prev').bind("click",function(){
+			$('.paginatorShowGallery .prev').unbind('click').bind("click",function(){
 				if (sezioniSteps > 0) {
 					sezioniSteps--;
 					sliderMoveTo(sezioniSteps);
@@ -162,10 +165,14 @@
 				$.mobile.changePage( "#canvas");
 			});
 			*/
+			
+			//Reinizializzo svuotando la gallery
+			$("#levelShowGallery ul").html("");
+			
 			var index = INVENKTION.StorageManager.getItem("currentSection");
 			var section = INVENKTION.LevelManager.getSection(parseInt(index));
 			var num = INVENKTION.LevelManager.getSectionLevelCount(section);
-			console.log("Numero livelli di questa sezione:"+num);
+			console.log("Numero livelli della sezione "+index+" : "+num);
 			//setto il totale
 			$('#levelTotal').html(num);
 			for(var i=0; i<num; i++) {
@@ -174,7 +181,7 @@
 			}
 			
 			//Evento selezione gallery
-			$(".levelImage").bind("click",function(){
+			$(".levelImage").unbind('click').bind("click",function(){
 				//estraggo l'indice dell'immagine della gallery corrente
 				var index = $(this).attr('data-livello');
 				console.log("livello selezionata: "+index);
@@ -193,24 +200,24 @@
 			$('.imgContainer').css('width',mainHeight);
 			//$('.paletteContainerInn').css('margin-top',(mainHeight*-0.7)/2);
 			
-			$(document).bind("click",function(event){
+			$(document).unbind('click').bind("click",function(event){
 				if($(event.target).attr("class") && $(event.target).attr("class").indexOf("tavcol") != -1) {
 					INVENKTION.DrawCanvasManager.setBrushColor($(event.target).css("background-color"));
 					INVENKTION.SoundManager.playSound('plaf');
 				}
 			});
 			
-			$(".gommaBtn").bind("click",function(event){
+			$(".gommaBtn").unbind('click').bind("click",function(event){
 				INVENKTION.DrawCanvasManager.setBrushType('ERASER');
 				INVENKTION.SoundManager.playSound('plaf');
 			});
 			
-			$(".sizer_add").bind("click",function(event){
+			$(".sizer_add").unbind('click').bind("click",function(event){
 				INVENKTION.DrawCanvasManager.increaseBrushSize();
 				INVENKTION.SoundManager.playSound('plaf');
 			});
 			
-			$(".sizer_less").bind("click",function(event){
+			$(".sizer_less").unbind('click').bind("click",function(event){
 				INVENKTION.DrawCanvasManager.decreaseBrushSize();
 				INVENKTION.SoundManager.playSound('plaf');
 			});
