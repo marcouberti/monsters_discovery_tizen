@@ -7,8 +7,8 @@
  * 
  */
 (function($, exports){
-	var debug = true;//utility variable
-	var isMobile = false;//touch event or mouse events support
+	var debug = false;//utility variable
+	var isMobile = true;//touch event or mouse events support
 	var paint = false;//only for mouse events
 
 	var canvas = null;
@@ -66,6 +66,7 @@
 	//When canvas is touched, save the coordinates into prev_x and prev_y variables
 	function onTouchStart(event)
 	{
+		console.log("touch start");
 		event.preventDefault();
 
 		if(debug) {//da rimuovere al rilascio
@@ -183,8 +184,10 @@
 			var levindex = INVENKTION.StorageManager.getItem("currentLevel");
 			var section = INVENKTION.LevelManager.getSection(parseInt(sectionindex));
 			var level = INVENKTION.LevelManager.getSectionLevel(section, parseInt(levindex));
+			 console.log("### a");
 			INVENKTION.DrawCanvasManager.setSection(section);
 			INVENKTION.DrawCanvasManager.setLevel(level);
+			console.log("### b");
 			//Salvo gli oggetti immagine del contorno e immagine completa
 			originalImage = new Image();
 			originalImage.onload = function() {};
@@ -192,12 +195,12 @@
 		    trImage = new Image();
 		    trImage.onload = function() {};
 		    trImage.src = level.contorno;
-			
+		    console.log("### 1");
 			//Setto le immagini di sfondo e i contorni giusti
 			$(".imgBG").attr("src",level.immagine);
 			$(".imgTR").attr("src",level.contorno);
 			$(".bgContainer").css("background","url("+section.sfondo+") no-repeat fixed center center / cover");
-			
+			console.log("### 2");
 			//Popolo la tavolozza colori
 			var colori =level.colori;
 			var numColori = colori.length;
@@ -206,7 +209,7 @@
 			for(var c=1; c<=5; c++) {
 				$(".colours"+(c)).hide();
 			}
-			
+			console.log("### 3");
 			for(var c=0; c<numColori; c++) {
 				var r,g,b;
 				r = colori[c][0];
@@ -219,9 +222,20 @@
 				$(".colours"+(c+1)).show();
 				$(".colours"+(c+1)).css("background-color","rgb("+r+","+g+","+b+")");
 			}
-			
+			console.log("### 4");
 			$("#canvascontainer").html("");
+			console.log("### 5");
+
+		    //Create a canvas that covers the entire screen
+			canvas = document.createElement('canvas');
+			canvas.height = screen.availHeight;
+			canvas.width = screen.availWidth;
+			console.log("### 6");
+			document.getElementById('canvascontainer').appendChild(canvas);
+			ctx = canvas.getContext("2d");
+			console.log("### 7");
 			if(isMobile) {
+				console.log("isMobile metto gli eventi touch...");
 				document.addEventListener("touchstart", onTouchStart, false);
 				document.addEventListener("touchmove", onTouchMove, false);
 				document.addEventListener("touchend", onTouchEnd, false);
@@ -232,14 +246,6 @@
 				document.addEventListener("mouseup", onMouseEnd, false);
 				document.addEventListener("mouseleave", onMouseCancel, false);
 			}
-
-		    //Create a canvas that covers the entire screen
-			canvas = document.createElement('canvas');
-			canvas.height = screen.availHeight;
-			canvas.width = screen.availWidth;
-			
-			document.getElementById('canvascontainer').appendChild(canvas);
-			ctx = canvas.getContext("2d");
 		 },
 		 restartLevel: function(level) {
 			 this.clearCanvas();
