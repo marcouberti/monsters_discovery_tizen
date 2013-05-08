@@ -86,8 +86,7 @@
 		if(currentPage == 'sezioni') {
 			//Ridimensiono la LI in base all'altezza dello schermo
 			var wGal = $(window).height()*0.6;
-			$(".galleryContainer li").css("width",wGal);
-			
+						
 			//Reinizializzo svuotando la gallery
 			$("#gallery ul").html("");
 			
@@ -108,7 +107,7 @@
 				INVENKTION.StorageManager.setItem("currentSection",index+"");
 				$.mobile.changePage( "#livelli");
 			});
-			
+			$(".galleryContainer li").css("width",wGal);
 			//IMPOSTO I BOTTONI PREV e NEXT
 			var sezioniSteps = 0;//CURRENT STEP
 			var galleryDeltaMove = wGal;//DI QUANTO SI DEVE MUOVERE

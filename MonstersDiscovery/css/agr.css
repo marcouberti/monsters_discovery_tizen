@@ -81,7 +81,19 @@ a {
 .bg1{
 	-webkit-animation: appearDisappear 5000ms infinite alternate ease-in-out;		
 }
-
+.bg {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:1;
+	background:url(./../images/home1.png) no-repeat fixed center center / cover;
+}
+.bg1 {
+	z-index:2;
+	background:url(./../images/home_face.png) no-repeat fixed center center / cover;
+}
 @-webkit-keyframes appearDisappear {
 	0% {opacity:  100; } 
 	100% {opacity: 0;}
@@ -196,23 +208,13 @@ a {
 	right:0;
 }
 .paginatorShowGallery {
-	font: 35px/45px 'KOMIKAX', Arial, sans-serif;
+	font: 25px/45px 'KOMIKAX', Arial, sans-serif;
 	color:#fff;
 }
 /* ========================================*/
 /* ================= CANVAS ===============*/
 /* ========================================*/
-.bg {
-	width:100%;
-	height:100%;
-	position:absolute;
-	top:0;
-	left:0;
-	z-index:1;
-}
-.bg1 {
-	z-index:2;
-}
+
 .brushSizerContainer img {
 	position:absolute;
 	right:0;
@@ -329,12 +331,17 @@ a {
 /* ================================================*/
 /* ============== UI E DIALOG e VARIE =============*/
 /* ================================================*/
-.jhonny{
+.jhonny,
+.backBTN{
 	position:absolute;
 	bottom:10px;
 	left:10px;
 	width:20%;
 	z-index:100;
 }
-
+.backBTN {
+	left:auto;
+	right:1%;
+	width:7%;
+}
 
