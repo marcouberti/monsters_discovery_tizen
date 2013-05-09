@@ -42,6 +42,13 @@
 	            break;
 	        }
 	});
+	
+	//Impedisco di scrollare la pagina
+	document.addEventListener("touchstart", function(e){e.preventDefault();}, false);
+	document.addEventListener("touchmove", function(e){e.preventDefault();}, false);
+	document.addEventListener("touchend", function(e){e.preventDefault();}, false);
+	document.addEventListener("touchcancel", function(e){e.preventDefault();}, false);
+	
 	//Modello che contiene i tag fino ad ora ricevuti (una sorta di cache per i miei controlli e matching)
 	var currentPage;
 	
@@ -64,14 +71,11 @@
 		
 		//### HOME
 		if(currentPage == 'home') {
-			//FUNZIONE TEMPORALE PER L'ANIMAZIONE IN HOME
-			/*
-			setInterval(function() {
-		    	$('.bg1').fadeToggle(3000);
-			}, 7000);
-			*/
+			$(".home_btn1").unbind('tap').bind('tap', function () {
+				$.mobile.changePage( "#sezioni");
+			});
 			//TOGGLE AUDIO
-			$('.home_audioBtn').unbind('click').bind('click', function () {
+			$('.home_audioBtn').unbind('tap').bind('tap', function () {
 				$('.home_audioBtn').toggleClass('hidden');
 				if (!$(this).hasClass('mute')){
 					INVENKTION.SoundManager.setAudio(false);
@@ -100,7 +104,7 @@
 			}
 			
 			//Evento selezione gallery
-			$(".sectionImage").unbind('click').bind("click",function(){
+			$(".sectionImage").unbind('tap').bind("tap",function(){
 				//estraggo l'indice dell'immagine della gallery corrente
 				var index = $(this).attr('data-sezione');
 				console.log("sezione selezionata: "+index);
@@ -113,7 +117,7 @@
 			var galleryDeltaMove = wGal;//DI QUANTO SI DEVE MUOVERE
 			var timeTransition = 500;//tempo di animazione Slider
 			
-			$('.paginatorShowGallery .next').unbind('click').bind("click",function(){
+			$('.paginatorShowGallery .next').unbind('tap').bind("tap",function(){
 				if (sezioniSteps < (num-1)) {
 					sezioniSteps++;
 					//alert(sezioniSteps+" "+galleryDeltaMove);
@@ -121,7 +125,7 @@
 					$('#sectionCurrent').html(sezioniSteps+1);
 				}
 			});
-			$('.paginatorShowGallery .prev').unbind('click').bind("click",function(){
+			$('.paginatorShowGallery .prev').unbind('tap').bind("tap",function(){
 				if (sezioniSteps > 0) {
 					sezioniSteps--;
 					sliderMoveTo(sezioniSteps);
@@ -180,7 +184,7 @@
 			}
 			
 			//Evento selezione gallery
-			$(".levelImage").unbind('click').bind("click",function(){
+			$(".levelImage").unbind('tap').bind("tap",function(){
 				//estraggo l'indice dell'immagine della gallery corrente
 				var index = $(this).attr('data-livello');
 				console.log("livello selezionata: "+index);
@@ -199,24 +203,24 @@
 			$('.imgContainer').css('width',mainHeight);
 			//$('.paletteContainerInn').css('margin-top',(mainHeight*-0.7)/2);
 			
-			$(document).unbind('click').bind("click",function(event){
+			$(document).unbind('tap').bind("tap",function(event){
 				if($(event.target).attr("class") && $(event.target).attr("class").indexOf("tavcol") != -1) {
 					INVENKTION.DrawCanvasManager.setBrushColor($(event.target).css("background-color"));
 					INVENKTION.SoundManager.playSound('plaf');
 				}
 			});
 			
-			$(".gommaBtn").unbind('click').bind("click",function(event){
+			$(".gommaBtn").unbind('tap').bind("tap",function(event){
 				INVENKTION.DrawCanvasManager.setBrushType('ERASER');
 				INVENKTION.SoundManager.playSound('plaf');
 			});
 			
-			$(".sizer_add").unbind('click').bind("click",function(event){
+			$(".sizer_add").unbind('tap').bind("tap",function(event){
 				INVENKTION.DrawCanvasManager.increaseBrushSize();
 				INVENKTION.SoundManager.playSound('plaf');
 			});
 			
-			$(".sizer_less").unbind('click').bind("click",function(event){
+			$(".sizer_less").unbind('tap').bind("tap",function(event){
 				INVENKTION.DrawCanvasManager.decreaseBrushSize();
 				INVENKTION.SoundManager.playSound('plaf');
 			});
