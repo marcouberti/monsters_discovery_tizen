@@ -27,7 +27,9 @@
 			 }; 
 		 },
 		 notifyPause: function(){
-			worker.postMessage(isPausing) ;
+			 if(worker) {
+				 worker.postMessage(isPausing) ;
+			 }
 		 },
 		 resume: function() {
 			 isPausing = false;
@@ -38,7 +40,9 @@
 			 INVENKTION.TimerManager.notifyPause();
 		 },
 		 stop : function() {
-			 worker.terminate();
+			 if(worker) {
+				 worker.terminate();
+			 }
 		 },
 		 isPausing: function(){
 			 return isPausing;
