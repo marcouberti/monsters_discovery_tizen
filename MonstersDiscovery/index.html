@@ -43,131 +43,140 @@
 <body>
     <!-- Start of home page: #home -->
     <div data-role="page" id="home">
-        <div class="mainContainer overflowHidden">
-        	<div class="homeButunera">
-            	<a class="home_btn1" href="#"><img src="images/btn_1.png"/></a>
-                <a class="home_btn2" href="#"><img src="images/btn_2.png"/></a>
-                <a class="home_btn3" href="#"><img src="images/btn_3.png"/></a>
-            </div>
-            <a class="home_logoInvenktion" href="http://www.invenktion.com" target="_blank"><img src="images/home_logo_k.png"/></a>
-            <div class="bg bg1"></div>
-            <div class="bg"></div>
-        
-
-            <a href="#credits" class="home_creditsBtn" data-rel="popup"><img class="" src="images/credits.png"/></a>
-            <a href="#" class="home_audioBtn"><img class="" src="images/soundon.png"/></a>
-            <a href="#" class="home_audioBtn mute hidden"><img class="" src="images/soundoff.png"/></a>
-
-            <div id="credits" data-role="popup" data-style="center_title_1btn">
-                <div class="ui-popup-title">
-                    <h1>Creditsss</h1>
-                </div>
-                <a href="#" data-inlie="true" data-role="button" onclick="javascript:$('#credits').popup('close');">Close</a>
-            </div>
-            <a href="#" >
-				<img class="backBTN ui-btn-back" src="images/back.png"/>
-			</a>
-        </div><!-- /content -->
+	    <div data-role="content">
+	        <div class="mainContainer overflowHidden">
+	        	<div class="homeButunera">
+	            	<a class="home_btn1" href="#"><img src="images/btn_1.png"/></a>
+	                <a class="home_btn2" href="#"><img src="images/btn_2.png"/></a>
+	                <a class="home_btn3" href="#"><img src="images/btn_3.png"/></a>
+	            </div>
+	            <a class="home_logoInvenktion" href="http://www.invenktion.com" target="_blank"><img src="images/home_logo_k.png"/></a>
+	            <div class="bg bg1"></div>
+	            <div class="bg"></div>
+	        
+	
+	            <a href="#credits" class="home_creditsBtn" data-rel="popup"><img class="" src="images/credits.png"/></a>
+	            <a href="#" class="home_audioBtn"><img class="" src="images/soundon.png"/></a>
+	            <a href="#" class="home_audioBtn mute hidden"><img class="" src="images/soundoff.png"/></a>
+	
+	            <div id="credits" data-role="popup" data-style="center_title_1btn">
+	                <div class="ui-popup-title">
+	                    <h1>Creditsss</h1>
+	                </div>
+	                <a href="#" data-inlie="true" data-role="button" onclick="javascript:$('#credits').popup('close');">Close</a>
+	            </div>
+	            <a href="#" >
+					<img class="backBTN ui-btn-back" src="images/back.png"/>
+				</a>
+	        </div>
+        </div>
+        <!-- /content -->
     </div><!-- /page home -->
 
 
     <!-- Start of sezioni page: #sezioni -->
     <div data-role="page" id="sezioni">
-        <div class="posAbs overflowHidden h100">
-            <div id="gallery" class="galleryContainer h100">
-       			<ul class="listReset h100">
-       				<!-- POPOLATO DINAMICAMENTE -->
-       			</ul>
-       		</div>
-            <!-- <div id="levelgallery" class=""></div> DA RIMUOVERE -->
-        </div><!-- /content -->
-        
-        <div class="paginatorShowGallery">
- 			<a href="#" class="prev">
-      			<img src="images/btn_left_black.png"/>
-      		</a>
-			<span id="sectionCurrent">1</span>/<span id="sectionTotal">1</span>
-   			<a href="#" class="next">
-   				<img src="images/btn_right_black.png"/>
-   			</a>
-      	</div>
-        <img class="jhonny" src="images/jhonnybrush_9.png" />
-        <a href="#" >
-			<img class="backBTN jsBackHome" src="images/back.png"/>
-		</a>
-        <div class="livelli_bg bgContainer"></div>
+    	<div data-role="content">
+	        <div class="posAbs overflowHidden h100">
+	            <div id="gallery" class="galleryContainer h100">
+	       			<ul class="listReset h100">
+	       				<!-- POPOLATO DINAMICAMENTE -->
+	       			</ul>
+	       		</div>
+	            <!-- <div id="levelgallery" class=""></div> DA RIMUOVERE -->
+	        </div><!-- /content -->
+	        
+	        <div class="paginatorShowGallery">
+	 			<a href="#" class="prev">
+	      			<img src="images/btn_left_black.png"/>
+	      		</a>
+				<span id="sectionCurrent">1</span>/<span id="sectionTotal">1</span>
+	   			<a href="#" class="next">
+	   				<img src="images/btn_right_black.png"/>
+	   			</a>
+	      	</div>
+	        <img class="jhonny" src="images/jhonnybrush_9.png" />
+	        <a href="#" >
+				<img class="backBTN jsBackHome" src="images/back.png"/>
+			</a>
+	        <div class="livelli_bg bgContainer"></div>
+        </div>
     </div><!-- /page sezioni -->
    
    <!-- Start of livelli page: #livelli -->
     <div data-role="page" id="livelli">
-        <div class="posAbs overflowHidden h100">
-            <div id="levelShowGallery" class="galleryContainer h100">
-       			<ul class="listReset h100">
-       				<!-- POPOLATO DINAMICAMENTE -->
-       			</ul>
-       		</div>
-            <!-- <div id="levelgallery" class=""></div> DA RIMUOVERE -->
-        </div><!-- /content -->
-        
-        <div class="paginatorShowGallery">
- 			<a href="#" class="prev">
-      			<img src="images/btn_left_black.png"/>
-      		</a>
-			<span id="levelCurrent">1</span>/<span id="levelTotal">1</span>
-   			<a href="#" class="next">
-   				<img src="images/btn_right_black.png"/>
-   			</a>
-      	</div>
-        <img class="jhonny" src="images/jhonnybrush_10.png" />
-        <a href="#" >
-			<img class="backBTN jsBackSezioni" src="images/back.png"/>
-		</a>
-        <div class="livelli_bg bgContainer"></div>
+    	<div data-role="content">
+	        <div class="posAbs overflowHidden h100">
+	            <div id="levelShowGallery" class="galleryContainer h100">
+	       			<ul class="listReset h100">
+	       				<!-- POPOLATO DINAMICAMENTE -->
+	       			</ul>
+	       		</div>
+	            <!-- <div id="levelgallery" class=""></div> DA RIMUOVERE -->
+	        </div><!-- /content -->
+	        
+	        <div class="paginatorShowGallery">
+	 			<a href="#" class="prev">
+	      			<img src="images/btn_left_black.png"/>
+	      		</a>
+				<span id="levelCurrent">1</span>/<span id="levelTotal">1</span>
+	   			<a href="#" class="next">
+	   				<img src="images/btn_right_black.png"/>
+	   			</a>
+	      	</div>
+	        <img class="jhonny" src="images/jhonnybrush_10.png" />
+	        <a href="#" >
+				<img class="backBTN jsBackSezioni" src="images/back.png"/>
+			</a>
+	        <div class="livelli_bg bgContainer"></div>
+        </div>
     </div><!-- /page livelli -->
     
     <!-- Start of canvas page: #canvas -->
     <div data-role="page" id="canvas" class="h100">
-            <div class="mainContainer overflowHidden">
-        	<div class="imgContainer h100">
-        		<div id="canvascontainer" class="mubcanvas"></div>
-            	<img class="imgTR" src="images/mostri/w1_monster1_tr.png"/>
-                <img class="imgBG" src="images/mostri/w1_monster1.png"/>
-            </div>
-            <a href="#" class="canvas_rubber">
-            	<img class="gommaBtn" src="images/gomma_size_1.png"/>
-            </a>
-            <div class="brushSizerContainer">
-            	<a href="#">
-            		<img class="sizer_add" src="images/brush-sizer_add.png"/>
-            	</a>
-            	<a href="#">
-            		<img class="sizer_less" src="images/brush-sizer_less.png"/>
-            	</a>
-           		<img class="sizerBg" src="images/brush-sizer.png"/>
-            </div>
-            <div class="paletteContainer h100">
-            	<div class="paletteContainerInn h100">
-                	<div class="colorsContainer">
-                    	<img class="tavcol colours1" src="images/inkPalette1.png"/>
-                        <img class="tavcol colours2" src="images/inkPalette2.png"/>
-                        <img class="tavcol colours3" src="images/inkPalette3.png"/>
-                        <img class="tavcol colours4" src="images/inkPalette4.png"/>
-                        <img class="tavcol colours5" src="images/inkPalette5.png"/>
-                    </div>
-            		<img class="palette" src="images/tavolozza.png"/>
-                </div>
-            </div>
-            
-            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.clearCanvas();" style="position:fixed; top:0; left:320px;z-index:10001;">CANC</a>
-            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.checkUserDrawing();" style="position:fixed; top:0; left:450px;z-index:10001;">CHECK</a>
-            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.executeTrap();" style="position:fixed; top:0; left:540px;z-index:10001;">TRAP</a>
-            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.executeTrick();" style="position:fixed; top:0; left:620px;z-index:10001;">TRICK</a>
-            <a id="timer" style="position:fixed; top:80px; left:620px;z-index:10001;">45</a>
-            
-            <a href="#" >
-				<img class="backBTN jsBackLivelli" src="images/back.png"/>
-			</a>
-            <div class="bgContainer canvas_bgContainer"></div>
+    	<div data-role="content">
+	            <div class="mainContainer overflowHidden">
+	        	<div class="imgContainer h100">
+	        		<div id="canvascontainer" class="mubcanvas"></div>
+	            	<img class="imgTR" src="images/mostri/w1_monster1_tr.png"/>
+	                <img class="imgBG" src="images/mostri/w1_monster1.png"/>
+	            </div>
+	            <a href="#" class="canvas_rubber">
+	            	<img class="gommaBtn" src="images/gomma_size_1.png"/>
+	            </a>
+	            <div class="brushSizerContainer">
+	            	<a href="#">
+	            		<img class="sizer_add" src="images/brush-sizer_add.png"/>
+	            	</a>
+	            	<a href="#">
+	            		<img class="sizer_less" src="images/brush-sizer_less.png"/>
+	            	</a>
+	           		<img class="sizerBg" src="images/brush-sizer.png"/>
+	            </div>
+	            <div class="paletteContainer h100">
+	            	<div class="paletteContainerInn h100">
+	                	<div class="colorsContainer">
+	                    	<img class="tavcol colours1" src="images/inkPalette1.png"/>
+	                        <img class="tavcol colours2" src="images/inkPalette2.png"/>
+	                        <img class="tavcol colours3" src="images/inkPalette3.png"/>
+	                        <img class="tavcol colours4" src="images/inkPalette4.png"/>
+	                        <img class="tavcol colours5" src="images/inkPalette5.png"/>
+	                    </div>
+	            		<img class="palette" src="images/tavolozza.png"/>
+	                </div>
+	            </div>
+	            
+	            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.clearCanvas();" style="position:fixed; top:0; left:320px;z-index:10001;">CANC</a>
+	            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.checkUserDrawing();" style="position:fixed; top:0; left:450px;z-index:10001;">CHECK</a>
+	            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.executeTrap();" style="position:fixed; top:0; left:540px;z-index:10001;">TRAP</a>
+	            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.executeTrick();" style="position:fixed; top:0; left:620px;z-index:10001;">TRICK</a>
+	            <a id="timer" style="position:fixed; top:80px; left:620px;z-index:10001;">45</a>
+	            
+	            <a href="#" >
+					<img class="backBTN jsBackLivelli" src="images/back.png"/>
+				</a>
+	            <div class="bgContainer canvas_bgContainer"></div>
+	        </div>
         </div>
     </div><!-- /page canvas -->
     
