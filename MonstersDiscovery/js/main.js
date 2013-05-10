@@ -1,8 +1,11 @@
 //Initialize function
 var init = function () {
-    $('div[data-role="page"]:first .ui-btn-back').bind("click", function(event) {
-        var currentApp = tizen.application.getCurrentApplication();
-        currentApp.exit();
+    $('.ui-btn-back').bind('tap', function(event) {
+    	if(event.handled !== true) {
+    		event.handled = true;
+	        var currentApp = tizen.application.getCurrentApplication();
+	        currentApp.exit();
+    	}
     });
 	//Faccio partire la musica
     INVENKTION.SoundManager.playBackgroundMusic();

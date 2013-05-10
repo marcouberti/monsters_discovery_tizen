@@ -71,19 +71,25 @@
 		
 		//### HOME
 		if(currentPage == 'home') {
-			$(".home_btn1").unbind('tap').bind('tap', function () {
-				$.mobile.changePage( "#sezioni");
+			$(".home_btn1").bind('tap', function (event) {
+				if(event.handled !== true) {
+		    		event.handled = true;
+		    		$.mobile.changePage( "#sezioni");
+				}
 			});
 			//TOGGLE AUDIO
-			$('.home_audioBtn').unbind('tap').bind('tap', function () {
-				$('.home_audioBtn').toggleClass('hidden');
-				if (!$(this).hasClass('mute')){
-					INVENKTION.SoundManager.setAudio(false);
-					INVENKTION.SoundManager.stopBackgroundMusic();
-				}else{
-					INVENKTION.SoundManager.setAudio(true);
-					INVENKTION.SoundManager.playBackgroundMusic();
-				}			
+			$('.home_audioBtn').bind('tap', function (event) {
+				if(event.handled !== true) {
+		    		event.handled = true;
+					$('.home_audioBtn').toggleClass('hidden');
+					if (!$(this).hasClass('mute')){
+						INVENKTION.SoundManager.setAudio(false);
+						INVENKTION.SoundManager.stopBackgroundMusic();
+					}else{
+						INVENKTION.SoundManager.setAudio(true);
+						INVENKTION.SoundManager.playBackgroundMusic();
+					}			
+				}
 			});
 		}
 		//### SEZIONI
@@ -103,13 +109,24 @@
 				$("#gallery ul").append("<li><img class='sectionImage' data-sezione='"+i+"' src='"+sec.immagine+"'/><h1>Section "+i+"</h1></li>");
 			}
 			
+			//BACK BUTTON
+			$(".jsBackHome").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					$.mobile.changePage( "#home");
+				}
+			});
+			
 			//Evento selezione gallery
-			$(".sectionImage").unbind('tap').bind("tap",function(){
-				//estraggo l'indice dell'immagine della gallery corrente
-				var index = $(this).attr('data-sezione');
-				console.log("sezione selezionata: "+index);
-				INVENKTION.StorageManager.setItem("currentSection",index+"");
-				$.mobile.changePage( "#livelli");
+			$(".sectionImage").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					//estraggo l'indice dell'immagine della gallery corrente
+					var index = $(this).attr('data-sezione');
+					console.log("sezione selezionata: "+index);
+					INVENKTION.StorageManager.setItem("currentSection",index+"");
+					$.mobile.changePage( "#livelli");
+				}
 			});
 			$(".galleryContainer li").css("width",wGal);
 			//IMPOSTO I BOTTONI PREV e NEXT
@@ -117,19 +134,25 @@
 			var galleryDeltaMove = wGal;//DI QUANTO SI DEVE MUOVERE
 			var timeTransition = 500;//tempo di animazione Slider
 			
-			$('.paginatorShowGallery .next').unbind('tap').bind("tap",function(){
-				if (sezioniSteps < (num-1)) {
-					sezioniSteps++;
-					//alert(sezioniSteps+" "+galleryDeltaMove);
-					sliderMoveTo(sezioniSteps);
-					$('#sectionCurrent').html(sezioniSteps+1);
+			$('.paginatorShowGallery .next').bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					if (sezioniSteps < (num-1)) {
+						sezioniSteps++;
+						//alert(sezioniSteps+" "+galleryDeltaMove);
+						sliderMoveTo(sezioniSteps);
+						$('#sectionCurrent').html(sezioniSteps+1);
+					}
 				}
 			});
-			$('.paginatorShowGallery .prev').unbind('tap').bind("tap",function(){
-				if (sezioniSteps > 0) {
-					sezioniSteps--;
-					sliderMoveTo(sezioniSteps);
-					$('#sectionCurrent').html(sezioniSteps+1);
+			$('.paginatorShowGallery .prev').bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					if (sezioniSteps > 0) {
+						sezioniSteps--;
+						sliderMoveTo(sezioniSteps);
+						$('#sectionCurrent').html(sezioniSteps+1);
+					}
 				}
 			});
 			
@@ -183,13 +206,24 @@
 				$("#levelShowGallery ul").append("<li><img class='levelImage' data-livello='"+i+"' src='"+lev.immagine+"'/><h1>Monsters "+i+"</h1></li>");
 			}
 			
+			//BACK BUTTON
+			$(".jsBackSezioni").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					$.mobile.changePage( "#sezioni");
+				}
+			});
+			
 			//Evento selezione gallery
-			$(".levelImage").unbind('tap').bind("tap",function(){
-				//estraggo l'indice dell'immagine della gallery corrente
-				var index = $(this).attr('data-livello');
-				console.log("livello selezionata: "+index);
-				INVENKTION.StorageManager.setItem("currentLevel",index+"");
-				$.mobile.changePage( "#canvas");
+			$(".levelImage").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					//estraggo l'indice dell'immagine della gallery corrente
+					var index = $(this).attr('data-livello');
+					console.log("livello selezionata: "+index);
+					INVENKTION.StorageManager.setItem("currentLevel",index+"");
+					$.mobile.changePage( "#canvas");
+				}
 			});
 			
 			
@@ -203,26 +237,46 @@
 			$('.imgContainer').css('width',mainHeight);
 			//$('.paletteContainerInn').css('margin-top',(mainHeight*-0.7)/2);
 			
-			$(document).unbind('tap').bind("tap",function(event){
-				if($(event.target).attr("class") && $(event.target).attr("class").indexOf("tavcol") != -1) {
-					INVENKTION.DrawCanvasManager.setBrushColor($(event.target).css("background-color"));
+			//BACK BUTTON
+			$(".jsBackLivelli").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					$.mobile.changePage( "#livelli");
+				}
+			});
+			
+			$(document).bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					if($(event.target).attr("class") && $(event.target).attr("class").indexOf("tavcol") != -1) {
+						INVENKTION.DrawCanvasManager.setBrushColor($(event.target).css("background-color"));
+						INVENKTION.SoundManager.playSound('plaf');
+					}
+				}
+			});
+			
+			$(".gommaBtn").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					INVENKTION.DrawCanvasManager.setBrushType('ERASER');
 					INVENKTION.SoundManager.playSound('plaf');
 				}
 			});
 			
-			$(".gommaBtn").unbind('tap').bind("tap",function(event){
-				INVENKTION.DrawCanvasManager.setBrushType('ERASER');
-				INVENKTION.SoundManager.playSound('plaf');
+			$(".sizer_add").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					INVENKTION.DrawCanvasManager.increaseBrushSize();
+					INVENKTION.SoundManager.playSound('plaf');
+				}
 			});
 			
-			$(".sizer_add").unbind('tap').bind("tap",function(event){
-				INVENKTION.DrawCanvasManager.increaseBrushSize();
-				INVENKTION.SoundManager.playSound('plaf');
-			});
-			
-			$(".sizer_less").unbind('tap').bind("tap",function(event){
-				INVENKTION.DrawCanvasManager.decreaseBrushSize();
-				INVENKTION.SoundManager.playSound('plaf');
+			$(".sizer_less").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					INVENKTION.DrawCanvasManager.decreaseBrushSize();
+					INVENKTION.SoundManager.playSound('plaf');
+				}
 			});
 			
 			//Inizializzo il canvas
