@@ -126,17 +126,12 @@ a {
 	height:21%;
 	margin:2% 0 0 9%;
 }
-.home_logoInvenktion {
+.home_logoInvenktion img{
+	width:6%;
 	position:absolute;
 	z-index:11;
 	right:0;
-	bottom:-5px;
-	display:block;
-	width:20%;
-}
-.home_logoInvenktion img{
-	width:100%;
-	height:100%;
+	top:1px;
 }
 .home_creditsBtn img,
 .home_audioBtn img{
@@ -232,6 +227,9 @@ a {
 	bottom:12%;
 	right:7%
 }
+#canvas .backBTN {
+	left:10px;
+}
 .canvas_rubber img{
 	position:absolute;
 	right:0;
@@ -240,50 +238,115 @@ a {
 	z-index: 100;
 }
 .colorsContainer {
-	height:87%;
+	/*height:87%;
 	position: absolute;
     z-index: 1001;
     width:21%;
     left: -5%;
+    */
 }
+/*DEFAULT*/
 .colorsContainer img{
 	position:absolute;
-	width: 21%;
+	width: 5%;
 	z-index: 1002;
 	
 }
 .colorsContainer img.colours1{
-	right: 40%;
-    top: 10%;
+	left: 4%;
+    top: 19%;
 	background:red;
 	
 }
 .colorsContainer img.colours2{
-	right: 33%;
-    top: 20%;
+	left: 4%;
+    top: 29%;
 	background:green;
 }
 .colorsContainer img.colours3{	
-	right: 34%;
-    top: 33%;
+	left: 4%;
+    top: 42%;
 	background:orange;
 }
 .colorsContainer img.colours4{
-	right: 38%;
-    top: 43%;
+	left: 3%;
+    top: 52%;
 	background:pink;
 }
 .colorsContainer img.colours5{
-	right: 44%;
-    top: 54%;
+	left: 1%;
+    top: 62%;
     background:yellow;
 }
+/* 4 COLORI */
+.maxColor4 img{
+	width: 5.5%;
+}
+.maxColor4 img.colours1{
+	left: 3%;
+    top: 19%;
+}
+.maxColor4 img.colours2{
+	left: 4%;
+    top: 31%;
+}
+.maxColor4 img.colours3{	
+	left: 3.5%;
+    top: 46%;
+}
+.maxColor4 img.colours4{
+	left: 1%;
+    top: 57.5%;
+}
+
+/* 3 COLORI */
+.maxColor3 img{
+	width: 7%;
+}
+.maxColor3 img.colours1{
+	left: 3%;
+    top: 20%;
+}
+.maxColor3 img.colours2{
+	left: 3%;
+    top: 35%;
+}
+.maxColor3 img.colours3{	
+	left: 1.5%;
+    top: 53%;
+}
+
+/* 2 COLORI */
+.maxColor2 img{
+	width: 7%;
+}
+.maxColor2 img.colours1{
+	left: 3%;
+    top: 26%;
+}
+.maxColor2 img.colours2{
+	left: 2%;
+    top: 43%;
+}
+
+/* 1 COLORI */
+.maxColor1 img{
+	width: 8%;
+}
+.maxColor1 img.colours1{
+	left: 2%;
+    top: 30%;
+}
+
+
 .mainContainer,
 .bgContainer {
 	width:100%;
 	height:100%;
 }
-
+.bgContainer {
+	position:fixed!important;
+}
 .mainContainer {
 	position: fixed;
 	top: 0px;
@@ -318,21 +381,22 @@ a {
 	z-index:1000;
 }
 
-.paletteContainer,
+/*.paletteContainer,
 .paletteContainerInn  {
 	position:absolute;
 	top:0;
 	left:0;
 }
+
 .paletteContainerInn {
 	top:10%;
-}
-.paletteContainer .palette {
-	height:85%;
-	position:relative;
+}*/
+.palette {
+	height:80%;
+	position:absolute;
 	z-index:100;
-	top:0;
-	left:-7em;
+	top:10%;
+	left:-6em;
 }
 
 /* ================================================*/

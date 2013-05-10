@@ -219,7 +219,9 @@
 				//Setto il colore alle macchie della tavolozza
 				$(".colours"+(c+1)).show();
 				$(".colours"+(c+1)).css("background-color","rgb("+r+","+g+","+b+")");
+				$('.colorsContainer').removeClass('maxColor'+c);
 			}
+			$('.colorsContainer').addClass('maxColor'+numColori);
 			$("#canvascontainer").html("");
 
 		    //Create a canvas that covers the entire screen
