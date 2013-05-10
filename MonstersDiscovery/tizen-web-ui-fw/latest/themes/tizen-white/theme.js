@@ -45,25 +45,13 @@ $( function ( o ) {
 			return h;
 		}
 
-		if ( isCollapse ) {	// collapse!
-			// remember current height
+		if ( isCollapse ) {
 			$( c ).data( 'max-height', _getHeight( self ) );
-			$( self ).parentsUntil( '.ui-page', '.ui-collapsible' ).each( function( idx, el ) {
-				var content = $( el ).children('.ui-collapsible-content')[0];
-				$( content ).data( 'max-height', _getHeight( el ) );
-			} );
-
-		} else {	// expand!
-			h = $( c ).data( 'max-height' );
-			if ( !h ) {
-				h = document.body.clientHeight;
-				$( c ).data( 'max-height', h );
+		} else {
+			if ( ! $( c ).data( 'max-height' ) ) {
+				$( c ).data( 'max-height', document.body.clientHeight );
 			}
-			$( c ).css( 'max-height', h );
-			$( self ).parentsUntil( '.ui-page', '.ui-collapsible' ).each( function( idx, el ) {
-				var content = $( el ).children('.ui-collapsible-content')[0];
-				$( content ).css( 'max-height', _getHeight( el ) );
-			} );
+			$( c ).css( 'max-height', $( c ).data( 'max-height' ) );
 		}
 	};
 } ( $.mobile.collapsible.prototype.options ) );
