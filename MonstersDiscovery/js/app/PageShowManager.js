@@ -96,7 +96,7 @@
 		if(currentPage == 'sezioni') {
 			//Ridimensiono la LI in base all'altezza dello schermo
 			var wGal = $(window).height()*0.6;
-						
+					
 			//Reinizializzo svuotando la gallery
 			$("#gallery ul").html("");
 			$('.galleryContainer').css('left',0);
@@ -138,42 +138,44 @@
 					$.mobile.changePage( "#livelli");
 				}
 			});
-			$(".galleryContainer li").css("width",wGal);
 			//IMPOSTO I BOTTONI PREV e NEXT
 			var sezioniSteps = 0;//CURRENT STEP
 			var galleryDeltaMove = wGal;//DI QUANTO SI DEVE MUOVERE
-			var timeTransition = 500;//tempo di animazione Slider
-			
-			$('.paginatorShowGallery .next').bind('tap',function(event){
+			var timeTransition = 200;//tempo di animazione Slider
+			file:///Users/Giroll/git/mdtztest/MonstersDiscovery/images/mostri/w1_monster2.png
+			$('.paginatorSectionShowGallery .next').bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
 					if (sezioniSteps < (num-1)) {
 						sezioniSteps++;
 						//alert(sezioniSteps+" "+galleryDeltaMove);
 						sliderMoveTo(sezioniSteps);
-						$('#sectionCurrent').html(sezioniSteps+1);
+						//$('#sectionCurrent').html(sezioniSteps+1);
 					}
 				}
 			});
-			$('.paginatorShowGallery .prev').bind('tap',function(event){
+			$('.paginatorSectionShowGallery .prev').bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
 					if (sezioniSteps > 0) {
 						sezioniSteps--;
 						sliderMoveTo(sezioniSteps);
-						$('#sectionCurrent').html(sezioniSteps+1);
+						//$('#sectionCurrent').html(sezioniSteps+1);
 					}
 				}
 			});
 			
 			//Funzione per animare la gallery
 			function sliderMoveTo (d) {
-				$('.galleryContainer').animate({
+				$('#gallery').animate({
 					 left: d*-galleryDeltaMove
 					 }, timeTransition, function() {
+						 $('#sectionCurrent').html(sezioniSteps+1);
 					 // Animation complete.
 				 });
 			}
+			$(".galleryContainer li").css("width",wGal);
+		
 			//
 		}
 		//### LIVELLI
@@ -220,46 +222,49 @@
 					$.mobile.changePage( "#canvas");
 				}
 			});
-			
+			var wGal = $(window).height()*0.6;
 			$(".galleryContainer li").css("width",wGal);
+			
 			//IMPOSTO I BOTTONI PREV e NEXT
 			var levelSteps = 0;//CURRENT STEP
 			var galleryDeltaMove = wGal;//DI QUANTO SI DEVE MUOVERE
-			var timeTransition = 500;//tempo di animazione Slider
+			var timeTransition = 200;//tempo di animazione Slider
 			
-			$('.paginatorShowGallery .next').bind('tap',function(event){
+			$('.paginatorLevelShowGallery .next').bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
 					if (levelSteps < (num-1)) {
 						levelSteps++;
 						//alert(sezioniSteps+" "+galleryDeltaMove);
 						sliderMoveTo(levelSteps);
-						$('#levelCurrent').html(levelSteps+1);
+						//$('#levelCurrent').html(levelSteps+1);
 					}
 				}
 			});
-			$('.paginatorShowGallery .prev').bind('tap',function(event){
+			$('.paginatorLevelShowGallery .prev').bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
 					if (levelSteps > 0) {
 						levelSteps--;
 						sliderMoveTo(levelSteps);
-						$('#levelCurrent').html(levelSteps+1);
+						//$('#levelCurrent').html(levelSteps+1);
 					}
 				}
 			});
 			
 			//Funzione per animare la gallery
 			function sliderMoveTo (d) {
-				$('.galleryContainer').animate({
+				$('#levelShowGallery').animate({
 					 left: d*-galleryDeltaMove
 					 }, timeTransition, function() {
 					 // Animation complete.
+					 $('#levelCurrent').html(levelSteps+1);
+					 console.log(d+" "+galleryDeltaMove)
 				 });
 			}
 			
 			//Ridimensiono la LI in base all'altezza dello schermo
-			var wGal = $(window).height()*0.6;
+			
 			$(".galleryContainer li").css("width",wGal);
 		}
 		//### CANVAS
