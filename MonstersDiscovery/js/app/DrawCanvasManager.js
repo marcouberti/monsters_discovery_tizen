@@ -222,12 +222,29 @@
 			}
 			$("#canvascontainer").html("");
 
+			
 		    //Create a canvas that covers the entire screen
 			canvas = document.createElement('canvas');
-			canvas.height = screen.availHeight;
-			canvas.width = screen.availWidth;
 			document.getElementById('canvascontainer').appendChild(canvas);
 			ctx = canvas.getContext("2d");
+			/*
+			var devicePixelRatio = window.devicePixelRatio || 1;
+	        var backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
+		        ctx.mozBackingStorePixelRatio ||
+		        ctx.msBackingStorePixelRatio ||
+		        ctx.oBackingStorePixelRatio ||
+		        ctx.backingStorePixelRatio || 1;
+	        var ratio = devicePixelRatio / backingStoreRatio;
+	        console.log("devicePixelRatio= "+devicePixelRatio);
+	        console.log("backingStoreRatio= "+backingStoreRatio);
+	        console.log("ratio= "+ratio);
+		        
+	        canvas.height = window.availableHeight/ratio;
+			canvas.width = window.availableWidth/ratio;
+			*/
+			canvas.height = window.innerHeight;
+			canvas.width = window.innerWidth;
+			
 			if(isMobile) {
 				document.addEventListener("touchstart", onTouchStart, false);
 				document.addEventListener("touchmove", onTouchMove, false);
@@ -353,8 +370,8 @@
 			    // i+3 is alpha (the fourth element)
 			 }
 			 //Cancello e ripristino l'immagine raw dell'utente
-			 INVENKTION.DrawCanvasManager.clearCanvas();
-			 ctx.putImageData(userRawData, 0, 0);
+			 //INVENKTION.DrawCanvasManager.clearCanvas();
+			 //ctx.putImageData(userRawData, 0, 0);
 			 //Rilascio le risorse
 			 userRawData = null;
 			 userData = null;

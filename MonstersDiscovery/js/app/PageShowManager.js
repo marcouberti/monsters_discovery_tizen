@@ -263,6 +263,16 @@
 				}
 			});
 			
+			$(".checkBtn").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+		    		INVENKTION.DrawCanvasManager.checkUserDrawing();
+		    		//$(".mubcanvas").width($(".mubcanvas").width()-50);
+		    		//$("canvas").width($("canvas").width()-50);
+		    		//console.log($("canvas").width());
+				}
+			});
+			
 			$(".sizer_add").bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
