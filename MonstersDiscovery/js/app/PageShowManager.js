@@ -99,6 +99,7 @@
 						
 			//Reinizializzo svuotando la gallery
 			$("#gallery ul").html("");
+			$('.galleryContainer').css('left',0);
 			
 			//Costruisco la gallery
 			var num = INVENKTION.LevelManager.getSectionCount();
@@ -168,29 +169,7 @@
 		}
 		//### LIVELLI
 		if(currentPage == 'livelli') {
-			//Altero la history inserendo tra questa pagina e quella del canvas una pagina di dialog
-			//history.pushState({}, "Monsters Discovery", "index.html#dialog");
-			
-			//Costruisco la gallery
-			/*$("#levelgallery").html("");
-			var index = INVENKTION.StorageManager.getItem("currentSection");
-			var section = INVENKTION.LevelManager.getSection(parseInt(index));
-			var num = INVENKTION.LevelManager.getSectionLevelCount(section);
-			console.log("Numero livelli di questa sezione:"+num)
-			for(var i=0; i<num; i++) {
-				var lev = INVENKTION.LevelManager.getSectionLevel(section,i);
-				$("#levelgallery ul").append("<li><img width='150' class='levelImage' data-livello='"+i+"' src='"+lev.immagine+"'/></li>");
-			}
-			
-			//Evento selezione gallery
-			$(".levelImage").bind("click",function(){
-				//estraggo l'indice dell'immagine della gallery corrente
-				var index = $(this).attr('data-livello');
-				console.log("livello selezionata: "+index);
-				INVENKTION.StorageManager.setItem("currentLevel",index+"");
-				$.mobile.changePage( "#canvas");
-			});
-			*/
+
 			
 			//Reinizializzo svuotando la gallery
 			$("#levelShowGallery ul").html("");
@@ -226,6 +205,42 @@
 				}
 			});
 			
+			$(".galleryContainer li").css("width",wGal);
+			//IMPOSTO I BOTTONI PREV e NEXT
+			var levelSteps = 0;//CURRENT STEP
+			var galleryDeltaMove = wGal;//DI QUANTO SI DEVE MUOVERE
+			var timeTransition = 500;//tempo di animazione Slider
+			
+			$('.paginatorShowGallery .next').bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					if (levelSteps < (num-1)) {
+						levelSteps++;
+						//alert(sezioniSteps+" "+galleryDeltaMove);
+						sliderMoveTo(levelSteps);
+						$('#levelCurrent').html(levelSteps+1);
+					}
+				}
+			});
+			$('.paginatorShowGallery .prev').bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					if (levelSteps > 0) {
+						levelSteps--;
+						sliderMoveTo(levelSteps);
+						$('#levelCurrent').html(levelSteps+1);
+					}
+				}
+			});
+			
+			//Funzione per animare la gallery
+			function sliderMoveTo (d) {
+				$('.galleryContainer').animate({
+					 left: d*-galleryDeltaMove
+					 }, timeTransition, function() {
+					 // Animation complete.
+				 });
+			}
 			
 			//Ridimensiono la LI in base all'altezza dello schermo
 			var wGal = $(window).height()*0.6;
