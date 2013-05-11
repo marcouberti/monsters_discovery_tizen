@@ -150,15 +150,26 @@ a {
 /* ================ SEZIONI ===============*/
 /* ========================================*/
 
-
+.sezioni_bg {
+	background:url(./../images/sfondostellare.png) no-repeat fixed center center / cover;
+}
 
 /* ========================================*/
 /* ================ LIVELLI ===============*/
 /* ========================================*/
 
+.lockedLevel {
+	-webkit-filter: grayscale(100%);  /* safari/chrome */
+    -moz-filter: grayscale(100%); /* firefox */
+    -ms-filter: grayscale(100%);  /* IE >= 9 */
+    -o-filter: grayscale(100%); /* Opera, if support CSS3 */
+    filter: gray; filter: grayscale(100%); /* edge browsers */ 
+}
+
 .livelli_bg {
 	background:url(./../images/fondo.png) no-repeat fixed center center / cover;
 }
+
 .galleryContainer {
 	width:999999999px;
 	position:relative;

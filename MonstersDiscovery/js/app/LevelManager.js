@@ -37,7 +37,7 @@
 	            	   nome:			"mondo1",
 	            	   sfondo:			"images/sfondi/sfondo1.png",
 	            	   immagine:		"images/sezioni/sec1presentation.png",
-	            	   immagineBlocked: "images/sezioni/sec1blocked.png",
+	            	   immagineBlocked: "images/sezioni/sec1locked.png",
 	            	   livelli:	[
 	            	           	 {
 	            	           		 codice: 		"w1m1",
@@ -117,7 +117,7 @@
 	            	   nome:			"mondo2",
 	            	   sfondo:			"images/sfondi/sfondo2.png",
 	            	   immagine:		"images/sezioni/sec2presentation.png",
-	            	   immagineBlocked: "images/sezioni/sec2blocked.png",
+	            	   immagineBlocked: "images/sezioni/sec2locked.png",
 	            	   livelli:	[
 	            	           	 {
 	            	           		 codice: 		"w2m1",
@@ -197,7 +197,7 @@
 	            	   nome:			"mondo3",
 	            	   sfondo:			"images/sfondi/sfondo3.png",
 	            	   immagine:		"images/sezioni/sec3presentation.png",
-	            	   immagineBlocked: "images/sezioni/sec3blocked.png",
+	            	   immagineBlocked: "images/sezioni/sec3locked.png",
 	            	   livelli:	[
 	            	           	 {
 	            	           		 codice: 		"w3m1",
@@ -277,7 +277,7 @@
 	            	   nome:			"mondo4",
 	            	   sfondo:			"images/sfondi/sfondo4.png",
 	            	   immagine:		"images/sezioni/sec4presentation.png",
-	            	   immagineBlocked: "images/sezioni/sec4blocked.png",
+	            	   immagineBlocked: "images/sezioni/sec4locked.png",
 	            	   livelli:	[
 	            	           	 {
 	            	           		 codice: 		"w4m1",
@@ -357,7 +357,7 @@
 	            	   nome:			"mondo5",
 	            	   sfondo:			"images/sfondi/sfondo5.png",
 	            	   immagine:		"images/sezioni/sec5presentation.png",
-	            	   immagineBlocked: "images/sezioni/sec5blocked.png",
+	            	   immagineBlocked: "images/sezioni/sec5locked.png",
 	            	   livelli:	[
 	            	           	 {
 	            	           		 codice: 		"w5m1",
@@ -490,19 +490,74 @@
 		 },
 		 //Restituisce la sezione dato il suo numero
 		 getSection: function(index) {
-			 return sezioni[index];
+			 if(index < this.getSectionCount()) {
+				 return sezioni[index];
+			 }else return undefined;
+		 },
+		 isSectionUnlocked: function(section) {
+			 //la prima sezione e il bonus sono sempre sbloccate
+			 if(section.codice=="w1" || section.codice=="wb") return true;
+			 var unlocked = INVENKTION.StorageManager.getItem(section.codice+"_unlocked");
+			 if(unlocked == "true") return true;
+			 else return false;
 		 },
 		 //Restituisce il livello di una specifica sezione dato il suo numero
 		 getSectionLevel: function(section,index) {
 			 return section.livelli[index];
 		 },
 		 isLevelUnlocked: function(level) {
+			 //Il primissimo livello è sempre sbloccato
+			 if(level.codice=="w1m1") return true;
 			 var unlocked = INVENKTION.StorageManager.getItem(level.codice+"_unlocked");
 			 if(unlocked == "true") return true;
 			 else return false;
 		 },
 		 unlockLevel: function(level) {
 			 INVENKTION.StorageManager.setItem(level.codice+"_unlocked", "true");
+		 },
+		 unlockSection: function(sec) {
+			 INVENKTION.StorageManager.setItem(sec.codice+"_unlocked", "true");
+		 },
+		 unlockNextLevel: function(lev,sec) {
+			 //se bonus non sblocco nulla
+			 if(sec.codice == "wb") return;
+			 //Se il livello è l'ultimo della sezione controllo se c'è una sezione successiva
+			 //nel caso positivo sblocco la sezione nuova e il suo primo livello
+			 if(sec.livelli[sec.livelli.length-1].codice == lev.codice) {
+				 console.log("Ultimo livello della sezione, devo sbloccare la sezione successiva...");
+				 var numSection = this.getSectionCount();
+				 for(var i=0; i<numSection; i++) {
+					 var s = this.getSection(i);
+					 if(s.codice == sec.codice) {
+						 //ok è la sezione corrente
+						 //prendo la successiva se esiste
+						 var nextSection = this.getSection(i+1);
+						 if(nextSection) {//se esiste sblocco anche il suo primo livello oltre a lei
+							 this.unlockSection(nextSection);
+							 //se è la sezione bonus non sblocco il primo livello
+							 if(nextSection.codice !="wb"){
+								 var firstLevel = this.getSectionLevel(nextSection, 0);
+								 this.unlockLevel(firstLevel);
+							 }
+						 }
+					 }
+				 }
+			 }else {
+				 //Se non è l'ultimo sblocco il livello successivo e basta
+				 var numLevel = this.getSectionLevelCount(sec);
+				 for(var i=0; i<numLevel; i++) {
+					 var l = this.getSectionLevel(sec,i);
+					 if(l.codice == lev.codice) {
+						 //ok è il livello corrente
+						 //prendo il successivo
+						 var nextLevel = this.getSectionLevel(sec,i+1);
+						 if(nextLevel) {//se esiste sblocco
+							 this.unlockLevel(nextLevel);
+						 }
+					 }
+				 }
+			 }
+			 //TODO check 3 stelle su tutti i livelli per sbloccare il quadro bonus
 		 },
 		 getLevelBestResult: function(level) {
 			 var percentage = INVENKTION.StorageManager.getItem(level.codice+"_best");

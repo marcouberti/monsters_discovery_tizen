@@ -107,7 +107,16 @@
 			$('#sectionTotal').html(num);
 			for(var i=0; i<num; i++) {
 				var sec = INVENKTION.LevelManager.getSection(i);
-				$("#gallery ul").append("<li><img class='sectionImage' data-sezione='"+i+"' src='"+sec.immagine+"'/><h1>Section "+i+"</h1></li>");
+				var unlocked = INVENKTION.LevelManager.isSectionUnlocked(sec);
+				var statusImage;
+				var correctClass = "sectionImage";
+				if(unlocked) {
+					statusImage = sec.immagine;
+				}else {
+					statusImage = sec.immagineBlocked;
+					correctClass = "lockedSection";
+				}
+				$("#gallery ul").append("<li><img class='"+correctClass+"' data-sezione='"+i+"' src='"+statusImage+"'/><h1>Section "+i+"</h1></li>");
 			}
 			
 			//BACK BUTTON
@@ -169,8 +178,6 @@
 		}
 		//### LIVELLI
 		if(currentPage == 'livelli') {
-
-			
 			//Reinizializzo svuotando la gallery
 			$("#levelShowGallery ul").html("");
 			
@@ -182,7 +189,16 @@
 			$('#levelTotal').html(num);
 			for(var i=0; i<num; i++) {
 				var lev = INVENKTION.LevelManager.getSectionLevel(section,i);
-				$("#levelShowGallery ul").append("<li><img class='levelImage' data-livello='"+i+"' src='"+lev.immagine+"'/><h1>Monsters "+i+"</h1></li>");
+				var unlocked = INVENKTION.LevelManager.isLevelUnlocked(lev);
+				var statusImage;
+				var correctClass = "levelImage";
+				if(unlocked) {
+					statusImage = lev.immagine;
+				}else {
+					statusImage = lev.immagine;
+					correctClass = "lockedLevel";
+				}
+				$("#levelShowGallery ul").append("<li><img class='"+correctClass+"' data-livello='"+i+"' src='"+statusImage+"'/><h1>Monsters "+i+"</h1></li>");
 			}
 			
 			//BACK BUTTON

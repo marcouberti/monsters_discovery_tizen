@@ -388,21 +388,28 @@
 			 //console.log("PERC="+percentage+"BASE PERCENTAGE = "+basePercentage);
 			 //return (100*(percentage-basePercentage))/(100-basePercentage);
 			 console.log("percentage = "+percentage);
+			 
+			 var currLevel = INVENKTION.DrawCanvasManager.getLevel();
+			 var currSection = INVENKTION.DrawCanvasManager.getSection();
+			 
 			 if(percentage >= 85) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 alert("3 star");
+				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+				 console.log("3 star");
 			 }
 			 else if(percentage >= 80) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 alert("2 star");
+				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+				 console.log("2 star");
 			 }
 			 else if(percentage >= 75) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 alert("1 star");
+				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+				 console.log("1 star");
 			 }
 			 else {
 				 INVENKTION.SoundManager.playSound('negative');
-				 alert("bad result");
+				 console.log("bad result");
 			 }
 			 
 			 return percentage;
