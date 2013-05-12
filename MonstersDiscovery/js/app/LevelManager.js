@@ -579,7 +579,11 @@
 			 else return percentage;
 		 },
 		 setLevelBestResult: function(level, percentage) {
-			 INVENKTION.StorageManager.setItem(level.codice+"_best", percentage);
+			 //Aggiorno se e solo se il risultato è migliore di quello esistente
+			 var currentBest = parseInt(this.getLevelBestResult(level));
+			 if(currentBest < parseInt(percentage)) {
+				 INVENKTION.StorageManager.setItem(level.codice+"_best", percentage);
+			 }
 		 },
 		 getLevelStars: function(section, level) {
 			 var stars =  INVENKTION.StorageManager.getItem("star_"+section.codice+"_"+level.codice);
@@ -587,7 +591,11 @@
 			 return stars;
 		 },
 		 setLevelStars: function(section, level, stars) {
-			 INVENKTION.StorageManager.setItem("star_"+section.codice+"_"+level.codice,""+stars);
+			 //Aggiorno se e solo se il risultato è migliore di quello esistente
+			 var currentStars = parseInt(this.getLevelStars(section, level));
+			 if(currentStars < parseInt(stars)) {
+				 INVENKTION.StorageManager.setItem("star_"+section.codice+"_"+level.codice,""+stars);
+			 }
 		 },
 		 getSectionTotalStars: function(section) {
 			 var total = 0;
@@ -603,7 +611,9 @@
 		 unlockBonus: function(index) {
 			 var bonusSection = this.getSection(5);
 			 var level = bonusSection.livelli[parseInt(index)];
-			 this.unlockLevel(level);
+			 if(level) {
+				 this.unlockLevel(level);
+			 }
 		 }
 	};
 

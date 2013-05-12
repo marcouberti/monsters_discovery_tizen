@@ -392,7 +392,7 @@
 			 var currLevel = INVENKTION.DrawCanvasManager.getLevel();
 			 var currSection = INVENKTION.DrawCanvasManager.getSection();
 			 
-			 INVENKTION.StorageManager.setItem("record_"+currSection.codice+"_"+currLevel.codice,percentage);
+			 INVENKTION.LevelManager.setLevelBestResult(currLevel,percentage);
 			 
 			 if(percentage >= 85) {
 				 INVENKTION.SoundManager.playSound('positive');
