@@ -77,6 +77,21 @@
 		    		$.mobile.changePage( "#sezioni");
 				}
 			});
+			$(".home_creditsBtn").bind("tap", function (event) {
+				if(event.handled !== true) {
+		    		$("#credits").popup("open");
+				}
+			});
+			$(".credit_close").bind("tap", function (event) {
+				if(event.handled !== true) {
+					$("#credits").popup("close");
+				}
+			});
+			$(".home_logoInvenktion").bind("tap", function (event) {
+				if(event.handled !== true) {
+		    		location.replace("http://www.invenktion.com");
+				}
+			});
 			//TOGGLE AUDIO
 			$('.home_audioBtn').bind('tap', function (event) {
 				if(event.handled !== true) {
