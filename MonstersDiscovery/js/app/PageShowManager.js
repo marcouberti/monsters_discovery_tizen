@@ -92,8 +92,141 @@
 				}
 			});
 		}
-		//### SEZIONI
+		
 		if(currentPage == 'sezioni') {
+				$("#wrapper").html("");//svuoto
+				$("#wrapper").css("width",window.innerWidth);
+				$("#wrapper").css("height",window.innerHeight);
+				var	gallery,
+				el,
+				i,
+				page,
+				//dots = document.querySelectorAll('#nav li'),
+				slides = [
+					{
+						img: "images/sezioni/sec1presentation.png",
+						width: 300,
+						height: 300,
+						desc: 'Stars: 15/30'
+					},
+					{
+						img: "images/sezioni/sec2presentation.png",
+						width: 300,
+						height: 300,
+						desc: 'Stars: 15/30'
+					},
+					{
+						img: "images/sezioni/sec3presentation.png",
+						width: 300,
+						height: 300,
+						desc: 'Stars: 15/30'
+					},
+					{
+						img: "images/sezioni/sec4presentation.png",
+						width: 300,
+						height: 300,
+						desc: 'Stars: 15/30'
+					},
+					{
+						img: "images/sezioni/sec5presentation.png",
+						width: 300,
+						height: 300,
+						desc: 'Stars: 15/30'
+					},
+					{
+						img: "images/sezioni/bonuspresentation.png",
+						width: 300,
+						height: 300,
+						desc: 'Stars: 15/30'
+					}
+				];
+	
+			gallery = new SwipeView('#wrapper', { numberOfPages: slides.length });
+	
+			// Load initial data
+			for (i=0; i<3; i++) {
+				page = i==0 ? slides.length-1 : i-1;
+				el = document.createElement('img');
+				//el.className = 'loading';
+				el.src = slides[page].img;
+				//el.width = slides[upcoming].width;
+				//el.height = slides[upcoming].height;
+				el.width = window.innerHeight;
+				el.height = window.innerHeight;
+				
+				gallery.masterPages[i].appendChild(el);
+				
+				var secImg = $(el);
+				secImg.attr("data-sezione",page);
+				
+				//el.onload = function () { this.className = ''; }
+				
+				el = document.createElement('span');
+				el.innerHTML = slides[page].desc;
+				gallery.masterPages[i].appendChild(el)
+			}
+	
+			gallery.onFlip(function () {
+				var el,
+					upcoming,
+					i;
+	
+				for (i=0; i<3; i++) {
+					upcoming = gallery.masterPages[i].dataset.upcomingPageIndex;
+	
+					if (upcoming != gallery.masterPages[i].dataset.pageIndex) {
+						el = gallery.masterPages[i].querySelector('img');
+						//el.className = 'loading';
+						el.src = slides[upcoming].img;
+						//el.width = slides[upcoming].width;
+						//el.height = slides[upcoming].height;
+						el.width = window.innerHeight;
+						el.height = window.innerHeight;
+
+						var secImg = $(el);
+						secImg.addClass("sectionImage");
+						//el.onload = function () { this.className = ''; }
+						el = gallery.masterPages[i].querySelector('span');
+						el.innerHTML = slides[upcoming].desc;
+					}
+				}
+				
+				//document.querySelector('#nav .selected').className = '';
+				//dots[gallery.pageIndex+1].className = 'selected';
+			});
+	
+			gallery.onMoveOut(function () {
+				gallery.masterPages[gallery.currentMasterPage].className = gallery.masterPages[gallery.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
+			});
+	
+			gallery.onMoveIn(function () {
+				var className = gallery.masterPages[gallery.currentMasterPage].className;
+				/(^|\s)swipeview-active(\s|$)/.test(className) || (gallery.masterPages[gallery.currentMasterPage].className = !className ? 'swipeview-active' : className + ' swipeview-active');
+			});
+			
+			//Evento selezione gallery
+			$(".swipeview-active").live('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					//estraggo l'indice dell'immagine della gallery corrente
+					var index = $(this).attr('data-page-index');
+					console.log("sezione selezionata: "+index);
+					INVENKTION.StorageManager.setItem("currentSection",index+"");
+					$.mobile.changePage( "#livelli");
+				}
+			});
+			
+			//BACK BUTTON
+			$(".jsBackHome").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+					$.mobile.changePage( "#home");
+				}
+			});
+		}
+		
+		//### SEZIONI
+		if(currentPage == 'sezioni_old') {
 			//Ridimensiono la LI in base all'altezza dello schermo
 			var wGal = $(window).height()*0.6;
 					
@@ -142,7 +275,7 @@
 			var sezioniSteps = 0;//CURRENT STEP
 			var galleryDeltaMove = wGal;//DI QUANTO SI DEVE MUOVERE
 			var timeTransition = 200;//tempo di animazione Slider
-			file:///Users/Giroll/git/mdtztest/MonstersDiscovery/images/mostri/w1_monster2.png
+			//file:///Users/Giroll/git/mdtztest/MonstersDiscovery/images/mostri/w1_monster2.png
 			$('.paginatorSectionShowGallery .next').bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;

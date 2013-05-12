@@ -162,8 +162,10 @@ var SwipeView = (function (window, document) {
 		},
 
 		refreshSize: function () {
-			this.wrapperWidth = this.wrapper.clientWidth;
-			this.wrapperHeight = this.wrapper.clientHeight;
+			//this.wrapperWidth = this.wrapper.clientWidth;
+			//this.wrapperHeight = this.wrapper.clientHeight;
+			this.wrapperWidth = window.innerWidth;
+			this.wrapperHeight = window.innerHeight;
 			this.pageWidth = this.wrapperWidth;
 			this.maxX = -this.options.numberOfPages * this.pageWidth + this.wrapperWidth;
 			this.snapThreshold = this.options.snapThreshold === null ?
@@ -243,6 +245,7 @@ var SwipeView = (function (window, document) {
 		},
 
 		handleEvent: function (e) {
+			this.__flip();
 			switch (e.type) {
 				case startEvent:
 					this.__start(e);
@@ -388,7 +391,6 @@ var SwipeView = (function (window, document) {
 			var pageFlip,
 				pageFlipIndex,
 				className;
-
 			this.masterPages[this.currentMasterPage].className = this.masterPages[this.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
 
 			// Flip the page

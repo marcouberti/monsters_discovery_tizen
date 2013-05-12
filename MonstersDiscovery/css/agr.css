@@ -419,7 +419,7 @@ a {
 	bottom:10px;
 	left:10px;
 	width:20%;
-	z-index:100;
+	z-index:200000;
 }
 .backBTN {
 	left:auto;
