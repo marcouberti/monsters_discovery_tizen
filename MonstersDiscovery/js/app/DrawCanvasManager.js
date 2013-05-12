@@ -392,23 +392,29 @@
 			 var currLevel = INVENKTION.DrawCanvasManager.getLevel();
 			 var currSection = INVENKTION.DrawCanvasManager.getSection();
 			 
+			 INVENKTION.StorageManager.setItem("record_"+currSection.codice+"_"+currLevel.codice,percentage);
+			 
 			 if(percentage >= 85) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"3");
 				 console.log("3 star");
+				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 			 }
 			 else if(percentage >= 80) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"2");
 				 console.log("2 star");
+				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 			 }
 			 else if(percentage >= 75) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"1");
 				 console.log("1 star");
+				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 			 }
 			 else {
 				 INVENKTION.SoundManager.playSound('negative');
+				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"0");
 				 console.log("bad result");
 			 }
 			 

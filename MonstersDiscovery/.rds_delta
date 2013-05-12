@@ -2,5 +2,5 @@
 #add
 #modify
 res/wgt/author-signature.xml
-res/wgt/js/app/PageShowManager.js
+res/wgt/js/app/LevelManager.js
 res/wgt/signature1.xml

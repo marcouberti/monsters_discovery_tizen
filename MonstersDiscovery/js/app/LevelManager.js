@@ -34,6 +34,7 @@
 	               //### SEZIONE 1
 	               {
 	            	   codice:			"w1",
+	            	   index:			"0",
 	            	   nome:			"mondo1",
 	            	   sfondo:			"images/sfondi/sfondo1.png",
 	            	   immagine:		"images/sezioni/sec1presentation.png",
@@ -114,6 +115,7 @@
 	               //### SEZIONE 2
 	               {
 	            	   codice:			"w2",
+	            	   index:			"1",
 	            	   nome:			"mondo2",
 	            	   sfondo:			"images/sfondi/sfondo2.png",
 	            	   immagine:		"images/sezioni/sec2presentation.png",
@@ -194,6 +196,7 @@
 	               //### SEZIONE 3
 	               {
 	            	   codice:			"w3",
+	            	   index:			"2",
 	            	   nome:			"mondo3",
 	            	   sfondo:			"images/sfondi/sfondo3.png",
 	            	   immagine:		"images/sezioni/sec3presentation.png",
@@ -274,6 +277,7 @@
 	               //### SEZIONE 4
 	               {
 	            	   codice:			"w4",
+	            	   index:			"3",
 	            	   nome:			"mondo4",
 	            	   sfondo:			"images/sfondi/sfondo4.png",
 	            	   immagine:		"images/sezioni/sec4presentation.png",
@@ -354,6 +358,7 @@
 	               //### SEZIONE 5
 	               {
 	            	   codice:			"w5",
+	            	   index:			"4",
 	            	   nome:			"mondo5",
 	            	   sfondo:			"images/sfondi/sfondo5.png",
 	            	   immagine:		"images/sezioni/sec5presentation.png",
@@ -434,6 +439,7 @@
 	               //### SEZIONE BONUS
 	               {
 	            	   codice:			"wb",
+	            	   index:			"5",
 	            	   nome:			"mondob",
 	            	   sfondo:			"images/sfondi/sfondobonus.png",
 	            	   immagine:		"images/sezioni/bonuspresentation.png",
@@ -560,7 +566,12 @@
 					 }
 				 }
 			 }
-			 //TODO check 3 stelle su tutti i livelli per sbloccare il quadro bonus
+			 //Check 3 stelle su tutti i livelli per sbloccare il quadro bonus
+			 var sectionStars = this.getSectionTotalStars(sec);
+			 if(parseInt(sectionStars) == parseInt(this.getSectionLevelCount(sec))*3) {
+				 var index = sec.index;
+				 this.unlockBonus(index);
+			 }
 		 },
 		 getLevelBestResult: function(level) {
 			 var percentage = INVENKTION.StorageManager.getItem(level.codice+"_best");
@@ -569,6 +580,30 @@
 		 },
 		 setLevelBestResult: function(level, percentage) {
 			 INVENKTION.StorageManager.setItem(level.codice+"_best", percentage);
+		 },
+		 getLevelStars: function(section, level) {
+			 var stars =  INVENKTION.StorageManager.getItem("star_"+section.codice+"_"+level.codice);
+			 if(!stars) stars = "0";
+			 return stars;
+		 },
+		 setLevelStars: function(section, level, stars) {
+			 INVENKTION.StorageManager.setItem("star_"+section.codice+"_"+level.codice,""+stars);
+		 },
+		 getSectionTotalStars: function(section) {
+			 var total = 0;
+			 var numLevels = this.getSectionLevelCount(section);
+			 for(var i=0; i<numLevels; i++) {
+				 var lev = this.getSectionLevel(section, i);
+				 var levStars = this.getLevelStars(section, lev);
+				 total += parseInt(levStars);
+			 }
+			 
+			 return total;
+		 },
+		 unlockBonus: function(index) {
+			 var bonusSection = this.getSection(5);
+			 var level = bonusSection.livelli[parseInt(index)];
+			 this.unlockLevel(level);
 		 }
 	};
 

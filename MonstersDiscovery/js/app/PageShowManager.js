@@ -113,6 +113,7 @@
 					
 					//Controllo se la sezione è sbloccata o meno
 					var sec = INVENKTION.LevelManager.getSection(page);
+					var stars = INVENKTION.LevelManager.getSectionTotalStars(sec);
 					var unlocked = INVENKTION.LevelManager.isSectionUnlocked(sec);
 					var statusImage;
 					var correctClass = "sectionImage";
@@ -135,7 +136,7 @@
 					secImg.addClass(correctClass);
 					
 					el = document.createElement('span');
-					el.innerHTML = slides[page].codice;
+					el.innerHTML = stars+"/"+(sec.livelli.length)*3 +" Stars";
 					gallery.masterPages[i].appendChild(el)
 				}
 		
@@ -152,6 +153,7 @@
 							
 							//Controllo se la sezione è sbloccata o meno
 							var sec = INVENKTION.LevelManager.getSection(upcoming);//non page come sopra!
+							var stars = INVENKTION.LevelManager.getSectionTotalStars(sec);
 							var unlocked = INVENKTION.LevelManager.isSectionUnlocked(sec);
 							var statusImage;
 							var correctClass = "sectionImage";
@@ -171,7 +173,7 @@
 							secImg.removeClass("sectionImage");
 							secImg.addClass(correctClass);
 							el = gallery.masterPages[i].querySelector('span');
-							el.innerHTML = slides[upcoming].codice;
+							el.innerHTML = stars+"/"+(sec.livelli.length)*3 +" Stars";
 						}
 					}
 				});
@@ -184,6 +186,13 @@
 					var className = gallery.masterPages[gallery.currentMasterPage].className;
 					/(^|\s)swipeview-active(\s|$)/.test(className) || (gallery.masterPages[gallery.currentMasterPage].className = !className ? 'swipeview-active' : className + ' swipeview-active');
 				});
+				
+				//Se esiste tra le variabili salvate l'ultima sezione cliccata, mi posiziono li
+				var lastSectionUsed = INVENKTION.StorageManager.getItem("currentSection");
+				if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+					console.log("Ultima sezione visitata = "+lastSectionUsed);
+					gallery.goToPage(parseInt(lastSectionUsed));
+				}
 				
 				//Evento selezione gallery
 				$("#wrapper .swipeview-active").live('tap',function(event){
@@ -232,6 +241,7 @@
 				
 				//Controllo se il livello è sbloccato o meno
 				var lev = INVENKTION.LevelManager.getSectionLevel(section,page);
+				var stars = INVENKTION.LevelManager.getLevelStars(section,lev);
 				var unlocked = INVENKTION.LevelManager.isLevelUnlocked(lev);
 				var statusImage;
 				var correctClass = "levelImage";
@@ -254,7 +264,7 @@
 				secImg.addClass(correctClass);
 				
 				el = document.createElement('span');
-				el.innerHTML = slides[page].codice;
+				el.innerHTML = "Stars : "+stars;
 				gallery.masterPages[i].appendChild(el)
 			}
 	
@@ -271,6 +281,7 @@
 						
 						//Controllo se il livello è sbloccato o meno
 						var lev = INVENKTION.LevelManager.getSectionLevel(section,upcoming);
+						var stars = INVENKTION.LevelManager.getLevelStars(section,lev);
 						var unlocked = INVENKTION.LevelManager.isLevelUnlocked(lev);
 						var statusImage;
 						var correctClass = "levelImage";
@@ -290,7 +301,7 @@
 						secImg.removeClass("lockedLevel");
 						secImg.addClass(correctClass);
 						el = gallery.masterPages[i].querySelector('span');
-						el.innerHTML = slides[upcoming].codice;
+						el.innerHTML = "Stars : "+stars;
 					}
 				}
 			});
@@ -303,6 +314,13 @@
 				var className = gallery.masterPages[gallery.currentMasterPage].className;
 				/(^|\s)swipeview-active(\s|$)/.test(className) || (gallery.masterPages[gallery.currentMasterPage].className = !className ? 'swipeview-active' : className + ' swipeview-active');
 			});
+			
+			//Se esiste tra le variabili salvate l'ultima sezione cliccata, mi posiziono li
+			var lastSectionUsed = INVENKTION.StorageManager.getItem("currentLevel");
+			if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+				console.log("Ultimo livello visitato = "+lastSectionUsed);
+				gallery.goToPage(parseInt(lastSectionUsed));
+			}
 			
 			//Evento selezione gallery
 			$("#wrapper_livelli .swipeview-active").live('tap',function(event){
