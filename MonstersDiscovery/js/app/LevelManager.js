@@ -480,6 +480,9 @@
 
 	//Il nostro oggetto da esporre
 	var mod = {
+		 getSezioni: function(){
+				return sezioni;
+		 },
 		 //Numero di sezioni
 		 getSectionCount : function() {
 			 return sezioni.length;
