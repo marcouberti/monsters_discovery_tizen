@@ -259,7 +259,7 @@ a {
 /*DEFAULT*/
 .colorsContainer img{
 	position:absolute;
-	width: 5%;
+	height: 11%;
 	z-index: 1002;
 	
 }
@@ -291,7 +291,7 @@ a {
 }
 /* 4 COLORI */
 .maxColor4 img{
-	width: 5.5%;
+	height: 12%;
 }
 .maxColor4 img.colours1{
 	left: 3%;
@@ -312,7 +312,7 @@ a {
 
 /* 3 COLORI */
 .maxColor3 img{
-	width: 7%;
+	height: 13%;
 }
 .maxColor3 img.colours1{
 	left: 3%;
@@ -329,7 +329,7 @@ a {
 
 /* 2 COLORI */
 .maxColor2 img{
-	width: 7%;
+	height: 13%;
 }
 .maxColor2 img.colours1{
 	left: 3%;
@@ -342,7 +342,7 @@ a {
 
 /* 1 COLORI */
 .maxColor1 img{
-	width: 8%;
+	height: 14%;
 }
 .maxColor1 img.colours1{
 	left: 2%;
@@ -403,11 +403,11 @@ a {
 	top:10%;
 }*/
 .palette {
-	height:80%;
+	height:85%;
 	position:absolute;
 	z-index:100;
 	top:10%;
-	left:-6em;
+	left:-100px;
 }
 
 /* ================================================*/
