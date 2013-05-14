@@ -10,6 +10,12 @@ var init = function () {
 	//Faccio partire la musica
     INVENKTION.SoundManager.playBackgroundMusic();
     
+    //Setto il PopUp
+    function popUpStart (msg) {
+    	$('.MS_popUpContainer').show();
+    	$('.MS_popUpInn').html(msg);
+    } 
+    
     console.log("init() called");
 };
 $(document).bind('pageinit', init);
