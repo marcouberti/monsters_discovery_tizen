@@ -79,7 +79,12 @@
 			});
 			$(".home_creditsBtn").bind("tap", function (event) {
 				if(event.handled !== true) {
-					popUpStart(msg_credits);
+					popUpStart($('#MS_credits').html());
+				}
+			});
+			$(".JS_quit").bind("tap", function (event) {
+				if(event.handled !== true) {
+					popUpStart($('#MS_quit').html());
 				}
 			});
 			$(".credit_close").bind("tap", function (event) {
@@ -92,12 +97,13 @@
 		    		location.replace("http://www.invenktion.com");
 				}
 			});
-			$(".MS_popUpClose").bind("tap", function (event) {
+			
+			$(".JS_popUpClose, .MS_popUpContainer").bind("tap", function (event) {
 				if(event.handled !== true) {
 		    		popUpClose();
 				}
 			});
-			
+						
 			//TOGGLE AUDIO
 			$('.home_audioBtn').bind('tap', function (event) {
 				if(event.handled !== true) {
@@ -112,9 +118,6 @@
 					}			
 				}
 			});
-			//ESEMPI DI CONTENUTI POPUP
-			var msg_credits = '<h1>Credits</h1><div class="creditsContainer"><ul><li>Marco Uberti <span>Software Engineering</span> </li><li>Andrea Grilli <span>Creative artist</span></li></ul></div>'
-			
 			//Setto il PopUp
 		    function popUpStart (msg) {
 		    	//Variabili
@@ -140,10 +143,6 @@
 			//Chiudo il PopUp
 			function popUpClose () {
 				$('.MS_popUpInn').hide('fast');
-				/*$('.MS_popUp').animate({
-	    			width: 10,
-	    			height: 10
-	    		});*/
 				$('.MS_popUpContainer').hide('fast');
 			}
 		}

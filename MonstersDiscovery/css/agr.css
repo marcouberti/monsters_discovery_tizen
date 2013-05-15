@@ -464,14 +464,23 @@ a {
 .MS_popUp h1,
 .creditsContainer ul,
 .creditsContainer li{
-	font-size:35px;
+	font-size:25px;
 	color:#fff;
 	text-align:center;
-	list-style:none;
 }
 .creditsContainer li {
-	font-size:25px;
+	font-size:20px;
+	margin:10px 0;
 }
 .creditsContainer li span {
 	color:#6BC5EB;
+}
+.creditsContainer li a {
+	padding:15px;
+	border:2px solid #6BC5EB;
+	border-radius: 10px 10px 10px 10px;
+    display: inline;
+    line-height: 75px;
+    color:#fff;
+    text-decoration:none;
 }

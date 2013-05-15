@@ -50,7 +50,7 @@
 	        	<div class="homeButunera">
 	            	<a class="home_btn1" href="#"><img src="images/btn_1.png"/></a>
 	                <a class="home_btn3" href="#"><img src="images/btn_3.png"/></a>
-	                <a class="home_btn4 ui-btn-back" href="#"><img src="images/btn_4.png"/></a>
+	                <a class="home_btn4 JS_quit" href="#"><img src="images/btn_4.png"/></a>
 	            </div>
 	            <a class="home_logoInvenktion" href="#"><img src="images/home_logo_k.png"/></a>
 	            <div class="bg bg1"></div>
@@ -61,12 +61,6 @@
 	            <a href="#" class="home_audioBtn"><img class="" src="images/soundon.png"/></a>
 	            <a href="#" class="home_audioBtn mute hidden"><img class="" src="images/soundoff.png"/></a>
 	
-	            <div id="credits" data-role="popup" class="popup" data-style="center_title_1btn">
-	                <div class="ui-popup-title">
-	                    <h1>Creditsss</h1>
-	                </div>
-	                <a href="#" class="credit_close" data-inlie="true" data-role="button">Close</a>
-	            </div>
 	        </div>
         
         <!-- /content -->
@@ -163,10 +157,35 @@
     <!-- POPUP -->
     <div class="MS_popUpContainer hidden">
     	<div class="MS_popUp">
-    		<img class=MS_popUpClose src="images/btn_no.png">
+    		<img class="MS_popUpClose JS_popUpClose" src="images/btn_no.png">
     		<div class="MS_popUpInn ">
     			
     			<!-- Il contenuti è dinamico -->
+    		</div>
+    	</div>
+    </div>
+    
+    <!-- MSG POPUP -->
+    <div class="hidden">
+    	<!-- CREDITS -->
+    	<div id="MS_credits">
+    		<h1>Credits</h1>
+    		<div class="creditsContainer">
+    			<ul class="listReset">
+    				<li>Marco Uberti <span>Software Engineering</span></li>
+    				<li>Andrea Grilli <span>Creative artist</span></li>
+    				<li><a href="http://www.invenktion.it" target="_blank">www.invenktion</a></li>
+    			</ul>
+    		</div>
+    	</div>
+    	
+    	<!-- -QUIT -->
+    	<div id="MS_quit">
+    		<h1>Do you want to Exit?</h1>
+    		<div class="creditsContainer">
+    			<ul class="listReset">
+    				<li><a class="ui-btn-back" href="#si">yes</a> <a class="JS_popUpClose" href="#si">No</a></li>
+    			</ul>
     		</div>
     	</div>
     </div>
