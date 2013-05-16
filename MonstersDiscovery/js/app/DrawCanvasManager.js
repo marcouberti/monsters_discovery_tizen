@@ -14,6 +14,7 @@
 	var canvas = null;
 	var ctx = null;
 
+	
 	var prev_x = -1;
 	var prev_y = -1;
 
