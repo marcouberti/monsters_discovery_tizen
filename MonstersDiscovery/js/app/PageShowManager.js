@@ -79,27 +79,32 @@
 			});
 			$(".home_creditsBtn").bind("tap", function (event) {
 				if(event.handled !== true) {
+					event.handled = true;
 					popUpStart($('#MS_credits').html());
 				}
 			});
 			$(".JS_quit").bind("tap", function (event) {
 				if(event.handled !== true) {
+					event.handled = true;
 					popUpStart($('#MS_quit').html());
 				}
 			});
 			$(".credit_close").bind("tap", function (event) {
 				if(event.handled !== true) {
+					event.handled = true;
 					$("#credits").popup("close");
 				}
 			});
 			$(".home_logoInvenktion").bind("tap", function (event) {
 				if(event.handled !== true) {
+					event.handled = true;
 		    		location.replace("http://www.invenktion.com");
 				}
 			});
 			
 			$(".JS_popUpClose, .MS_popUpContainer").bind("tap", function (event) {
 				if(event.handled !== true) {
+					event.handled = true;
 		    		popUpClose();
 				}
 			});

@@ -439,6 +439,7 @@ a {
 }
 .MS_popUpInn {
 	display:none;
+	z-index: 99999;
 }
 .MS_popUp {
 	width:1%;

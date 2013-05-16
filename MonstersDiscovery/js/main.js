@@ -1,6 +1,7 @@
 //Initialize function
 var init = function () {
-    $('.ui-btn-back').bind('tap', function(event) {
+    $('.ui-btn-back').live('tap', function(event) {
+    	alert("exit");
     	if(event.handled !== true) {
     		event.handled = true;
 	        var currentApp = tizen.application.getCurrentApplication();
