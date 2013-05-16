@@ -80,21 +80,16 @@
 			$(".home_creditsBtn").bind("tap", function (event) {
 				if(event.handled !== true) {
 					event.handled = true;
-					popUpStart($('#MS_credits').html());
+					INVENKTION.PageShowManager.popUpStart($('#MS_credits').html());
 				}
 			});
 			$(".JS_quit").bind("tap", function (event) {
 				if(event.handled !== true) {
 					event.handled = true;
-					popUpStart($('#MS_quit').html());
+					INVENKTION.PageShowManager.popUpStart($('#MS_quit').html());
 				}
 			});
-			$(".credit_close").bind("tap", function (event) {
-				if(event.handled !== true) {
-					event.handled = true;
-					$("#credits").popup("close");
-				}
-			});
+			
 			$(".home_logoInvenktion").bind("tap", function (event) {
 				if(event.handled !== true) {
 					event.handled = true;
@@ -105,7 +100,7 @@
 			$(".JS_popUpClose, .MS_popUpContainer").bind("tap", function (event) {
 				if(event.handled !== true) {
 					event.handled = true;
-		    		popUpClose();
+					INVENKTION.PageShowManager.popUpClose();
 				}
 			});
 						
@@ -123,33 +118,6 @@
 					}			
 				}
 			});
-			//Setto il PopUp
-		    function popUpStart (msg) {
-		    	//Variabili
-		    	_W = window.innerWidth*0.6;
-		    	_H = window.innerHeight*0.7;
-		    	
-		    	//Carico il contenuto
-		    	$('.MS_popUpInn').html(msg);
-		    	//Visualizzo il popUp con qualche effetto speciale
-		    	$('.MS_popUpContainer').show('fast', function() {
-		    		// Animation complete.
-		    		$('.MS_popUp').animate({
-		    			left:(window.innerWidth/2)-(_W/2),
-		    			top:(window.innerHeight/2)-(_H/2),
-		    			width: _W,
-		    			height: _H
-		    		}, 1000, function() {
-		    			//Animation Complete
-		    			$('.MS_popUpInn').show('fast');
-		    		});
-		    	});
-		    }
-			//Chiudo il PopUp
-			function popUpClose () {
-				$('.MS_popUpInn').hide('fast');
-				$('.MS_popUpContainer').hide('fast');
-			}
 		}
 		
 		//### SEZIONI
@@ -473,6 +441,33 @@
 	var mod = {
 			getCurrentPage: function(){
 				return currentPage;
+			},
+			//Setto il PopUp
+			popUpStart: function (msg) {
+		    	//Variabili
+		    	_W = window.innerWidth*0.6;
+		    	_H = window.innerHeight*0.7;
+		    	
+		    	//Carico il contenuto
+		    	$('.MS_popUpInn').html(msg);
+		    	//Visualizzo il popUp con qualche effetto speciale
+		    	$('.MS_popUpContainer').show('fast', function() {
+		    		// Animation complete.
+		    		$('.MS_popUp').animate({
+		    			left:(window.innerWidth/2)-(_W/2),
+		    			top:(window.innerHeight/2)-(_H/2),
+		    			width: _W,
+		    			height: _H
+		    		}, 1000, function() {
+		    			//Animation Complete
+		    			$('.MS_popUpInn').show('fast');
+		    		});
+		    	});
+		    },
+			//Chiudo il PopUp
+		    popUpClose: function () {
+				$('.MS_popUpInn').hide('fast');
+				$('.MS_popUpContainer').hide('fast');
 			}
 	};
 
