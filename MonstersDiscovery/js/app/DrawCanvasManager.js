@@ -220,15 +220,34 @@
 				//Setto il colore alle macchie della tavolozza
 				$(".colours"+(c+1)).show();
 				$(".colours"+(c+1)).css("background-color","rgb("+r+","+g+","+b+")");
+				$('.colorsContainer').removeClass('maxColor'+c);
 			}
+			$('.colorsContainer').addClass('maxColor'+numColori);
 			$("#canvascontainer").html("");
 
+			
 		    //Create a canvas that covers the entire screen
 			canvas = document.createElement('canvas');
-			canvas.height = screen.availHeight;
-			canvas.width = screen.availWidth;
 			document.getElementById('canvascontainer').appendChild(canvas);
 			ctx = canvas.getContext("2d");
+			/*
+			var devicePixelRatio = window.devicePixelRatio || 1;
+	        var backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
+		        ctx.mozBackingStorePixelRatio ||
+		        ctx.msBackingStorePixelRatio ||
+		        ctx.oBackingStorePixelRatio ||
+		        ctx.backingStorePixelRatio || 1;
+	        var ratio = devicePixelRatio / backingStoreRatio;
+	        console.log("devicePixelRatio= "+devicePixelRatio);
+	        console.log("backingStoreRatio= "+backingStoreRatio);
+	        console.log("ratio= "+ratio);
+		        
+	        canvas.height = window.availableHeight/ratio;
+			canvas.width = window.availableWidth/ratio;
+			*/
+			canvas.height = window.innerHeight;
+			canvas.width = window.innerWidth;
+			
 			if(isMobile) {
 				document.addEventListener("touchstart", onTouchStart, false);
 				document.addEventListener("touchmove", onTouchMove, false);
@@ -354,8 +373,8 @@
 			    // i+3 is alpha (the fourth element)
 			 }
 			 //Cancello e ripristino l'immagine raw dell'utente
-			 INVENKTION.DrawCanvasManager.clearCanvas();
-			 ctx.putImageData(userRawData, 0, 0);
+			 //INVENKTION.DrawCanvasManager.clearCanvas();
+			 //ctx.putImageData(userRawData, 0, 0);
 			 //Rilascio le risorse
 			 userRawData = null;
 			 userData = null;
@@ -370,21 +389,34 @@
 			 //console.log("PERC="+percentage+"BASE PERCENTAGE = "+basePercentage);
 			 //return (100*(percentage-basePercentage))/(100-basePercentage);
 			 console.log("percentage = "+percentage);
+			 
+			 var currLevel = INVENKTION.DrawCanvasManager.getLevel();
+			 var currSection = INVENKTION.DrawCanvasManager.getSection();
+			 
+			 INVENKTION.LevelManager.setLevelBestResult(currLevel,percentage);
+			 
 			 if(percentage >= 85) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 alert("3 star");
+				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"3");
+				 console.log("3 star");
+				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 			 }
 			 else if(percentage >= 80) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 alert("2 star");
+				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"2");
+				 console.log("2 star");
+				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 			 }
 			 else if(percentage >= 75) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 alert("1 star");
+				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"1");
+				 console.log("1 star");
+				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 			 }
 			 else {
 				 INVENKTION.SoundManager.playSound('negative');
-				 alert("bad result");
+				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"0");
+				 console.log("bad result");
 			 }
 			 
 			 return percentage;

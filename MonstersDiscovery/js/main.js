@@ -1,6 +1,7 @@
 //Initialize function
 var init = function () {
-    $('.ui-btn-back').bind('tap', function(event) {
+    $('.ui-btn-back').live('tap', function(event) {
+    	alert("exit");
     	if(event.handled !== true) {
     		event.handled = true;
 	        var currentApp = tizen.application.getCurrentApplication();
@@ -9,6 +10,12 @@ var init = function () {
     });
 	//Faccio partire la musica
     INVENKTION.SoundManager.playBackgroundMusic();
+    
+    //Setto il PopUp
+    function popUpStart (msg) {
+    	$('.MS_popUpContainer').show();
+    	$('.MS_popUpInn').html(msg);
+    } 
     
     console.log("init() called");
 };

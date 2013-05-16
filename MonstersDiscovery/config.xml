@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://www.invenktion.com/monstersdiscoverytizen" version="1.0.0" viewmodes="fullscreen">
-    <tizen:application id="CWlh8yUfSR.TestNEW" package="CWlh8yUfSR" required_version="2.1"/>
+    <tizen:application id="FEuob1PeZh.MonstersDiscovery" package="FEuob1PeZh" required_version="2.1"/>
     <author href="http://www.invenktion.com" email="invenktion@gmail.com">Invenktion</author>
     <content src="index.html"/>
     <description>Monsters Discovery for TIZEN is a drawing game made by Invenktion.</description>

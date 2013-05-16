@@ -77,6 +77,38 @@
 		    		$.mobile.changePage( "#sezioni");
 				}
 			});
+			$(".home_creditsBtn").bind("tap", function (event) {
+				if(event.handled !== true) {
+					event.handled = true;
+					popUpStart($('#MS_credits').html());
+				}
+			});
+			$(".JS_quit").bind("tap", function (event) {
+				if(event.handled !== true) {
+					event.handled = true;
+					popUpStart($('#MS_quit').html());
+				}
+			});
+			$(".credit_close").bind("tap", function (event) {
+				if(event.handled !== true) {
+					event.handled = true;
+					$("#credits").popup("close");
+				}
+			});
+			$(".home_logoInvenktion").bind("tap", function (event) {
+				if(event.handled !== true) {
+					event.handled = true;
+		    		location.replace("http://www.invenktion.com");
+				}
+			});
+			
+			$(".JS_popUpClose, .MS_popUpContainer").bind("tap", function (event) {
+				if(event.handled !== true) {
+					event.handled = true;
+		    		popUpClose();
+				}
+			});
+						
 			//TOGGLE AUDIO
 			$('.home_audioBtn').bind('tap', function (event) {
 				if(event.handled !== true) {
@@ -91,120 +123,277 @@
 					}			
 				}
 			});
+			//Setto il PopUp
+		    function popUpStart (msg) {
+		    	//Variabili
+		    	_W = window.innerWidth*0.6;
+		    	_H = window.innerHeight*0.7;
+		    	
+		    	//Carico il contenuto
+		    	$('.MS_popUpInn').html(msg);
+		    	//Visualizzo il popUp con qualche effetto speciale
+		    	$('.MS_popUpContainer').show('fast', function() {
+		    		// Animation complete.
+		    		$('.MS_popUp').animate({
+		    			left:(window.innerWidth/2)-(_W/2),
+		    			top:(window.innerHeight/2)-(_H/2),
+		    			width: _W,
+		    			height: _H
+		    		}, 1000, function() {
+		    			//Animation Complete
+		    			$('.MS_popUpInn').show('fast');
+		    		});
+		    	});
+		    }
+			//Chiudo il PopUp
+			function popUpClose () {
+				$('.MS_popUpInn').hide('fast');
+				$('.MS_popUpContainer').hide('fast');
+			}
 		}
+		
 		//### SEZIONI
 		if(currentPage == 'sezioni') {
-			//Ridimensiono la LI in base all'altezza dello schermo
-			var wGal = $(window).height()*0.6;
-						
-			//Reinizializzo svuotando la gallery
-			$("#gallery ul").html("");
+				$("#wrapper, #wrapper_livelli").html("");//svuoto
+				$("#wrapper").css("width",window.innerWidth);
+				$("#wrapper").css("height",window.innerHeight);
+				var	gallery,
+					el,
+					i,
+					page,
+					slides = INVENKTION.LevelManager.getSezioni();
+	
+				gallery = new SwipeView('#wrapper', { numberOfPages: slides.length });
+		
+				// Load initial data
+				for (i=0; i<3; i++) {
+					page = i==0 ? slides.length-1 : i-1;
+					el = document.createElement('img');
+					
+					//Controllo se la sezione è sbloccata o meno
+					var sec = INVENKTION.LevelManager.getSection(page);
+					var stars = INVENKTION.LevelManager.getSectionTotalStars(sec);
+					var unlocked = INVENKTION.LevelManager.isSectionUnlocked(sec);
+					var statusImage;
+					var correctClass = "sectionImage";
+					if(unlocked) {
+						statusImage = sec.immagine;
+					}else {
+						statusImage = sec.immagineBlocked;
+						correctClass = "lockedSection";
+					}
+					
+					el.src = statusImage;
+					el.width = window.innerHeight;
+					el.height = window.innerHeight;
+					
+					gallery.masterPages[i].appendChild(el);
+					
+					var secImg = $(el);
+					secImg.removeClass("lockedSection");
+					secImg.removeClass("sectionImage");
+					secImg.addClass(correctClass);
+					
+					el = document.createElement('span');
+					el.innerHTML = stars+"/"+(sec.livelli.length)*3 +" Stars";
+					gallery.masterPages[i].appendChild(el)
+				}
+		
+				gallery.onFlip(function () {
+					var el,
+						upcoming,
+						i;
+		
+					for (i=0; i<3; i++) {
+						upcoming = gallery.masterPages[i].dataset.upcomingPageIndex;
+		
+						if (upcoming != gallery.masterPages[i].dataset.pageIndex) {
+							el = gallery.masterPages[i].querySelector('img');
+							
+							//Controllo se la sezione è sbloccata o meno
+							var sec = INVENKTION.LevelManager.getSection(upcoming);//non page come sopra!
+							var stars = INVENKTION.LevelManager.getSectionTotalStars(sec);
+							var unlocked = INVENKTION.LevelManager.isSectionUnlocked(sec);
+							var statusImage;
+							var correctClass = "sectionImage";
+							if(unlocked) {
+								statusImage = sec.immagine;
+							}else {
+								statusImage = sec.immagineBlocked;
+								correctClass = "lockedSection";
+							}
+							
+							el.src = statusImage;
+							el.width = window.innerHeight;
+							el.height = window.innerHeight;
+	
+							var secImg = $(el);
+							secImg.removeClass("lockedSection");
+							secImg.removeClass("sectionImage");
+							secImg.addClass(correctClass);
+							el = gallery.masterPages[i].querySelector('span');
+							el.innerHTML = stars+"/"+(sec.livelli.length)*3 +" Stars";
+						}
+					}
+				});
+		
+				gallery.onMoveOut(function () {
+					gallery.masterPages[gallery.currentMasterPage].className = gallery.masterPages[gallery.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
+				});
+		
+				gallery.onMoveIn(function () {
+					var className = gallery.masterPages[gallery.currentMasterPage].className;
+					/(^|\s)swipeview-active(\s|$)/.test(className) || (gallery.masterPages[gallery.currentMasterPage].className = !className ? 'swipeview-active' : className + ' swipeview-active');
+				});
+				
+				//Se esiste tra le variabili salvate l'ultima sezione cliccata, mi posiziono li
+				var lastSectionUsed = INVENKTION.StorageManager.getItem("currentSection");
+				if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+					console.log("Ultima sezione visitata = "+lastSectionUsed);
+					gallery.goToPage(parseInt(lastSectionUsed));
+				}
+				
+				//Evento selezione gallery
+				$("#wrapper .swipeview-active").live('tap',function(event){
+					if(event.handled !== true) {
+			    		event.handled = true;
+						//estraggo l'indice dell'immagine della gallery corrente
+			    		if($(this).find(".sectionImage").size() > 0) {
+							var index = $(this).attr('data-page-index');
+							console.log("sezione selezionata: "+index);
+							INVENKTION.StorageManager.setItem("currentSection",index+"");
+							$.mobile.changePage( "#livelli");
+			    		}
+					}
+				});
+				
+				//BACK BUTTON
+				$(".jsBackHome").bind('tap',function(event){
+					if(event.handled !== true) {
+			    		event.handled = true;
+						$.mobile.changePage( "#home");
+					}
+				});
+		}
+		
+		//### LIVELLI
+		if(currentPage == 'livelli') {
+			$("#wrapper,#wrapper_livelli").html("");//svuoto
+			$("#wrapper_livelli").css("width",window.innerWidth);
+			$("#wrapper_livelli").css("height",window.innerHeight);
 			
-			//Costruisco la gallery
-			var num = INVENKTION.LevelManager.getSectionCount();
-			//setto il totale
-			$('#sectionTotal').html(num);
-			for(var i=0; i<num; i++) {
-				var sec = INVENKTION.LevelManager.getSection(i);
-				$("#gallery ul").append("<li><img class='sectionImage' data-sezione='"+i+"' src='"+sec.immagine+"'/><h1>Section "+i+"</h1></li>");
+			var index = INVENKTION.StorageManager.getItem("currentSection");
+			var section = INVENKTION.LevelManager.getSection(parseInt(index));
+			
+			var	gallery,
+				el,
+				i,
+				page,
+				slides = section.livelli;
+
+			gallery = new SwipeView('#wrapper_livelli', { numberOfPages: slides.length });
+	
+			// Load initial data
+			for (i=0; i<3; i++) {
+				page = i==0 ? slides.length-1 : i-1;
+				el = document.createElement('img');
+				
+				//Controllo se il livello è sbloccato o meno
+				var lev = INVENKTION.LevelManager.getSectionLevel(section,page);
+				var stars = INVENKTION.LevelManager.getLevelStars(section,lev);
+				var unlocked = INVENKTION.LevelManager.isLevelUnlocked(lev);
+				var statusImage;
+				var correctClass = "levelImage";
+				if(unlocked) {
+					statusImage = lev.immagine;
+				}else {
+					statusImage = lev.immagine;
+					correctClass = "lockedLevel";
+				}
+				
+				el.src = statusImage;
+				el.width = window.innerHeight;
+				el.height = window.innerHeight;
+				
+				gallery.masterPages[i].appendChild(el);
+				
+				var secImg = $(el);
+				secImg.removeClass("levelImage");
+				secImg.removeClass("lockedLevel");
+				secImg.addClass(correctClass);
+				
+				el = document.createElement('span');
+				el.innerHTML = "Stars : "+stars;
+				gallery.masterPages[i].appendChild(el)
 			}
-			
-			//BACK BUTTON
-			$(".jsBackHome").bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					$.mobile.changePage( "#home");
+	
+			gallery.onFlip(function () {
+				var el,
+					upcoming,
+					i;
+	
+				for (i=0; i<3; i++) {
+					upcoming = gallery.masterPages[i].dataset.upcomingPageIndex;
+	
+					if (upcoming != gallery.masterPages[i].dataset.pageIndex) {
+						el = gallery.masterPages[i].querySelector('img');
+						
+						//Controllo se il livello è sbloccato o meno
+						var lev = INVENKTION.LevelManager.getSectionLevel(section,upcoming);
+						var stars = INVENKTION.LevelManager.getLevelStars(section,lev);
+						var unlocked = INVENKTION.LevelManager.isLevelUnlocked(lev);
+						var statusImage;
+						var correctClass = "levelImage";
+						if(unlocked) {
+							statusImage = lev.immagine;
+						}else {
+							statusImage = lev.immagine;
+							correctClass = "lockedLevel";
+						}
+						
+						el.src = statusImage;
+						el.width = window.innerHeight;
+						el.height = window.innerHeight;
+	
+						var secImg = $(el);
+						secImg.removeClass("levelImage");
+						secImg.removeClass("lockedLevel");
+						secImg.addClass(correctClass);
+						el = gallery.masterPages[i].querySelector('span');
+						el.innerHTML = "Stars : "+stars;
+					}
 				}
 			});
+	
+			gallery.onMoveOut(function () {
+				gallery.masterPages[gallery.currentMasterPage].className = gallery.masterPages[gallery.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
+			});
+	
+			gallery.onMoveIn(function () {
+				var className = gallery.masterPages[gallery.currentMasterPage].className;
+				/(^|\s)swipeview-active(\s|$)/.test(className) || (gallery.masterPages[gallery.currentMasterPage].className = !className ? 'swipeview-active' : className + ' swipeview-active');
+			});
+			
+			//Se esiste tra le variabili salvate l'ultima sezione cliccata, mi posiziono li
+			var lastSectionUsed = INVENKTION.StorageManager.getItem("currentLevel");
+			if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+				console.log("Ultimo livello visitato = "+lastSectionUsed);
+				gallery.goToPage(parseInt(lastSectionUsed));
+			}
 			
 			//Evento selezione gallery
-			$(".sectionImage").bind('tap',function(event){
+			$("#wrapper_livelli .swipeview-active").live('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
 					//estraggo l'indice dell'immagine della gallery corrente
-					var index = $(this).attr('data-sezione');
-					console.log("sezione selezionata: "+index);
-					INVENKTION.StorageManager.setItem("currentSection",index+"");
-					$.mobile.changePage( "#livelli");
+		    		if($(this).find(".levelImage").size() > 0) {
+						var index = $(this).attr('data-page-index');
+						console.log("livello selezionata: "+index);
+						INVENKTION.StorageManager.setItem("currentLevel",index+"");
+						$.mobile.changePage( "#canvas");
+		    		}
 				}
 			});
-			$(".galleryContainer li").css("width",wGal);
-			//IMPOSTO I BOTTONI PREV e NEXT
-			var sezioniSteps = 0;//CURRENT STEP
-			var galleryDeltaMove = wGal;//DI QUANTO SI DEVE MUOVERE
-			var timeTransition = 500;//tempo di animazione Slider
-			
-			$('.paginatorShowGallery .next').bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					if (sezioniSteps < (num-1)) {
-						sezioniSteps++;
-						//alert(sezioniSteps+" "+galleryDeltaMove);
-						sliderMoveTo(sezioniSteps);
-						$('#sectionCurrent').html(sezioniSteps+1);
-					}
-				}
-			});
-			$('.paginatorShowGallery .prev').bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					if (sezioniSteps > 0) {
-						sezioniSteps--;
-						sliderMoveTo(sezioniSteps);
-						$('#sectionCurrent').html(sezioniSteps+1);
-					}
-				}
-			});
-			
-			//Funzione per animare la gallery
-			function sliderMoveTo (d) {
-				$('.galleryContainer').animate({
-					 left: d*-galleryDeltaMove
-					 }, timeTransition, function() {
-					 // Animation complete.
-				 });
-			}
-			//
-		}
-		//### LIVELLI
-		if(currentPage == 'livelli') {
-			//Altero la history inserendo tra questa pagina e quella del canvas una pagina di dialog
-			//history.pushState({}, "Monsters Discovery", "index.html#dialog");
-			
-			//Costruisco la gallery
-			/*$("#levelgallery").html("");
-			var index = INVENKTION.StorageManager.getItem("currentSection");
-			var section = INVENKTION.LevelManager.getSection(parseInt(index));
-			var num = INVENKTION.LevelManager.getSectionLevelCount(section);
-			console.log("Numero livelli di questa sezione:"+num)
-			for(var i=0; i<num; i++) {
-				var lev = INVENKTION.LevelManager.getSectionLevel(section,i);
-				$("#levelgallery ul").append("<li><img width='150' class='levelImage' data-livello='"+i+"' src='"+lev.immagine+"'/></li>");
-			}
-			
-			//Evento selezione gallery
-			$(".levelImage").bind("click",function(){
-				//estraggo l'indice dell'immagine della gallery corrente
-				var index = $(this).attr('data-livello');
-				console.log("livello selezionata: "+index);
-				INVENKTION.StorageManager.setItem("currentLevel",index+"");
-				$.mobile.changePage( "#canvas");
-			});
-			*/
-			
-			//Reinizializzo svuotando la gallery
-			$("#levelShowGallery ul").html("");
-			
-			var index = INVENKTION.StorageManager.getItem("currentSection");
-			var section = INVENKTION.LevelManager.getSection(parseInt(index));
-			var num = INVENKTION.LevelManager.getSectionLevelCount(section);
-			console.log("Numero livelli della sezione "+index+" : "+num);
-			//setto il totale
-			$('#levelTotal').html(num);
-			for(var i=0; i<num; i++) {
-				var lev = INVENKTION.LevelManager.getSectionLevel(section,i);
-				$("#levelShowGallery ul").append("<li><img class='levelImage' data-livello='"+i+"' src='"+lev.immagine+"'/><h1>Monsters "+i+"</h1></li>");
-			}
 			
 			//BACK BUTTON
 			$(".jsBackSezioni").bind('tap',function(event){
@@ -213,24 +402,8 @@
 					$.mobile.changePage( "#sezioni");
 				}
 			});
-			
-			//Evento selezione gallery
-			$(".levelImage").bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					//estraggo l'indice dell'immagine della gallery corrente
-					var index = $(this).attr('data-livello');
-					console.log("livello selezionata: "+index);
-					INVENKTION.StorageManager.setItem("currentLevel",index+"");
-					$.mobile.changePage( "#canvas");
-				}
-			});
-			
-			
-			//Ridimensiono la LI in base all'altezza dello schermo
-			var wGal = $(window).height()*0.6;
-			$(".galleryContainer li").css("width",wGal);
 		}
+		
 		//### CANVAS
 		if(currentPage == 'canvas') {
 			mainHeight = $(window).height();
@@ -260,6 +433,16 @@
 		    		event.handled = true;
 					INVENKTION.DrawCanvasManager.setBrushType('ERASER');
 					INVENKTION.SoundManager.playSound('plaf');
+				}
+			});
+			
+			$(".checkBtn").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+		    		INVENKTION.DrawCanvasManager.checkUserDrawing();
+		    		//$(".mubcanvas").width($(".mubcanvas").width()-50);
+		    		//$("canvas").width($("canvas").width()-50);
+		    		//console.log($("canvas").width());
 				}
 			});
 			

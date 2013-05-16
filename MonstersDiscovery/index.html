@@ -33,9 +33,11 @@
     <script type="text/javascript" src="js/app/TimerManager.js"></script>
     
 	<link href="css/agr.css" rel="stylesheet" type="text/css">
+    <link href="css/swipeview.css" rel="stylesheet" type="text/css">
     
     <script type="text/javascript" src="./js/main.js"></script>
-  
+    <script type="text/javascript" src="js/libs/swipeview.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="./css/style.css"/>
 
 </head>
@@ -43,99 +45,55 @@
 <body>
     <!-- Start of home page: #home -->
     <div data-role="page" id="home">
-	    <div data-role="content">
+
 	        <div class="mainContainer overflowHidden">
 	        	<div class="homeButunera">
 	            	<a class="home_btn1" href="#"><img src="images/btn_1.png"/></a>
-	                <a class="home_btn2" href="#"><img src="images/btn_2.png"/></a>
 	                <a class="home_btn3" href="#"><img src="images/btn_3.png"/></a>
+	                <a class="home_btn4 JS_quit" href="#"><img src="images/btn_4.png"/></a>
 	            </div>
-	            <a class="home_logoInvenktion" href="http://www.invenktion.com" target="_blank"><img src="images/home_logo_k.png"/></a>
+	            <a class="home_logoInvenktion" href="#"><img src="images/home_logo_k.png"/></a>
 	            <div class="bg bg1"></div>
 	            <div class="bg"></div>
 	        
 	
-	            <a href="#credits" class="home_creditsBtn" data-rel="popup"><img class="" src="images/credits.png"/></a>
+	            <a href="#" class="home_creditsBtn" data-rel="popup"><img class="" src="images/credits.png"/></a>
 	            <a href="#" class="home_audioBtn"><img class="" src="images/soundon.png"/></a>
 	            <a href="#" class="home_audioBtn mute hidden"><img class="" src="images/soundoff.png"/></a>
 	
-	            <div id="credits" data-role="popup" data-style="center_title_1btn">
-	                <div class="ui-popup-title">
-	                    <h1>Creditsss</h1>
-	                </div>
-	                <a href="#" data-inlie="true" data-role="button" onclick="javascript:$('#credits').popup('close');">Close</a>
-	            </div>
-	            <a href="#" >
-					<img class="backBTN ui-btn-back" src="images/back.png"/>
-				</a>
 	        </div>
-        </div>
+        
         <!-- /content -->
     </div><!-- /page home -->
 
-
-    <!-- Start of sezioni page: #sezioni -->
+	<!-- Start of sezioni page: #sezioni -->
     <div data-role="page" id="sezioni">
-    	<div data-role="content">
-	        <div class="posAbs overflowHidden h100">
-	            <div id="gallery" class="galleryContainer h100">
-	       			<ul class="listReset h100">
-	       				<!-- POPOLATO DINAMICAMENTE -->
-	       			</ul>
-	       		</div>
-	            <!-- <div id="levelgallery" class=""></div> DA RIMUOVERE -->
-	        </div><!-- /content -->
-	        
-	        <div class="paginatorShowGallery">
-	 			<a href="#" class="prev">
-	      			<img src="images/btn_left_black.png"/>
-	      		</a>
-				<span id="sectionCurrent">1</span>/<span id="sectionTotal">1</span>
-	   			<a href="#" class="next">
-	   				<img src="images/btn_right_black.png"/>
-	   			</a>
-	      	</div>
+    	<div class="mainContainer overflowHidden">
+	        <div id="wrapper"></div>
 	        <img class="jhonny" src="images/jhonnybrush_9.png" />
 	        <a href="#" >
 				<img class="backBTN jsBackHome" src="images/back.png"/>
 			</a>
-	        <div class="livelli_bg bgContainer"></div>
-        </div>
+	        <div class="sezioni_bg bgContainer"></div>
+	    </div>
     </div><!-- /page sezioni -->
-   
+
    <!-- Start of livelli page: #livelli -->
     <div data-role="page" id="livelli">
-    	<div data-role="content">
-	        <div class="posAbs overflowHidden h100">
-	            <div id="levelShowGallery" class="galleryContainer h100">
-	       			<ul class="listReset h100">
-	       				<!-- POPOLATO DINAMICAMENTE -->
-	       			</ul>
-	       		</div>
-	            <!-- <div id="levelgallery" class=""></div> DA RIMUOVERE -->
-	        </div><!-- /content -->
-	        
-	        <div class="paginatorShowGallery">
-	 			<a href="#" class="prev">
-	      			<img src="images/btn_left_black.png"/>
-	      		</a>
-				<span id="levelCurrent">1</span>/<span id="levelTotal">1</span>
-	   			<a href="#" class="next">
-	   				<img src="images/btn_right_black.png"/>
-	   			</a>
-	      	</div>
+    	<div class="mainContainer overflowHidden">
+	        <div id="wrapper_livelli"></div>
 	        <img class="jhonny" src="images/jhonnybrush_10.png" />
 	        <a href="#" >
 				<img class="backBTN jsBackSezioni" src="images/back.png"/>
 			</a>
 	        <div class="livelli_bg bgContainer"></div>
-        </div>
+       </div>
     </div><!-- /page livelli -->
     
     <!-- Start of canvas page: #canvas -->
     <div data-role="page" id="canvas" class="h100">
-    	<div data-role="content">
-	            <div class="mainContainer overflowHidden">
+    	
+	       <div class="mainContainer overflowHidden">
 	        	<div class="imgContainer h100">
 	        		<div id="canvascontainer" class="mubcanvas"></div>
 	            	<img class="imgTR" src="images/mostri/w1_monster1_tr.png"/>
@@ -153,43 +111,83 @@
 	            	</a>
 	           		<img class="sizerBg" src="images/brush-sizer.png"/>
 	            </div>
-	            <div class="paletteContainer h100">
+	            <!-- <div class="paletteContainer h100">
 	            	<div class="paletteContainerInn h100">
 	                	<div class="colorsContainer">
-	                    	<img class="tavcol colours1" src="images/inkPalette1.png"/>
-	                        <img class="tavcol colours2" src="images/inkPalette2.png"/>
-	                        <img class="tavcol colours3" src="images/inkPalette3.png"/>
-	                        <img class="tavcol colours4" src="images/inkPalette4.png"/>
-	                        <img class="tavcol colours5" src="images/inkPalette5.png"/>
+	                    	
 	                    </div>
-	            		<img class="palette" src="images/tavolozza.png"/>
+	            		
 	                </div>
-	            </div>
+	            </div> -->
+	            <span class="colorsContainer">
+		            <img class="tavcol colours1" src="images/inkPalette1.png"/>
+	                <img class="tavcol colours2" src="images/inkPalette2.png"/>
+	                <img class="tavcol colours3" src="images/inkPalette3.png"/>
+	                <img class="tavcol colours4" src="images/inkPalette4.png"/>
+	                <img class="tavcol colours5" src="images/inkPalette5.png"/>
+                </span>
+                <img class="palette" src="images/tavolozza.png"/>
 	            
 	            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.clearCanvas();" style="position:fixed; top:0; left:320px;z-index:10001;">CANC</a>
-	            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.checkUserDrawing();" style="position:fixed; top:0; left:450px;z-index:10001;">CHECK</a>
+	            <a class="checkBtn" style="position:fixed; top:0; left:450px;z-index:10001;">CHECK</a>
 	            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.executeTrap();" style="position:fixed; top:0; left:540px;z-index:10001;">TRAP</a>
 	            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.executeTrick();" style="position:fixed; top:0; left:620px;z-index:10001;">TRICK</a>
-	            <a id="timer" style="position:fixed; top:80px; left:620px;z-index:10001;">45</a>
+	            <a id="timer" style="position:fixed; top:80px; left:420px;z-index:10001;">45</a>
 	            
 	            <a href="#" >
 					<img class="backBTN jsBackLivelli" src="images/back.png"/>
 				</a>
 	            <div class="bgContainer canvas_bgContainer"></div>
 	        </div>
-        </div>
+        
     </div><!-- /page canvas -->
     
     <!-- Start of livelli page: #livelli -->
     <div data-role="page" id="dialog">
-        <div data-role="content">
+        
            SEI SICURO DI USCIRE DAL LIVELLO?
-        </div><!-- /content -->
+        
     </div><!-- /page livelli -->
     
 	<audio class="background" loop="true" preload="auto"><source src="audio/sound.mp3" type="audio/mp3" /></audio>
     <audio class="plaf" preload="auto"><source src="audio/plaf.mp3" type="audio/mp3" /></audio>
     <audio class="positive" preload="auto"><source src="audio/positive.mp3" type="audio/mp3" /></audio>
     <audio class="negative" preload="auto"><source src="audio/negative.mp3" type="audio/mp3" /></audio>
+    
+    <!-- POPUP -->
+    <div class="MS_popUpContainer hidden">
+    	<div class="MS_popUp">
+    		<img class="MS_popUpClose JS_popUpClose" src="images/btn_no.png">
+    		<div class="MS_popUpInn ">
+    			
+    			<!-- Il contenuti è dinamico -->
+    		</div>
+    	</div>
+    </div>
+    
+    <!-- MSG POPUP -->
+    <div class="hidden">
+    	<!-- CREDITS -->
+    	<div id="MS_credits">
+    		<h1>Credits</h1>
+    		<div class="creditsContainer">
+    			<ul class="listReset">
+    				<li>Marco Uberti <span>Software Engineering</span></li>
+    				<li>Andrea Grilli <span>Creative artist</span></li>
+    				<li><a href="http://www.invenktion.it" target="_blank">www.invenktion</a></li>
+    			</ul>
+    		</div>
+    	</div>
+    	
+    	<!-- -QUIT -->
+    	<div id="MS_quit">
+    		<h1>Do you want to Exit?</h1>
+    		<div class="creditsContainer">
+    			<ul class="listReset">
+    				<li><a class="ui-btn-back" href="#si">yes</a> <a class="JS_popUpClose" href="#no">No</a></li>
+    			</ul>
+    		</div>
+    	</div>
+    </div>
 </body>
 </html>
