@@ -34,7 +34,10 @@
 	        switch (document[visibilityState]) {
 	        case "visible":
 	        	INVENKTION.SoundManager.playBackgroundMusic();
-	        	INVENKTION.TimerManager.resume();
+	        	//Faccio ripartire se e solo se non è aperto un POPUP
+				if($('.MS_popUpContainer').css("display") != "block") {
+					 INVENKTION.TimerManager.resume();
+				}
 	            break;
 	        case "hidden":
 	        	INVENKTION.SoundManager.stopBackgroundMusic();
