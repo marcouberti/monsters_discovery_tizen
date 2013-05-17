@@ -89,7 +89,6 @@
 					INVENKTION.PageShowManager.popUpStart($('#MS_quit').html());
 				}
 			});
-			
 			$(".home_logoInvenktion").bind("tap", function (event) {
 				if(event.handled !== true) {
 					event.handled = true;
@@ -118,6 +117,7 @@
 					}			
 				}
 			});
+
 		}
 		
 		//### SEZIONI
@@ -378,13 +378,35 @@
 			$('.imgContainer').css('width',mainHeight);
 			//$('.paletteContainerInn').css('margin-top',(mainHeight*-0.7)/2);
 			
-			//BACK BUTTON
+			//GAME PAUSED
 			$(".jsBackLivelli").bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
-					$.mobile.changePage( "#livelli");
+		    		INVENKTION.PageShowManager.popUpStart($('#MS_gamePaused').html());
 				}
 			});
+			$('.gamePause_1').live('tap', function(event) {
+				if(event.handled !== true) {
+		    		event.handled = true;
+		    		INVENKTION.PageShowManager.popUpClose();
+				}
+		    });
+			$('.gamePause_2').live('tap', function(event) {
+				if(event.handled !== true) {
+		    		event.handled = true;
+		    		INVENKTION.PageShowManager.popUpClose();
+					$.mobile.changePage( "#canvas");
+				}
+		    });
+			$('.gamePause_3').live('tap', function(event) {
+				if(event.handled !== true) {
+		    		event.handled = true;
+		    		INVENKTION.PageShowManager.popUpClose();
+					$.mobile.changePage( "#livelli");
+				}
+		    });
+			//
+			
 			
 			$(document).bind('tap',function(event){
 				if(event.handled !== true) {
@@ -465,7 +487,11 @@
 		    	});
 		    },
 			//Chiudo il PopUp
+<<<<<<< HEAD
 		    popUpClose: function () {
+=======
+		    popUpClose: function  () {
+>>>>>>> branch 'master' of https://github.com/ubelab/mdtztest.git
 				$('.MS_popUpInn').hide('fast');
 				$('.MS_popUpContainer').hide('fast');
 			}
