@@ -15,12 +15,13 @@
 	//Il nostro oggetto da esporre
 	var mod = {
 		 start : function() {
+			 this.stop();//termino un eventuale worker in corso
 			 worker=new Worker("js/app/webworker/timer.js");
 			 worker.onmessage=function(event){
 				 var secondRemaining = event.data;
 				 $("#timer").html(secondRemaining);
 				 
-				 if(secondRemaining == 0) {
+				 if(secondRemaining <= 0) {
 					 INVENKTION.TimerManager.stop();
 					 INVENKTION.DrawCanvasManager.checkUserDrawing();
 				 }
