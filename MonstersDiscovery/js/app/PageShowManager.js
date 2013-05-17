@@ -486,12 +486,7 @@
 		    		});
 		    	});
 		    },
-			//Chiudo il PopUp
-<<<<<<< HEAD
-		    popUpClose: function () {
-=======
 		    popUpClose: function  () {
->>>>>>> branch 'master' of https://github.com/ubelab/mdtztest.git
 				$('.MS_popUpInn').hide('fast');
 				$('.MS_popUpContainer').hide('fast');
 			}

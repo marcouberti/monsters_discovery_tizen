@@ -463,20 +463,20 @@ a {
 	z-index:1000;
 }
 .MS_popUp h1,
-.creditsContainer ul,
-.creditsContainer li{
+.MS_popUp ul,
+.MS_popUp li{
 	font-size:25px;
 	color:#fff;
 	text-align:center;
 }
-.creditsContainer li {
+.MS_popUp li {
 	font-size:20px;
 	margin:10px 0;
 }
-.creditsContainer li span {
+.MS_popUp li span {
 	color:#6BC5EB;
 }
-.creditsContainer li a {
+.MS_popUp li a {
 	padding:15px;
 	border:2px solid #6BC5EB;
 	border-radius: 10px 10px 10px 10px;
