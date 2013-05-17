@@ -8,14 +8,9 @@ var init = function () {
 	        currentApp.exit();
     	}
     });
-    $('.MS_popUp').bind('tap', function(event) {
-    	if(event.handled !== true) {
-    		event.handled = true;
-    	}
-    });
+
 	//Faccio partire la musica
     INVENKTION.SoundManager.playBackgroundMusic();
-    
      
     console.log("init() called");
 };
