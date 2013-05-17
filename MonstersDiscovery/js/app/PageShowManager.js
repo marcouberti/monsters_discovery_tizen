@@ -96,7 +96,7 @@
 				}
 			});
 			
-			$(".JS_popUpClose, .MS_popUpContainer").bind("tap", function (event) {
+			$(".JS_popUpClose, .MS_popUpContainer").live("tap", function (event) {
 				if(event.handled !== true) {
 					event.handled = true;
 					INVENKTION.PageShowManager.popUpClose();
@@ -378,7 +378,7 @@
 			$('.imgContainer').css('width',mainHeight);
 			//$('.paletteContainerInn').css('margin-top',(mainHeight*-0.7)/2);
 			
-			//GAME PAUSED
+			//GAME PAUSED // TODO - STOP TIME
 			$(".jsBackLivelli").bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
@@ -386,20 +386,28 @@
 				}
 			});
 			$('.gamePause_1').live('tap', function(event) {
+				//Continue
+				
 				if(event.handled !== true) {
+					alert('Continue');
 		    		event.handled = true;
 		    		INVENKTION.PageShowManager.popUpClose();
 				}
 		    });
 			$('.gamePause_2').live('tap', function(event) {
+				//Restart
+				
 				if(event.handled !== true) {
+					alert('Restart');
 		    		event.handled = true;
 		    		INVENKTION.PageShowManager.popUpClose();
-					$.mobile.changePage( "#canvas");
+					INVENKTION.DrawCanvasManager.initCanvas();
 				}
 		    });
 			$('.gamePause_3').live('tap', function(event) {
+				//Exit
 				if(event.handled !== true) {
+					alert('Exit');
 		    		event.handled = true;
 		    		INVENKTION.PageShowManager.popUpClose();
 					$.mobile.changePage( "#livelli");

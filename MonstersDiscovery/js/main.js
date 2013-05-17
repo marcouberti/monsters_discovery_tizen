@@ -8,15 +8,15 @@ var init = function () {
 	        currentApp.exit();
     	}
     });
+    $('.MS_popUp').bind('tap', function(event) {
+    	if(event.handled !== true) {
+    		event.handled = true;
+    	}
+    });
 	//Faccio partire la musica
     INVENKTION.SoundManager.playBackgroundMusic();
     
-    //Setto il PopUp
-    function popUpStart (msg) {
-    	$('.MS_popUpContainer').show();
-    	$('.MS_popUpInn').html(msg);
-    } 
-    
+     
     console.log("init() called");
 };
 $(document).bind('pageinit', init);
