@@ -258,6 +258,8 @@
 				document.addEventListener("mouseup", onMouseEnd, false);
 				document.addEventListener("mouseleave", onMouseCancel, false);
 			}
+			
+			INVENKTION.TimerManager.start();
 		 },
 		 restartLevel: function(level) {
 			 this.clearCanvas();

@@ -382,24 +382,25 @@
 			$(".jsBackLivelli").bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
+		    		INVENKTION.TimerManager.pause();
 		    		INVENKTION.PageShowManager.popUpStart($('#MS_gamePaused').html());
 				}
 			});
 			$('.gamePause_1').live('tap', function(event) {
 				//Continue
-				
 				if(event.handled !== true) {
-					alert('Continue');
 		    		event.handled = true;
+		    		console.log('Continue');
+		    		INVENKTION.TimerManager.resume();
 		    		INVENKTION.PageShowManager.popUpClose();
 				}
 		    });
 			$('.gamePause_2').live('tap', function(event) {
 				//Restart
-				
 				if(event.handled !== true) {
-					alert('Restart');
 		    		event.handled = true;
+		    		console.log('Restart');
+		    		INVENKTION.TimerManager.stop();
 		    		INVENKTION.PageShowManager.popUpClose();
 					INVENKTION.DrawCanvasManager.initCanvas();
 				}
@@ -407,14 +408,13 @@
 			$('.gamePause_3').live('tap', function(event) {
 				//Exit
 				if(event.handled !== true) {
-					alert('Exit');
 		    		event.handled = true;
+		    		console.log('Exit gameplay, return to LIVELLI');
+		    		INVENKTION.TimerManager.stop();
 		    		INVENKTION.PageShowManager.popUpClose();
 					$.mobile.changePage( "#livelli");
 				}
 		    });
-			//
-			
 			
 			$(document).bind('tap',function(event){
 				if(event.handled !== true) {
@@ -438,9 +438,6 @@
 				if(event.handled !== true) {
 		    		event.handled = true;
 		    		INVENKTION.DrawCanvasManager.checkUserDrawing();
-		    		//$(".mubcanvas").width($(".mubcanvas").width()-50);
-		    		//$("canvas").width($("canvas").width()-50);
-		    		//console.log($("canvas").width());
 				}
 			});
 			
@@ -460,10 +457,8 @@
 				}
 			});
 			
-			//Inizializzo il canvas
+			//Inizializzo il canvas (che fa partire il tempo)
 			INVENKTION.DrawCanvasManager.initCanvas();
-			//Faccio partire il tempo
-			INVENKTION.TimerManager.start();
 		}
 	});
 
