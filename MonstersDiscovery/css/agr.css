@@ -252,20 +252,13 @@ a {
 	width:10%;
 	z-index: 100;
 }
-.colorsContainer {
-	/*height:87%;
-	position: absolute;
-    z-index: 1001;
-    width:21%;
-    left: -5%;
-    */
-}
+
 /*DEFAULT*/
 .colorsContainer img{
 	position:absolute;
 	height: 11%;
 	z-index: 1002;
-	
+	border-radius:20px;
 }
 .colorsContainer img.colours1{
 	left: 4%;
