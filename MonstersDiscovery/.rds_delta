@@ -2,7 +2,8 @@
 #add
 #modify
 res/wgt/author-signature.xml
-res/wgt/js/app/DrawCanvasManager.js
+res/wgt/css/agr.css
 res/wgt/js/app/PageShowManager.js
 res/wgt/js/app/TimerManager.js
+res/wgt/js/main.js
 res/wgt/signature1.xml

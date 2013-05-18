@@ -218,8 +218,8 @@
 				});
 				
 				//Se esiste tra le variabili salvate l'ultima sezione cliccata, mi posiziono li
-				var lastSectionUsed = INVENKTION.StorageManager.getItem("currentSection");
-				if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+				var lastSectionUsed = INVENKTION.LevelManager.getLastSectionUsed();
+				if(parseInt(lastSectionUsed) > 0) {
 					console.log("Ultima sezione visitata = "+lastSectionUsed);
 					gallery.goToPage(parseInt(lastSectionUsed));
 				}
@@ -232,7 +232,7 @@
 			    		if($(this).find(".sectionImage").size() > 0) {
 							var index = $(this).attr('data-page-index');
 							console.log("sezione selezionata: "+index);
-							INVENKTION.StorageManager.setItem("currentSection",index+"");
+							INVENKTION.LevelManager.setLastSectionUsed(index+"");
 							$.mobile.changePage( "#livelli");
 			    		}
 					}
@@ -253,8 +253,8 @@
 			$("#wrapper_livelli").css("width",window.innerWidth);
 			$("#wrapper_livelli").css("height",window.innerHeight);
 			
-			var index = INVENKTION.StorageManager.getItem("currentSection");
-			var section = INVENKTION.LevelManager.getSection(parseInt(index));
+			var sectionindex = INVENKTION.LevelManager.getLastSectionUsed();
+			var section = INVENKTION.LevelManager.getSection(parseInt(sectionindex));
 			
 			var	gallery,
 				el,
@@ -346,8 +346,8 @@
 			});
 			
 			//Se esiste tra le variabili salvate l'ultima sezione cliccata, mi posiziono li
-			var lastSectionUsed = INVENKTION.StorageManager.getItem("currentLevel");
-			if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+			var lastSectionUsed = INVENKTION.LevelManager.getLastSectionLevelUsed(sectionindex);
+			if(parseInt(lastSectionUsed) > 0) {
 				console.log("Ultimo livello visitato = "+lastSectionUsed);
 				gallery.goToPage(parseInt(lastSectionUsed));
 			}
@@ -358,9 +358,9 @@
 		    		event.handled = true;
 					//estraggo l'indice dell'immagine della gallery corrente
 		    		if($(this).find(".levelImage").size() > 0) {
-						var index = $(this).attr('data-page-index');
-						console.log("livello selezionata: "+index);
-						INVENKTION.StorageManager.setItem("currentLevel",index+"");
+						var levelindex = $(this).attr('data-page-index');
+						console.log("livello selezionata: "+levelindex);
+						INVENKTION.LevelManager.setLastSectionLevelUsed(INVENKTION.LevelManager.getLastSectionUsed(),levelindex);
 						$.mobile.changePage( "#canvas");
 		    		}
 				}

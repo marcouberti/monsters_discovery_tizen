@@ -179,8 +179,8 @@
 		 initCanvas: function(){
 			console.log("### INVENKTION initCanvas");
 			//Prelevo la sezione e livello corrente
-			var sectionindex = INVENKTION.StorageManager.getItem("currentSection");
-			var levindex = INVENKTION.StorageManager.getItem("currentLevel");
+			var sectionindex = INVENKTION.LevelManager.getLastSectionUsed();
+			var levindex = INVENKTION.LevelManager.getLastSectionLevelUsed(sectionindex);
 			var section = INVENKTION.LevelManager.getSection(parseInt(sectionindex));
 			var level = INVENKTION.LevelManager.getSectionLevel(section, parseInt(levindex));
 			

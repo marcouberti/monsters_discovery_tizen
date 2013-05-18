@@ -504,6 +504,7 @@
 			 }else return undefined;
 		 },
 		 isSectionUnlocked: function(section) {
+			 return true;
 			 //la prima sezione e il bonus sono sempre sbloccate
 			 if(section.codice=="w1" || section.codice=="wb") return true;
 			 var unlocked = INVENKTION.StorageManager.getItem(section.codice+"_unlocked");
@@ -515,6 +516,7 @@
 			 return section.livelli[index];
 		 },
 		 isLevelUnlocked: function(level) {
+			 return true;
 			 //Il primissimo livello è sempre sbloccato
 			 if(level.codice=="w1m1") return true;
 			 var unlocked = INVENKTION.StorageManager.getItem(level.codice+"_unlocked");
@@ -614,6 +616,30 @@
 			 if(level) {
 				 this.unlockLevel(level);
 			 }
+		 },
+		 setLastSectionUsed: function(sectionIndex) {
+			 console.log("setLastSectionUsed "+sectionIndex);
+			 INVENKTION.StorageManager.setItem("lastUsedSection",sectionIndex);
+		 },
+		 getLastSectionUsed: function() {
+			 var lastSectionUsed = INVENKTION.StorageManager.getItem("lastUsedSection");
+			 console.log("getLastSectionUsed "+lastSectionUsed);
+			 if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+				return lastSectionUsed;
+			 }
+			 return 0;
+		 },
+		 setLastSectionLevelUsed: function(sectionIndex,levelIndex) {
+			 console.log("setLastSectionLevelUsed "+sectionIndex +" = "+levelIndex);
+			 INVENKTION.StorageManager.setItem("lastUsedLevelSection_"+sectionIndex,levelIndex);
+		 },
+		 getLastSectionLevelUsed: function(sectionIndex) {
+			 var lastSectionLevelUsed = INVENKTION.StorageManager.getItem("lastUsedLevelSection_"+sectionIndex);
+			 console.log("getLastSectionLevelUsed "+sectionIndex +" = "+lastSectionLevelUsed);
+			 if(lastSectionLevelUsed && parseInt(lastSectionLevelUsed) > 0) {
+				return lastSectionLevelUsed;
+			 }
+			 return 0;
 		 }
 	};
 
