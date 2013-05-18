@@ -588,9 +588,13 @@
 			 }
 		 },
 		 getLevelStars: function(section, level) {
-			 var stars =  INVENKTION.StorageManager.getItem("star_"+section.codice+"_"+level.codice);
-			 if(!stars) stars = "0";
-			 return stars;
+			 try {
+				 var stars =  INVENKTION.StorageManager.getItem("star_"+section.codice+"_"+level.codice);
+				 if(!stars) stars = "0";
+				 return stars;
+			 }catch(err) {
+				 return 0;
+			 }
 		 },
 		 setLevelStars: function(section, level, stars) {
 			 //Aggiorno se e solo se il risultato è migliore di quello esistente
@@ -618,24 +622,30 @@
 			 }
 		 },
 		 setLastSectionUsed: function(sectionIndex) {
-			 console.log("setLastSectionUsed "+sectionIndex);
 			 INVENKTION.StorageManager.setItem("lastUsedSection",sectionIndex);
 		 },
 		 getLastSectionUsed: function() {
 			 var lastSectionUsed = INVENKTION.StorageManager.getItem("lastUsedSection");
-			 console.log("getLastSectionUsed "+lastSectionUsed);
 			 if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
 				return lastSectionUsed;
 			 }
 			 return 0;
 		 },
 		 setLastSectionLevelUsed: function(sectionIndex,levelIndex) {
-			 console.log("setLastSectionLevelUsed "+sectionIndex +" = "+levelIndex);
 			 INVENKTION.StorageManager.setItem("lastUsedLevelSection_"+sectionIndex,levelIndex);
+		 },
+		 getLastAtelierLevelUsed: function() {
+			 var lastSectionUsed = INVENKTION.StorageManager.getItem("lastAtelierLevelUsed");
+			 if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+				return lastSectionUsed;
+			 }
+			 return 0;
+		 },
+		 setLastAtelierLevelUsed: function(levelIndex) {
+			 INVENKTION.StorageManager.setItem("lastAtelierLevelUsed",levelIndex);
 		 },
 		 getLastSectionLevelUsed: function(sectionIndex) {
 			 var lastSectionLevelUsed = INVENKTION.StorageManager.getItem("lastUsedLevelSection_"+sectionIndex);
-			 console.log("getLastSectionLevelUsed "+sectionIndex +" = "+lastSectionLevelUsed);
 			 if(lastSectionLevelUsed && parseInt(lastSectionLevelUsed) > 0) {
 				return lastSectionLevelUsed;
 			 }

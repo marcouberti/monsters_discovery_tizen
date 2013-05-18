@@ -58,7 +58,6 @@
 	//Evento dopo che la pagina è stata lasciata
 	$(document).bind('pagehide', function(event){
 		currentPage = $(event.target).attr("id");
-		console.log("--> uscito dalla pagina..."+currentPage);
 		//### HOME
 		if(currentPage == 'canvas') {
 			console.log("fermo eventuale worker timer");
@@ -70,7 +69,6 @@
 	//e di conseguenza fare gli aggiornamenti alla UI del caso
 	$(document).bind('pagebeforeshow', function(event){
 		currentPage = $(event.target).attr("id");
-		console.log("sono nella pagina..."+currentPage);
 		
 		//### HOME
 		if(currentPage == 'home') {
@@ -78,6 +76,12 @@
 				if(event.handled !== true) {
 		    		event.handled = true;
 		    		$.mobile.changePage( "#sezioni");
+				}
+			});
+			$(".home_btn3").bind('tap', function (event) {
+				if(event.handled !== true) {
+		    		event.handled = true;
+		    		$.mobile.changePage( "#atelier");
 				}
 			});
 			$(".home_creditsBtn").bind("tap", function (event) {
@@ -125,7 +129,7 @@
 		
 		//### SEZIONI
 		if(currentPage == 'sezioni') {
-				$("#wrapper, #wrapper_livelli").html("");//svuoto
+				$("#wrapper, #wrapper_livelli,#wrapper_atelier").html("");//svuoto
 				$("#wrapper").css("width",window.innerWidth);
 				$("#wrapper").css("height",window.innerHeight);
 				var	gallery,
@@ -220,7 +224,6 @@
 				//Se esiste tra le variabili salvate l'ultima sezione cliccata, mi posiziono li
 				var lastSectionUsed = INVENKTION.LevelManager.getLastSectionUsed();
 				if(parseInt(lastSectionUsed) > 0) {
-					console.log("Ultima sezione visitata = "+lastSectionUsed);
 					gallery.goToPage(parseInt(lastSectionUsed));
 				}
 				
@@ -231,7 +234,6 @@
 						//estraggo l'indice dell'immagine della gallery corrente
 			    		if($(this).find(".sectionImage").size() > 0) {
 							var index = $(this).attr('data-page-index');
-							console.log("sezione selezionata: "+index);
 							INVENKTION.LevelManager.setLastSectionUsed(index+"");
 							$.mobile.changePage( "#livelli");
 			    		}
@@ -249,7 +251,7 @@
 		
 		//### LIVELLI
 		if(currentPage == 'livelli') {
-			$("#wrapper,#wrapper_livelli").html("");//svuoto
+			$("#wrapper,#wrapper_livelli,#wrapper_atelier").html("");//svuoto
 			$("#wrapper_livelli").css("width",window.innerWidth);
 			$("#wrapper_livelli").css("height",window.innerHeight);
 			
@@ -294,7 +296,7 @@
 				secImg.addClass(correctClass);
 				
 				el = document.createElement('span');
-				el.innerHTML = "Stars : "+stars;
+				el.innerHTML = lev.nome+" stars : "+stars;
 				gallery.masterPages[i].appendChild(el)
 			}
 	
@@ -331,7 +333,7 @@
 						secImg.removeClass("lockedLevel");
 						secImg.addClass(correctClass);
 						el = gallery.masterPages[i].querySelector('span');
-						el.innerHTML = "Stars : "+stars;
+						el.innerHTML = lev.nome+" stars : "+stars;
 					}
 				}
 			});
@@ -348,7 +350,6 @@
 			//Se esiste tra le variabili salvate l'ultima sezione cliccata, mi posiziono li
 			var lastSectionUsed = INVENKTION.LevelManager.getLastSectionLevelUsed(sectionindex);
 			if(parseInt(lastSectionUsed) > 0) {
-				console.log("Ultimo livello visitato = "+lastSectionUsed);
 				gallery.goToPage(parseInt(lastSectionUsed));
 			}
 			
@@ -359,8 +360,8 @@
 					//estraggo l'indice dell'immagine della gallery corrente
 		    		if($(this).find(".levelImage").size() > 0) {
 						var levelindex = $(this).attr('data-page-index');
-						console.log("livello selezionata: "+levelindex);
 						INVENKTION.LevelManager.setLastSectionLevelUsed(INVENKTION.LevelManager.getLastSectionUsed(),levelindex);
+						INVENKTION.DrawCanvasManager.setGameMode("GAME");
 						$.mobile.changePage( "#canvas");
 		    		}
 				}
@@ -415,7 +416,11 @@
 		    		console.log('Exit gameplay, return to LIVELLI');
 		    		INVENKTION.TimerManager.stop();
 		    		INVENKTION.PageShowManager.popUpClose();
-					$.mobile.changePage( "#livelli");
+		    		if(INVENKTION.DrawCanvasManager.isGame()) {
+		    			$.mobile.changePage( "#livelli");
+		    		}else {
+		    			$.mobile.changePage( "#atelier");
+		    		}
 				}
 		    });
 			
