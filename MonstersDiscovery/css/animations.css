@@ -1,0 +1,14 @@
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.animating {  
+    -webkit-animation-name: rotate;  
+    -webkit-animation-timing-function: linear;  
+    -webkit-animation-duration: 200ms; 
+}

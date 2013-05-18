@@ -504,6 +504,7 @@
 			 }else return undefined;
 		 },
 		 isSectionUnlocked: function(section) {
+			 return true;
 			 //la prima sezione e il bonus sono sempre sbloccate
 			 if(section.codice=="w1" || section.codice=="wb") return true;
 			 var unlocked = INVENKTION.StorageManager.getItem(section.codice+"_unlocked");
@@ -515,6 +516,7 @@
 			 return section.livelli[index];
 		 },
 		 isLevelUnlocked: function(level) {
+			 return true;
 			 //Il primissimo livello è sempre sbloccato
 			 if(level.codice=="w1m1") return true;
 			 var unlocked = INVENKTION.StorageManager.getItem(level.codice+"_unlocked");
@@ -586,9 +588,13 @@
 			 }
 		 },
 		 getLevelStars: function(section, level) {
-			 var stars =  INVENKTION.StorageManager.getItem("star_"+section.codice+"_"+level.codice);
-			 if(!stars) stars = "0";
-			 return stars;
+			 try {
+				 var stars =  INVENKTION.StorageManager.getItem("star_"+section.codice+"_"+level.codice);
+				 if(!stars) stars = "0";
+				 return stars;
+			 }catch(err) {
+				 return 0;
+			 }
 		 },
 		 setLevelStars: function(section, level, stars) {
 			 //Aggiorno se e solo se il risultato è migliore di quello esistente
@@ -614,6 +620,36 @@
 			 if(level) {
 				 this.unlockLevel(level);
 			 }
+		 },
+		 setLastSectionUsed: function(sectionIndex) {
+			 INVENKTION.StorageManager.setItem("lastUsedSection",sectionIndex);
+		 },
+		 getLastSectionUsed: function() {
+			 var lastSectionUsed = INVENKTION.StorageManager.getItem("lastUsedSection");
+			 if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+				return lastSectionUsed;
+			 }
+			 return 0;
+		 },
+		 setLastSectionLevelUsed: function(sectionIndex,levelIndex) {
+			 INVENKTION.StorageManager.setItem("lastUsedLevelSection_"+sectionIndex,levelIndex);
+		 },
+		 getLastAtelierLevelUsed: function() {
+			 var lastSectionUsed = INVENKTION.StorageManager.getItem("lastAtelierLevelUsed");
+			 if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+				return lastSectionUsed;
+			 }
+			 return 0;
+		 },
+		 setLastAtelierLevelUsed: function(levelIndex) {
+			 INVENKTION.StorageManager.setItem("lastAtelierLevelUsed",levelIndex);
+		 },
+		 getLastSectionLevelUsed: function(sectionIndex) {
+			 var lastSectionLevelUsed = INVENKTION.StorageManager.getItem("lastUsedLevelSection_"+sectionIndex);
+			 if(lastSectionLevelUsed && parseInt(lastSectionLevelUsed) > 0) {
+				return lastSectionLevelUsed;
+			 }
+			 return 0;
 		 }
 	};
 

@@ -21,6 +21,8 @@
 	var brush_size = 15;
 	var brush_type = 'BRUSH';//BRUSH , ERASER
 	
+	var gameMode = "GAME";//GAME,ATELIER
+	
 	//Line from the last position to current position
 	function drawLine(x, y) {
 		ctx.save();
@@ -159,6 +161,7 @@
 	}
 	*/
 	var level;
+	var atelierLevel;
 	var section;
 	var originalImage;
 	var trImage;
@@ -177,13 +180,23 @@
 	    	 return section;
 	     },
 		 initCanvas: function(){
-			console.log("### INVENKTION initCanvas");
 			//Prelevo la sezione e livello corrente
-			var sectionindex = INVENKTION.StorageManager.getItem("currentSection");
-			var levindex = INVENKTION.StorageManager.getItem("currentLevel");
-			var section = INVENKTION.LevelManager.getSection(parseInt(sectionindex));
-			var level = INVENKTION.LevelManager.getSectionLevel(section, parseInt(levindex));
+            
+			var sectionindex;
+			var levindex;
+			var section;
+			var level;
 			
+			if(this.isGame()) {
+				sectionindex = INVENKTION.LevelManager.getLastSectionUsed();
+				levindex = INVENKTION.LevelManager.getLastSectionLevelUsed(sectionindex);
+				section = INVENKTION.LevelManager.getSection(parseInt(sectionindex));
+				level = INVENKTION.LevelManager.getSectionLevel(section, parseInt(levindex));
+				
+			}else {
+				section = INVENKTION.LevelManager.getSection(0);//per lo sfondo etc..
+				level = this.getAtelierLevel();
+			}
 			INVENKTION.DrawCanvasManager.setSection(section);
 			INVENKTION.DrawCanvasManager.setLevel(level);
 			
@@ -259,7 +272,14 @@
 				document.addEventListener("mouseleave", onMouseCancel, false);
 			}
 			
-			INVENKTION.TimerManager.start();
+			//A seconda della modalità di gioco faccio azioni diverse
+			if(this.getGameMode() == "GAME") {
+				//Faccio partire il tempo
+				INVENKTION.TimerManager.start();
+			}else if(this.getGameMode() == "ATELIER") {
+				//Nascondo il tempo e mostro il bottone di CHECK
+				//TODO
+			}
 		 },
 		 restartLevel: function(level) {
 			 this.clearCanvas();
@@ -396,33 +416,69 @@
 			 var currLevel = INVENKTION.DrawCanvasManager.getLevel();
 			 var currSection = INVENKTION.DrawCanvasManager.getSection();
 			 
-			 INVENKTION.LevelManager.setLevelBestResult(currLevel,percentage);
+			 if(this.getGameMode()) {
+				 INVENKTION.LevelManager.setLevelBestResult(currLevel,percentage);
+			 }
 			 
 			 if(percentage >= 85) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"3");
+				 if(this.getGameMode()) {
+					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"3");
+					 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+				 }
 				 console.log("3 star");
-				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+				 
+				 INVENKTION.PageShowManager.popUpStart($('#MS_result').html());
+				 $("#gameResult").html("3 stars");
 			 }
 			 else if(percentage >= 80) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"2");
+				 if(this.getGameMode()) {
+					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"2");
+					 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+				 }
+				 
+				 INVENKTION.PageShowManager.popUpStart($('#MS_result').html());
+				 $("#gameResult").html("2 stars");
 				 console.log("2 star");
-				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 			 }
 			 else if(percentage >= 75) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"1");
+				 if(this.getGameMode()) {
+					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"1");
+					 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+				 }
+				 
+				 INVENKTION.PageShowManager.popUpStart($('#MS_result').html());
+				 $("#gameResult").html("1 stars");
 				 console.log("1 star");
-				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 			 }
 			 else {
 				 INVENKTION.SoundManager.playSound('negative');
-				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"0");
+				 if(this.getGameMode()) {
+					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"0");
+				 }
+				 INVENKTION.PageShowManager.popUpStart($('#MS_result').html());
+				 $("#gameResult").html("bad!!!");
 				 console.log("bad result");
 			 }
 			 
 			 return percentage;
+		 },
+		 setGameMode: function(mode) {
+			 gameMode = mode;
+		 },
+		 getGameMode: function() {
+			 return gameMode;
+		 },
+		 isGame: function() {
+			 return this.getGameMode() == "GAME";
+		 },
+		 setAtelierLevel: function(levObj) {
+			 atelierLevel = levObj;
+		 },
+		 getAtelierLevel: function() {
+			 return atelierLevel;
 		 }
 	};
 

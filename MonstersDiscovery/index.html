@@ -30,10 +30,12 @@
     <script type="text/javascript" src="js/app/SoundManager.js"></script>
     <script type="text/javascript" src="js/app/LevelManager.js"></script>
     <script type="text/javascript" src="js/app/PageShowManager.js"></script>
+    <script type="text/javascript" src="js/app/AtelierShowManager.js"></script>
     <script type="text/javascript" src="js/app/TimerManager.js"></script>
     
 	<link href="css/agr.css" rel="stylesheet" type="text/css">
     <link href="css/swipeview.css" rel="stylesheet" type="text/css">
+    <link href="css/animations.css" rel="stylesheet" type="text/css">
     
     <script type="text/javascript" src="./js/main.js"></script>
     <script type="text/javascript" src="js/libs/swipeview.js"></script>
@@ -85,6 +87,18 @@
 	        <img class="jhonny" src="images/jhonnybrush_10.png" />
 	        <a href="#" >
 				<img class="backBTN jsBackSezioni" src="images/back.png"/>
+			</a>
+	        <div class="livelli_bg bgContainer"></div>
+       </div>
+    </div><!-- /page livelli -->
+    
+    <!-- Start of atelier page: #atelier -->
+    <div data-role="page" id="atelier">
+    	<div class="mainContainer overflowHidden">
+	        <div id="wrapper_atelier"></div>
+	        <img class="jhonny" src="images/jhonnybrush_10.png" />
+	        <a href="#" >
+				<img class="backBTN jsAtelierBackHome" src="images/back.png"/>
 			</a>
 	        <div class="livelli_bg bgContainer"></div>
        </div>
@@ -189,6 +203,16 @@
     				<li><a class="gamePause_1" href="#">Continue</a></li>
     				<li><a class="gamePause_2" href="#">Restart</a></li>
     				<li><a class="gamePause_3" href="#">Exit</a></li>
+    			</ul>
+    		</div>
+    	</div>
+    	
+    	<!-- -RESULT -->
+    	<div id="MS_result">
+    		<h1>RISULTATO TODO</h1>
+    		<div class="resultContainer">
+    			<ul class="listReset">
+    				<li><div id="gameResult"></div></li>
     			</ul>
     		</div>
     	</div>
