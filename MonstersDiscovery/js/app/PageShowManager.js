@@ -486,7 +486,7 @@
 		    			top:(window.innerHeight/2)-(_H/2),
 		    			width: _W,
 		    			height: _H
-		    		}, 1000, function() {
+		    		}, 100, function() {
 		    			//Animation Complete
 		    			$('.MS_popUpInn').show('fast');
 		    		});
