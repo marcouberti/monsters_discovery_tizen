@@ -462,6 +462,7 @@
 			
 			//Inizializzo il canvas (che fa partire il tempo)
 			INVENKTION.DrawCanvasManager.initCanvas();
+			$('.brushSize').html('15');// TO DO MUB - LEGGERE DIRETTAMENTE IL VALORE DEL PENNELLO DI DEFAULT /////////////////////
 		}
 	});
 
@@ -479,22 +480,22 @@
 		    	//Carico il contenuto
 		    	$('.MS_popUpInn').html(msg);
 		    	//Visualizzo il popUp con qualche effetto speciale
-		    	$('.MS_popUpContainer').show('fast', function() {
+		    	$('.MS_popUpContainer').show(100, function() {
 		    		// Animation complete.
 		    		$('.MS_popUp').animate({
 		    			left:(window.innerWidth/2)-(_W/2),
 		    			top:(window.innerHeight/2)-(_H/2),
 		    			width: _W,
 		    			height: _H
-		    		}, 1000, function() {
+		    		}, 300, function() {
 		    			//Animation Complete
 		    			$('.MS_popUpInn').show('fast');
 		    		});
 		    	});
 		    },
 		    popUpClose: function  () {
-				$('.MS_popUpInn').hide('fast');
-				$('.MS_popUpContainer').hide('fast');
+				$('.MS_popUpInn').hide(100);
+				$('.MS_popUpContainer').hide(100);
 			}
 	};
 

@@ -109,16 +109,10 @@
 	            	<a href="#">
 	            		<img class="sizer_less" src="images/brush-sizer_less.png"/>
 	            	</a>
+	            	<h1 class="brushSize">1</h1>
 	           		<img class="sizerBg" src="images/brush-sizer.png"/>
 	            </div>
-	            <!-- <div class="paletteContainer h100">
-	            	<div class="paletteContainerInn h100">
-	                	<div class="colorsContainer">
-	                    	
-	                    </div>
-	            		
-	                </div>
-	            </div> -->
+
 	            <span class="colorsContainer">
 		            <img class="tavcol colours1" src="images/inkPalette1.png"/>
 	                <img class="tavcol colours2" src="images/inkPalette2.png"/>
@@ -132,10 +126,10 @@
 	            <a class="checkBtn" style="position:fixed; top:0; left:450px;z-index:10001;">CHECK</a>
 	            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.executeTrap();" style="position:fixed; top:0; left:540px;z-index:10001;">TRAP</a>
 	            <a href="#" onclick="javascript:INVENKTION.DrawCanvasManager.executeTrick();" style="position:fixed; top:0; left:620px;z-index:10001;">TRICK</a>
-	            <a id="timer" style="position:fixed; top:80px; left:420px;z-index:10001;">45</a>
+	            <a id="timer" class="canvas_timer">45</a>
 	            
 	            <a href="#" >
-					<img class="backBTN jsBackLivelli" src="images/back.png"/>
+					<img class="backBTN jsBackLivelli" src="images/pause_btn.png"/>
 				</a>
 	            <div class="bgContainer canvas_bgContainer"></div>
 	        </div>
@@ -180,7 +174,7 @@
     	<!-- -QUIT -->
     	<div id="MS_quit">
     		<h1>Do you want to Exit?</h1>
-    		<div class="creditsContainer">
+    		<div class="quitContainer">
     			<ul class="listReset">
     				<li><a class="ui-btn-back" href="#si">yes</a> <a class="JS_popUpClose" href="#no">No</a></li>
     			</ul>

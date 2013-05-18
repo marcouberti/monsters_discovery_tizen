@@ -282,10 +282,12 @@
 		 increaseBrushSize: function() {
 			 brush_size += 5;
 			 if(brush_size > 50) brush_size = 50;//non può andare oltre 50 il pennello
+			 $('.brushSize').html(brush_size);
 		 },
 		 decreaseBrushSize: function() {
 			 brush_size -= 5;
 			 if(brush_size < 5) brush_size = 5;//non può andare sotto 5 il pennello
+			 $('.brushSize').html(brush_size);
 		 },
 		 getBrushColor : function() {
 			 return current_color;
