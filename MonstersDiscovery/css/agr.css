@@ -438,7 +438,25 @@ a {
 		
 	}
 }
-
+.showPaintBtn {
+	position: absolute;
+    right: 13px;
+    top: 28%;
+    width: 8%;
+    z-index: 100005;
+}
+.canvasImgHelp {
+	height:100%;
+}
+.showPainting {
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:100000;
+	width:100%;
+	height:100%;
+	background-color:rgba(0,0,0,0.5);
+}
 
 /* ================================================*/
 /* ============== UI E DIALOG e VARIE =============*/

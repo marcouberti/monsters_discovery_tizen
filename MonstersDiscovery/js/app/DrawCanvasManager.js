@@ -211,6 +211,8 @@
 			//Setto le immagini di sfondo e i contorni giusti
 			$(".imgBG").attr("src",level.immagine);
 			$(".imgTR").attr("src",level.contorno);
+			$(".canvasImgHelp").attr("src",level.immagine);
+			
 			$(".canvas_bgContainer").css("background","url("+section.sfondo+") no-repeat fixed center center / cover");
 			
 			//Popolo la tavolozza colori

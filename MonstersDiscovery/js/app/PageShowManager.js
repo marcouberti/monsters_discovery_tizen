@@ -419,6 +419,14 @@
 		    		INVENKTION.PageShowManager.popUpStart($('#MS_gamePaused').html());
 				}
 			});
+			//SHOW HELP
+			$(".showPaintBtn").bind('tap',function(event){
+				if(event.handled !== true) {
+		    		event.handled = true;
+		    		$('.showPainting').toggle();
+				}
+			});
+			
 			$('.gamePause_1').live('tap', function(event) {
 				//Continue
 				if(event.handled !== true) {
