@@ -139,14 +139,16 @@ a {
 	bottom: -1px;
 }
 .home_creditsBtn img,
-.home_audioBtn img{
+.home_audioBtn img,
+.canvas_audioBtn{
 	bottom: 1%;
     left: 7%;
     position: absolute;
     width: 6%;
     z-index:10;
 }
-.home_audioBtn img {
+.home_audioBtn img,
+.canvas_audioBtn {
 	left:1%;
 }
 
@@ -174,7 +176,10 @@ a {
 .livelli_bg {
 	background:url(./../images/fondo.png) no-repeat fixed center center / cover;
 }
-
+.monsterTitle {
+	font-size: 25px;
+    margin: 0;
+}
 .galleryContainer {
 	width:999999999px;
 	position:relative;
@@ -222,6 +227,7 @@ a {
 	font: 25px/45px 'KOMIKAX', Arial, sans-serif;
 	color:#fff;
 }
+
 /* ========================================*/
 /* ================= CANVAS ===============*/
 /* ========================================*/
@@ -232,11 +238,12 @@ a {
 	bottom:13%;
 	width:10%;
 	z-index:100;
+	padding:10px;
 }
 .brushSizerContainer .sizer_add,
 .brushSizerContainer .sizer_less {
 	width:4%;
-	z-index:101;
+	z-index:105;
 	bottom: 22%;
 }
 .brushSizerContainer .sizer_less {
@@ -244,17 +251,21 @@ a {
 	right:7%
 }
 .brushSize{
-	bottom: 11%;
+	bottom: 13.5%;
 	color: #FFFFFF;
 	font-size: 24px;
 	position: absolute;
-	right: 1.5%;
+	right: 3%;
 	text-align: center;
 	z-index: 101;
 	width: 7%;
 }
 #canvas .backBTN {
 	left:10px;
+}
+.canvas_audioBtn {
+	margin:0;
+	width: 11%;
 }
 .canvas_rubber img{
 	position:absolute;
@@ -467,7 +478,8 @@ a {
 	box-shadow:0 0 10px #000;
 }
 .MS_popUpInn {
-	padding:30px;
+	height: 100%;
+    padding: 0 30px;
 	position:relative;
 }
 .MS_popUpClose {
@@ -482,8 +494,11 @@ a {
 .MS_popUp li{
 	font-size:25px;
 	color:#fff;
-	margin-top: 0;
 	text-align:center;
+}
+.MS_popUp h1 {
+	padding-top:20px;
+	margin:0;
 }
 .MS_popUp li {
 	font-size:14px;
@@ -505,6 +520,10 @@ a {
 	background:#6BC5EB;
 	
 }
+.setStars {
+	width: 20% !important;
+	display:inline!important;
+}
 .quitContainer li a {
 	padding: 9px;
 	border: 2px solid #6BC5EB;
@@ -514,4 +533,7 @@ a {
 	color: #fff;
 	text-decoration: none;
 	width: 69px;
+}
+#swipeview-slider span {
+	padding:5px 0;
 }
