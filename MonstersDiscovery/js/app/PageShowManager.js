@@ -168,9 +168,18 @@
 					secImg.removeClass("lockedSection");
 					secImg.removeClass("sectionImage");
 					secImg.addClass(correctClass);
-					
+					var ammountStars = 0; 
+					if (stars > 0) {
+						ammountStars = 1
+					}
+					if (stars > ((sec.livelli.length)*3)/2) {
+						ammountStars = 2
+					}
+					if (stars == (sec.livelli.length)*3) {
+						ammountStars = 3
+					}
 					el = document.createElement('span');
-					el.innerHTML = '<img class="setStars" src="images/setStars'+stars+'.png"/>';
+					el.innerHTML = '<h1 class="monsterTitle">'+stars+'/'+(sec.livelli.length)*3 +'</h1><img class="setStars" src="images/setStars'+ammountStars+'.png"/>';
 					//el.innerHTML = stars+"/"+(sec.livelli.length)*3 +" Stars";
 					gallery.masterPages[i].appendChild(el)
 				}
@@ -336,7 +345,8 @@
 						secImg.removeClass("lockedLevel");
 						secImg.addClass(correctClass);
 						el = gallery.masterPages[i].querySelector('span');
-						el.innerHTML = lev.nome+" stars : "+stars;
+						//el.innerHTML = lev.nome+" stars : "+stars;
+						el.innerHTML = '<h1 class="monsterTitle">'+lev.nome+'</h1><img class="setStars" src="images/setStars'+stars+'.png"/>';
 					}
 				}
 			});
