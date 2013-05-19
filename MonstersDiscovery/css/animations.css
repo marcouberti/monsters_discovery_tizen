@@ -1,3 +1,12 @@
+@-webkit-keyframes scale {
+    from {
+        -webkit-transform: scale(1);
+    }
+    to {
+        -webkit-transform: scale(1.5);
+    }
+}
+
 @-webkit-keyframes rotate {
     from {
         -webkit-transform: rotate(0deg);
@@ -8,7 +17,7 @@
 }
 
 .animating {  
-    -webkit-animation-name: rotate;  
+    -webkit-animation-name: scale;  
     -webkit-animation-timing-function: linear;  
     -webkit-animation-duration: 200ms; 
 }
