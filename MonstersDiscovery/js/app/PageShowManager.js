@@ -170,7 +170,8 @@
 					secImg.addClass(correctClass);
 					
 					el = document.createElement('span');
-					el.innerHTML = stars+"/"+(sec.livelli.length)*3 +" Stars";
+					el.innerHTML = '<img class="setStars" src="images/setStars'+stars+'.png"/>';
+					//el.innerHTML = stars+"/"+(sec.livelli.length)*3 +" Stars";
 					gallery.masterPages[i].appendChild(el)
 				}
 		
@@ -207,7 +208,8 @@
 							secImg.removeClass("sectionImage");
 							secImg.addClass(correctClass);
 							el = gallery.masterPages[i].querySelector('span');
-							el.innerHTML = stars+"/"+(sec.livelli.length)*3 +" Stars";
+							el.innerHTML = '<img class="setStars" src="images/setStars'+stars+'.png"/>';
+							//el.innerHTML = stars+"/"+(sec.livelli.length)*3 +" Stars";
 						}
 					}
 				});
@@ -296,7 +298,8 @@
 				secImg.addClass(correctClass);
 				
 				el = document.createElement('span');
-				el.innerHTML = lev.nome+" stars : "+stars;
+				el.innerHTML = '<h1 class="monsterTitle">'+lev.nome+'</h1><img class="setStars" src="images/setStars'+stars+'.png"/>';
+				//el.innerHTML = lev.nome+" stars : "+stars;
 				gallery.masterPages[i].appendChild(el)
 			}
 	
@@ -451,7 +454,20 @@
 				}
 			});
 			*/
-			
+			//TOGGLE AUDIO
+			$('.canvas_audioBtn').live('tap', function (event) {
+				if(event.handled !== true) {
+		    		event.handled = true;
+					$('.canvas_audioBtn').toggleClass('hidden');
+					if (!$(this).hasClass('mute')){
+						INVENKTION.SoundManager.setAudio(false);
+						INVENKTION.SoundManager.stopBackgroundMusic();
+					}else{
+						INVENKTION.SoundManager.setAudio(true);
+						INVENKTION.SoundManager.playBackgroundMusic();
+					}			
+				}
+			});
 			
 			$(".gommaBtn").bind('tap',function(event){
 				if(event.handled !== true) {
