@@ -24,19 +24,11 @@
 			$(".tavcol").live("tap",function(event) {
 				if(event.handled !== true) {
 		    		event.handled = true;
-		    		$(this).addClass('animating');
 		    		INVENKTION.DrawCanvasManager.setBrushColor($(this).css("background-color"));
 					INVENKTION.SoundManager.playSound('plaf');
 			    }
 			});
-			$(".tavcol").live('webkitAnimationEnd', function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-		    		$(this).removeClass('animating');
-				}
-			});
 
-			
 			//GAME PAUSED // TODO - STOP TIME
 			$(".jsBackLivelli").bind('tap',function(event){
 				if(event.handled !== true) {
@@ -116,16 +108,8 @@
 			$(".gommaBtn").bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
-		    		$(this).addClass('animating');
 					INVENKTION.DrawCanvasManager.setBrushType('ERASER');
 					INVENKTION.SoundManager.playSound('plaf');
-				}
-			});
-			
-			$(".gommaBtn").live('webkitAnimationEnd', function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-		    		$(this).removeClass('animating');
 				}
 			});
 			
@@ -139,30 +123,16 @@
 			$(".sizer_add").bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
-		    		$(this).addClass('animating');
 					INVENKTION.DrawCanvasManager.increaseBrushSize();
 					INVENKTION.SoundManager.playSound('plaf');
-				}
-			});
-			$(".sizer_add").live('webkitAnimationEnd', function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-		    		$(this).removeClass('animating');
 				}
 			});
 			
 			$(".sizer_less").bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
-		    		$(this).addClass('animating');
 					INVENKTION.DrawCanvasManager.decreaseBrushSize();
 					INVENKTION.SoundManager.playSound('plaf');
-				}
-			});
-			$(".sizer_less").live('webkitAnimationEnd', function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-		    		$(this).removeClass('animating');
 				}
 			});
 			
