@@ -32,6 +32,7 @@
 			$(".home_creditsBtn").bind("tap", function (event) {
 				if(event.handled !== true) {
 					event.handled = true;
+					//INVENKTION.PageShowManager.popUpStart($('#MS_credits').html(),'MS_sectionUnlock','MS_gamePaused');
 					INVENKTION.PageShowManager.popUpStart($('#MS_credits').html());
 				}
 			});
