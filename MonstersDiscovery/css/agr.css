@@ -39,12 +39,25 @@
 	height:100%;
 	width:100%;
 }
-body,html {
+{
 	margin:0;
 	width:100%;
 	overflow:hidden;
     font-size: 12px;
 }
+
+@media screen and (max-width: 550px) {
+	body,html {
+		font-size:16px;
+	}
+}
+
+@media screen and (min-width: 551px) {
+	body,html {
+		font-size:18px;
+	}
+}
+
 body,
 body a,
 .ui-body-s {
@@ -95,23 +108,6 @@ a {
 	z-index:2;
 	background:url(./../images/home_face.png) no-repeat fixed center center / cover;
 }
-
-@media screen and (max-width: 550px) {
-	.MS_popUp h1,
-	.MS_popUp ul,
-	.MS_popUp li{
-		font-size:15px!important;
-	}
-}
-
-@media screen and (min-width: 551px) {
-	.MS_popUp h1,
-	.MS_popUp ul,
-	.MS_popUp li{
-		font-size:25px!important;
-	}
-}
-
 
 @-webkit-keyframes appearDisappear {
 	0% {opacity:  100; } 
@@ -195,7 +191,7 @@ a {
 	background:url(./../images/fondo.png) no-repeat fixed center center / cover;
 }
 .monsterTitle {
-	font-size: 25px;
+	font-size: 1.3em;
     margin: 0;
 }
 .galleryContainer {
@@ -271,7 +267,7 @@ a {
 .brushSize{
 	bottom: 13.5%;
 	color: #FFFFFF;
-	font-size: 24px;
+	font-size: 1.1em;
 	position: absolute;
 	right: 3%;
 	text-align: center;
@@ -296,7 +292,7 @@ a {
 	position:fixed;
 	right:5px;
 	top:20px;
-	font-size:40px;
+	font-size:2em;
 	color:#fff;
 	z-index:100;
 	padding: 0 10px;
@@ -445,7 +441,7 @@ a {
 }
 .gamePausedContainer li a {
 	display: inline-block;
-    font-size: 14px;
+    font-size: 0.6em;
     line-height: 23px;
     padding: 7px;
     width: 100px;
@@ -525,7 +521,7 @@ a {
 .MS_popUp h1,
 .MS_popUp ul,
 .MS_popUp li{
-	font-size:25px;
+	font-size:1.4em;
 	color:#fff;
 	text-align:center;
 }
@@ -534,7 +530,7 @@ a {
 	margin:0;
 }
 .MS_popUp li {
-	font-size:14px;
+	font-size:0.4em;
 	margin:5px 0;
 }
 .MS_popUp li span {
