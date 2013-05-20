@@ -96,11 +96,22 @@ a {
 	background:url(./../images/home_face.png) no-repeat fixed center center / cover;
 }
 
-@media screen and (min-width: 600px) {
-	.bg1 {
-		background:red!important;
+@media screen and (max-width: 550px) {
+	.MS_popUp h1,
+	.MS_popUp ul,
+	.MS_popUp li{
+		font-size:15px!important;
 	}
 }
+
+@media screen and (min-width: 551px) {
+	.MS_popUp h1,
+	.MS_popUp ul,
+	.MS_popUp li{
+		font-size:25px!important;
+	}
+}
+
 
 @-webkit-keyframes appearDisappear {
 	0% {opacity:  100; } 
