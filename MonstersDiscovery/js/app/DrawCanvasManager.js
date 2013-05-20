@@ -274,6 +274,8 @@
 				document.addEventListener("mouseleave", onMouseCancel, false);
 			}
 			
+			this.initBrushSize();
+			
 			//A seconda della modalità di gioco faccio azioni diverse
 			if(this.getGameMode() == "GAME") {
 				//Faccio partire il tempo
@@ -300,6 +302,10 @@
 		 },
 		 setBrushType: function(type) {
 			 brush_type = type;
+		 },
+		 initBrushSize: function() {
+			 brush_size = 15;
+			 $('.brushSize').html(brush_size);
 		 },
 		 increaseBrushSize: function() {
 			 brush_size += 5;

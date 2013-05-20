@@ -138,7 +138,6 @@
 			
 			//Inizializzo il canvas (che fa partire il tempo)
 			INVENKTION.DrawCanvasManager.initCanvas();
-			$('.brushSize').html('15');// TO DO MUB - LEGGERE DIRETTAMENTE IL VALORE DEL PENNELLO DI DEFAULT /////////////////////
 		}
 		
 	});
