@@ -41,7 +41,7 @@
 			$(".showPaintBtn").bind('tap',function(event){
 				if(event.handled !== true) {
 		    		event.handled = true;
-		    		$('.showPainting').toggle();
+		    		$('.showPainting').toggleClass('showHELP');
 				}
 			});
 			
