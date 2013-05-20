@@ -181,20 +181,15 @@
 	     },
 		 initCanvas: function(){
 			//Prelevo la sezione e livello corrente
-            
-			var sectionindex;
-			var levindex;
 			var section;
 			var level;
 			
 			if(this.isGame()) {
-				sectionindex = INVENKTION.LevelManager.getLastSectionUsed();
-				levindex = INVENKTION.LevelManager.getLastSectionLevelUsed(sectionindex);
-				section = INVENKTION.LevelManager.getSection(parseInt(sectionindex));
-				level = INVENKTION.LevelManager.getSectionLevel(section, parseInt(levindex));
+				section = this.getSection();
+				level = this.getLevel();
 				
 			}else {
-				section = INVENKTION.LevelManager.getSection(0);//per lo sfondo etc..
+				section = this.getSection();
 				level = this.getAtelierLevel();
 			}
 			INVENKTION.DrawCanvasManager.setSection(section);

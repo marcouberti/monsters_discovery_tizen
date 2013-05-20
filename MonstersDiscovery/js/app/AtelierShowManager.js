@@ -133,6 +133,9 @@
 						var levelindex = $(this).attr('data-page-index');
 						INVENKTION.LevelManager.setLastAtelierLevelUsed(levelindex);
 						INVENKTION.DrawCanvasManager.setGameMode("ATELIER");
+						
+						//La sezione nell'atelier non è importante imposto la numero 0
+						INVENKTION.DrawCanvasManager.setSection(INVENKTION.LevelManager.getSection(0));
 						INVENKTION.DrawCanvasManager.setAtelierLevel(tuttiLivelli[levelindex]);
 						$.mobile.changePage( "#canvas");
 		    		}

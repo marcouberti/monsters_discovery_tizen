@@ -17,6 +17,7 @@
 		
 		//### HOME
 		if(currentPage == 'home') {
+		
 			$(".home_btn1").bind('tap', function (event) {
 				if(event.handled !== true) {
 		    		event.handled = true;

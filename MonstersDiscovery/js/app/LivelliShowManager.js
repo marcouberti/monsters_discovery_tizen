@@ -129,6 +129,11 @@
 		    		if($(this).find(".levelImage").size() > 0) {
 						var levelindex = $(this).attr('data-page-index');
 						INVENKTION.LevelManager.setLastSectionLevelUsed(INVENKTION.LevelManager.getLastSectionUsed(),levelindex);
+						var sectionObj = INVENKTION.LevelManager.getSection(INVENKTION.LevelManager.getLastSectionUsed());
+						var levelObj = sectionObj.livelli[levelindex];
+						
+						INVENKTION.DrawCanvasManager.setSection(sectionObj);
+						INVENKTION.DrawCanvasManager.setLevel(levelObj);
 						INVENKTION.DrawCanvasManager.setGameMode("GAME");
 						$.mobile.changePage( "#canvas");
 		    		}

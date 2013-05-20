@@ -91,10 +91,10 @@
 			});
 			*/
 			//TOGGLE AUDIO
-			$('.canvas_audioBtn').live('tap', function (event) {
+			$('.home_audioBtn').live('tap', function (event) {
 				if(event.handled !== true) {
 		    		event.handled = true;
-					$('.canvas_audioBtn').toggleClass('hidden');
+					$('.home_audioBtn').toggleClass('hidden');
 					if (!$(this).hasClass('mute')){
 						INVENKTION.SoundManager.setAudio(false);
 						INVENKTION.SoundManager.stopBackgroundMusic();
