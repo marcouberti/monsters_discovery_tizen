@@ -529,9 +529,18 @@
 		 unlockSection: function(sec) {
 			 INVENKTION.StorageManager.setItem(sec.codice+"_unlocked", "true");
 		 },
+		 //Verifica se ci sono livelli da sbloccare, sezioni da sbloccare o
+		 //quadri bonus da sbloccare. Ritorna un oggetto con questa struttura che il
+		 //chiamante può analizzare per effettuare le operazioni del caso:
+		 //{
+		 //		livello: {...} OR undefined 
+		 //		sezione: {...} OR undefined (lo metto solo se è la prima volta che viene sbloccata)
+		 //		bonus  : {...} OR undefined (lo metto solo se è la prima volta che viene sbloccata)
+		 //}
 		 unlockNextLevel: function(lev,sec) {
+			 var resultObj = {};
 			 //se bonus non sblocco nulla
-			 if(sec.codice == "wb") return;
+			 if(sec.codice == "wb") return resultObj;
 			 //Se il livello è l'ultimo della sezione controllo se c'è una sezione successiva
 			 //nel caso positivo sblocco la sezione nuova e il suo primo livello
 			 if(sec.livelli[sec.livelli.length-1].codice == lev.codice) {
@@ -544,11 +553,15 @@
 						 //prendo la successiva se esiste
 						 var nextSection = this.getSection(i+1);
 						 if(nextSection) {//se esiste sblocco anche il suo primo livello oltre a lei
-							 this.unlockSection(nextSection);
+							 if(!this.isSectionUnlocked(nextSection)) {
+								 this.unlockSection(nextSection);
+								 resultObj.sezione = nextSection;
+							 }
 							 //se è la sezione bonus non sblocco il primo livello
 							 if(nextSection.codice !="wb"){
 								 var firstLevel = this.getSectionLevel(nextSection, 0);
 								 this.unlockLevel(firstLevel);
+								 resultObj.livello = firstLevel;
 							 }
 						 }
 					 }
@@ -564,6 +577,7 @@
 						 var nextLevel = this.getSectionLevel(sec,i+1);
 						 if(nextLevel) {//se esiste sblocco
 							 this.unlockLevel(nextLevel);
+							 resultObj.livello = nextLevel;
 						 }
 					 }
 				 }
@@ -572,8 +586,13 @@
 			 var sectionStars = this.getSectionTotalStars(sec);
 			 if(parseInt(sectionStars) == parseInt(this.getSectionLevelCount(sec))*3) {
 				 var index = sec.index;
-				 this.unlockBonus(index);
+				 var bonusLevel = this.getBonusLevel(index);
+				 if(!this.isLevelUnlocked(bonusLevel)) {
+					this.unlockBonus(index);
+				 	resultObj.bonus = bonusLevel;
+				 }
 			 }
+			 return resultObj;
 		 },
 		 getLevelBestResult: function(level) {
 			 var percentage = INVENKTION.StorageManager.getItem(level.codice+"_best");
@@ -614,6 +633,11 @@
 			 
 			 return total;
 		 },
+		 getBonusLevel: function(index) {
+			 var bonusSection = this.getSection(5);
+			 var level = bonusSection.livelli[parseInt(index)];
+			 return level;
+		 },
 		 unlockBonus: function(index) {
 			 var bonusSection = this.getSection(5);
 			 var level = bonusSection.livelli[parseInt(index)];
@@ -650,6 +674,19 @@
 				return lastSectionLevelUsed;
 			 }
 			 return 0;
+		 },
+		 getLevelSection: function(levelCode) {
+			 var numSection = this.getSectionCount();
+			 for(var i=0; i<numSection; i++) {
+				 var s = this.getSection(i);
+				 var secLevelsCount = this.getSectionLevelCount(s);
+				 for(var j=0; j<secLevelsCount; j++) {
+					 var l = s.livelli[j];
+					 if(l.codice == levelCode) {
+						 return s;
+					 }
+				 }
+			 }
 		 }
 	};
 
