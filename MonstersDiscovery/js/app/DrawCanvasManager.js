@@ -431,7 +431,7 @@
 				 }
 				 console.log("3 star");
 				 
-				 INVENKTION.PageShowManager.popUpStart($('#MS_result').html());
+				 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
 				 $("#gameResult").html("3 stars");
 			 }
 			 else if(percentage >= 80) {
@@ -441,7 +441,7 @@
 					 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 				 }
 				 
-				 INVENKTION.PageShowManager.popUpStart($('#MS_result').html());
+				 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
 				 $("#gameResult").html("2 stars");
 				 console.log("2 star");
 			 }
@@ -452,7 +452,7 @@
 					 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 				 }
 				 
-				 INVENKTION.PageShowManager.popUpStart($('#MS_result').html());
+				 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
 				 $("#gameResult").html("1 stars");
 				 console.log("1 star");
 			 }
@@ -461,7 +461,7 @@
 				 if(this.getGameMode()) {
 					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"0");
 				 }
-				 INVENKTION.PageShowManager.popUpStart($('#MS_result').html());
+				 INVENKTION.PageShowManager.popUpStart($('#MS_resultBad').html());
 				 $("#gameResult").html("bad!!!");
 				 console.log("bad result");
 			 }
@@ -482,6 +482,38 @@
 		 },
 		 getAtelierLevel: function() {
 			 return atelierLevel;
+		 },
+		 showTrickOrTrap: function(trickOrTrap) {//input "trick" or "trap"
+			 var imgPath;
+			 if(trickOrTrap == "trick") {
+				 imgPath = "images/cutter.png";
+			 }else {
+				 imgPath = "images/bomb.png";
+			 }
+			 
+			 var aElContainer = $("<a href='#' class='"+trickOrTrap+" trickTrap'></a>");
+			 var trickEL = $("<img/>");
+				 trickEL.attr("src",imgPath);
+				 trickEL.addClass("trickTrapImg");
+				 trickEL.addClass("animatedTrickTrap");
+				 var top = parseInt(Math.random()*window.innerHeight);
+				 var left = parseInt(Math.random()*window.innerWidth);
+				 aElContainer.css("top",top+"px");
+				 aElContainer.css("left",left+"px");
+				 var H = window.innerHeight / 10;
+				 trickEL.css("width",H+"px");
+				 trickEL.css("height",H+"px");
+				 aElContainer.css("width",H+"px");
+				 aElContainer.css("height",H+"px");
+				 
+			 aElContainer.append(trickEL);
+			 $("#canvas").append(aElContainer);
+		 },
+		 showTrick: function() {
+			 this.showTrickOrTrap("trick");	 
+		 },
+		 showTrap: function() {
+			 this.showTrickOrTrap("trap");			
 		 }
 	};
 

@@ -9,7 +9,19 @@
 (function($, exports){
 	
 	//Metodi e variabili private
-
+	$(".trick").live("tap",function(event) {
+    	if(event.handled !== true) {
+    		event.handled = true;
+    		INVENKTION.DrawCanvasManager.executeTrick();
+    	}
+	});
+    $(".trap").live("tap",function(event) {
+    	if(event.handled !== true) {
+    		event.handled = true;
+    		INVENKTION.DrawCanvasManager.executeTrap();
+    	}
+	});
+    
 	//Con questo metodo riesco a intercettare quando una pagina sta per essere mostrata
 	//e di conseguenza fare gli aggiornamenti alla UI del caso
 	$(document).bind('pagebeforeshow', function(event){

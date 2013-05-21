@@ -18,7 +18,11 @@ var init = function () {
     $(".animatedButton").live('webkitAnimationEnd', function(event){
     	$(this).removeClass('animating');
 	});
-
+    $(".trickTrapImg").live('webkitAnimationEnd', function(event){
+    	//$(this).parent().removeClass('animatedTrickTrap');
+    	$(this).parent().remove();
+	});
+ 
 	//Faccio partire la musica
     INVENKTION.SoundManager.playBackgroundMusic();
      

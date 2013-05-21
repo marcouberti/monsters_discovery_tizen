@@ -246,6 +246,13 @@ a {
 /* ================= CANVAS ===============*/
 /* ========================================*/
 
+.trickTrap {
+	position: fixed;
+	display: block;
+	padding: 10px;
+	z-index: 50000;
+}
+
 .brushSizerContainer img {
 	position:absolute;
 	right:0;

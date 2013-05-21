@@ -80,7 +80,10 @@
 		    	//Variabili
 		    	_W = window.innerWidth*0.6;
 		    	_H = window.innerHeight*0.7;
-		    	
+		    	//PULISCO
+		    	$('.MS_popUpInn').html("");
+		    	$('.MS_popUpInn').removeAttr("data-pop2");
+		    	$('.MS_popUpInn').removeAttr("data-pop3");
 		    	//Carico il contenuto
 		    	$('.MS_popUpInn').html(msg);
 		    	if (msg2) {
