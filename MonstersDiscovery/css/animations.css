@@ -28,6 +28,15 @@
     }
 }
 
+@-webkit-keyframes appear {
+    0%{
+    	-webkit-transform: scale(0);
+    }
+    100% {
+    	-webkit-transform: scale(1);
+    }
+}
+
 .animating {  
     -webkit-animation-name: scale;  
     -webkit-animation-timing-function: linear;  
@@ -36,6 +45,17 @@
 
 .animatedTrickTrap {  
     -webkit-animation-name: apperadisappear;  
+    -webkit-animation-timing-function: linear;  
+    -webkit-animation-duration: 1000ms; 
+}
+
+.animatedPopUpCont {
+	-webkit-animation-name: appear;  
+    -webkit-animation-timing-function: linear;  
+    -webkit-animation-duration: 1000ms; 
+}
+.animatedPopUpInn {
+	-webkit-animation-name: appear;  
     -webkit-animation-timing-function: linear;  
     -webkit-animation-duration: 1000ms; 
 }

@@ -510,7 +510,7 @@ a {
 	position:absolute;
 	top:0;
 	left:50%;
-
+	display:block!important;
 	box-shadow:0 0 10px #000;
 }
 .MS_popUpInn {
@@ -555,6 +555,10 @@ a {
 .MS_popUp a:hover {
 	background:#6BC5EB;
 	
+}
+.showPopUpCont,
+.showPopUpInn {
+	display:block!important;
 }
 .setStars {
 	width: 20% !important;

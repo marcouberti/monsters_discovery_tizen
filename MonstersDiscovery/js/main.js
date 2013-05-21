@@ -22,7 +22,14 @@ var init = function () {
     	//$(this).parent().removeClass('animatedTrickTrap');
     	$(this).parent().remove();
 	});
- 
+    //POPUP
+    $(".MS_popUpContainer").live('webkitAnimationEnd', function(event){
+    	$(this).removeClass('animatedPopUpCont');
+	});
+    $(".MS_popUpInn").live('webkitAnimationEnd', function(event){
+    	$(this).removeClass('animatedPopUpInn');
+	});
+    //
 	//Faccio partire la musica
     INVENKTION.SoundManager.playBackgroundMusic();
      
