@@ -29,6 +29,13 @@ var init = function () {
     $(".MS_popUpInn").live('webkitAnimationEnd', function(event){
     	$(this).removeClass('animatedPopUpInn');
 	});
+    $(".JS_popUpClose").live("tap", function (event) {
+		if(event.handled !== true) {
+			event.handled = true;
+			INVENKTION.PageShowManager.popUpClose();
+		}
+	});
+		
     //
 	//Faccio partire la musica
     INVENKTION.SoundManager.playBackgroundMusic();

@@ -28,34 +28,39 @@
     }
 }
 
-@-webkit-keyframes appear {
+@-webkit-keyframes appearScaling {
     0%{
     	-webkit-transform: scale(0);
+    }
+    50% {
+    	-webkit-transform: scale(1.2);
     }
     100% {
     	-webkit-transform: scale(1);
     }
 }
-
+@-webkit-keyframes appear {
+	0% {opacity:  0; } 
+	100% {opacity: 100;}
+}
 .animating {  
     -webkit-animation-name: scale;  
     -webkit-animation-timing-function: linear;  
     -webkit-animation-duration: 200ms; 
 }
 
-.animatedTrickTrap {  
+.animatedTrickTrap {
     -webkit-animation-name: apperadisappear;  
     -webkit-animation-timing-function: linear;  
     -webkit-animation-duration: 1000ms; 
 }
 
 .animatedPopUpCont {
-	-webkit-animation-name: appear;  
-    -webkit-animation-timing-function: linear;  
-    -webkit-animation-duration: 1000ms; 
+	-webkit-animation: appear 300ms linear;
 }
+
 .animatedPopUpInn {
-	-webkit-animation-name: appear;  
-    -webkit-animation-timing-function: linear;  
-    -webkit-animation-duration: 1000ms; 
+	-webkit-animation-name: appearScaling;  
+    -webkit-animation-timing-function: ease-in-out;  
+    -webkit-animation-duration: 500ms; 
 }

@@ -50,13 +50,6 @@
 				}
 			});
 			
-			$(".JS_popUpClose, .MS_popUpContainer").live("tap", function (event) {
-				if(event.handled !== true) {
-					event.handled = true;
-					INVENKTION.PageShowManager.popUpClose();
-				}
-			});
-						
 			//TOGGLE AUDIO
 			$('.home_audioBtn').bind('tap', function (event) {
 				if(event.handled !== true) {

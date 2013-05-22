@@ -84,6 +84,15 @@ a {
 	text-decoration: none;
 	outline:none;	
 }
+h2 {
+	font-size:1.1em;
+}
+h4 {
+	font-size:1em;
+	color:#6BC5EB;
+	margin:0;
+	text-align:center;
+}
 /* =================================================================*/
 /* ========= DA QUI LE CLASSI SONO SUDDIVISE PER SEZIONI ===========*/
 /* =================================================================*/
@@ -245,7 +254,10 @@ a {
 /* ========================================*/
 /* ================= CANVAS ===============*/
 /* ========================================*/
-
+.gamePause_3 {
+	background:#C40000;
+	border:1px solid #C40000!important;
+}
 .trickTrap {
 	position: fixed;
 	display: block;
@@ -448,7 +460,7 @@ a {
 }
 .gamePausedContainer li a {
 	display: inline-block;
-    font-size: 0.6em;
+    font-size: 0.7em;
     line-height: 23px;
     padding: 7px;
     width: 100px;
@@ -515,7 +527,7 @@ a {
 }
 .MS_popUpInn {
 	height: 100%;
-    padding: 0 30px;
+    padding: 0;
 	position:relative;
 }
 .MS_popUpClose {
@@ -527,13 +539,15 @@ a {
 }
 .MS_popUp h1,
 .MS_popUp ul,
-.MS_popUp li{
+.MS_popUp li,
+.MS_popUp h2{
 	font-size:1.4em;
 	color:#fff;
 	text-align:center;
 }
-.MS_popUp h1 {
-	padding-top:20px;
+.MS_popUp h1,
+.MS_popUp h2 {
+	padding-top:10px;
 	margin:0;
 }
 .MS_popUp li {
