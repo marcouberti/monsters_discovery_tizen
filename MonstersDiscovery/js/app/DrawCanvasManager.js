@@ -7,7 +7,7 @@
  * 
  */
 (function($, exports){
-	var debug = false;//utility variable
+	var debug = true;//utility variable
 	var isMobile = true;//touch event or mouse events support
 	var paint = false;//only for mouse events
 
@@ -70,13 +70,6 @@
 	{
 		event.preventDefault();
 
-		if(debug) {//da rimuovere al rilascio
-			drawOnTouchMove(10,10);
-			drawOnTouchMove(100,100);
-			drawOnTouchMove(40,50);
-			drawOnTouchMove(10,100);
-		}
-		
 		var touchEvent, x, y;
 		touchEvent = event.changedTouches[0];
 		x = touchEvent.pageX;
@@ -422,6 +415,11 @@
 			 if(this.getGameMode()) {
 				 INVENKTION.LevelManager.setLevelBestResult(currLevel,percentage);
 			 }
+			 
+			 if(debug) {
+				 percentage  =100;
+			 }
+			 
 			 
 			 if(percentage >= 85) {
 				 INVENKTION.SoundManager.playSound('positive');
