@@ -6,7 +6,5 @@
     <description>Monsters Discovery for TIZEN is a drawing game made by Invenktion.</description>
     <icon src="icon.png"/>
     <name>Monsters Discovery</name>
-    <tizen:privilege name="http://tizen.org/privilege/tizen"/>
-    <tizen:privilege name="http://tizen.org/privilege/application.kill"/>
     <tizen:setting screen-orientation="landscape" context-menu="disable" background-support="disable" encryption="disable" install-location="auto"/>
 </widget>
