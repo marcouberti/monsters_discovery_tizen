@@ -106,7 +106,7 @@
 		    		});
 		    	});
 		    	*/
-		    	$('.MS_popUpContainer').addClass('showPopUpCont animatedPopUpCont');
+		    	$('.MS_popUpContainer').addClass('showPopUpCont');
 		    	$('.MS_popUp').css('left',(window.innerWidth/2)-(_W/2));
 		    	$('.MS_popUp').css('top',(window.innerHeight/2)-(_H/2));
 		    	$('.MS_popUp').css('width',_W);
