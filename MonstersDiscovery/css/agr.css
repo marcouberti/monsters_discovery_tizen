@@ -174,7 +174,16 @@ h4 {
 .canvas_audioBtn {
 	left:1%;
 }
-
+.preloadBg {
+	width:1px;
+	height:1px;
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:100;
+	background-image: url(./../images/fondo.png),url(./../images/sfondi/sfondo1.png), url(./../images/sfondi/sfondo2.png),url(./../images/sfondi/sfondo3.png),url(./../images/sfondi/sfondo4.png),url(./../images/sfondi/sfondo5.png),url(./../images/sfondi/sfondobonus.png);
+	background-repeat: no-repeat;
+}
 
 /* ========================================*/
 /* ================ SEZIONI ===============*/
