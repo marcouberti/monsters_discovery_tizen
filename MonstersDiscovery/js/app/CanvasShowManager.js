@@ -90,7 +90,17 @@
 		    		}
 				}
 		    });
-			
+			$('.gamePause_next').live('tap', function(event) {
+				//Restart
+				if(event.handled !== true) {
+		    		event.handled = true;
+		    		console.log('Next');
+		    		INVENKTION.PageShowManager.popUpClose();
+		    		//var nextLevel = INVENKTION.LevelManager
+		    		
+					//INVENKTION.DrawCanvasManager.initCanvas();
+				}
+		    });
 			/*
 			$(document).bind('tap',function(event){
 				if(event.handled !== true) {

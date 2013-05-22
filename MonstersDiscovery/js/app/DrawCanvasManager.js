@@ -411,7 +411,8 @@
 			 
 			 var currLevel = INVENKTION.DrawCanvasManager.getLevel();
 			 var currSection = INVENKTION.DrawCanvasManager.getSection();
-			 
+			 var currentStars = 0;
+			 var currentResultTitle = '';
 			 if(this.getGameMode()) {
 				 INVENKTION.LevelManager.setLevelBestResult(currLevel,percentage);
 			 }
@@ -425,33 +426,36 @@
 				 INVENKTION.SoundManager.playSound('positive');
 				 if(this.getGameMode()) {
 					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"3");
+					 currentStars = 3;
+					 currentResultTitle = 'Excellent!';
 					 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 				 }
 				 console.log("3 star");
 				 
 				 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
-				 $("#gameResult").html("3 stars");
 			 }
 			 else if(percentage >= 80) {
 				 INVENKTION.SoundManager.playSound('positive');
 				 if(this.getGameMode()) {
 					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"2");
+					 currentStars = 2;
+					 currentResultTitle = 'Good';
 					 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 				 }
 				 
 				 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
-				 $("#gameResult").html("2 stars");
 				 console.log("2 star");
 			 }
 			 else if(percentage >= 75) {
 				 INVENKTION.SoundManager.playSound('positive');
 				 if(this.getGameMode()) {
 					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"1");
+					 currentStars = 1;
+					 currentResultTitle = 'Not Bad..';
 					 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 				 }
 				 
 				 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
-				 $("#gameResult").html("1 stars");
 				 console.log("1 star");
 			 }
 			 else {
@@ -463,6 +467,8 @@
 				 $("#gameResult").html("bad!!!");
 				 console.log("bad result");
 			 }
+			 $('.resultTitle').html(currentResultTitle);
+			 $(".resultsStars").html('<img class="setStars" src="images/setStars'+currentStars+'.png"/>');
 			 
 			 return percentage;
 		 },
