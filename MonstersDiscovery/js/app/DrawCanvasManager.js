@@ -7,7 +7,7 @@
  * 
  */
 (function($, exports){
-	var debug = true;//utility variable
+	
 	var isMobile = true;//touch event or mouse events support
 	var paint = false;//only for mouse events
 
@@ -417,7 +417,7 @@
 				 INVENKTION.LevelManager.setLevelBestResult(currLevel,percentage);
 			 }
 			 
-			 if(debug) {
+			 if(INVENKTION.debug) {
 				 percentage  =100;
 			 }
 			 

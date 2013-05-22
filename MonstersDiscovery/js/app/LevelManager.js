@@ -504,7 +504,9 @@
 			 }else return undefined;
 		 },
 		 isSectionUnlocked: function(section) {
-			 return true;
+			 if(INVENKTION.debug) {
+				 return true;
+			 }
 			 //la prima sezione e il bonus sono sempre sbloccate
 			 if(section.codice=="w1" || section.codice=="wb") return true;
 			 var unlocked = INVENKTION.StorageManager.getItem(section.codice+"_unlocked");
@@ -516,7 +518,9 @@
 			 return section.livelli[index];
 		 },
 		 isLevelUnlocked: function(level) {
-			 return true;
+			 if(INVENKTION.debug) {
+				 return true;
+			 }
 			 //Il primissimo livello è sempre sbloccato
 			 if(level.codice=="w1m1") return true;
 			 var unlocked = INVENKTION.StorageManager.getItem(level.codice+"_unlocked");

@@ -1,4 +1,4 @@
-var i=3;
+var i=8;
 var isPausing = false;
 this.addEventListener('message', function(msg) {
 	isPausing = msg.data;
