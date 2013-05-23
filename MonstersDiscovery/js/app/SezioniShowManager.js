@@ -137,6 +137,14 @@
 					gallery.goToPage(parseInt(lastSectionUsed));
 				}
 				
+				$('.presentationLevel img').live('tap', function(event) {
+					if(event.handled !== true) {
+			    		event.handled = true;
+			    		INVENKTION.PageShowManager.popUpClose();
+			    		$.mobile.changePage( "#livelli");
+					}
+			    });
+				
 				//Evento selezione gallery
 				$("#wrapper .swipeview-active").live('tap',function(event){
 					if(event.handled !== true) {
@@ -144,8 +152,15 @@
 						//estraggo l'indice dell'immagine della gallery corrente
 			    		if($(this).find(".sectionImage").size() > 0) {
 							var index = $(this).attr('data-page-index');
+							var sezCor = INVENKTION.LevelManager.getSection(index);
 							INVENKTION.LevelManager.setLastSectionUsed(index+"");
-							$.mobile.changePage( "#livelli");
+							INVENKTION.PageShowManager.popUpStart($('#MS_presentation').html());
+							if (sezCor.codice == 'wb') {
+								$.mobile.changePage( "#livelli");
+							}else {
+								var imgz = '<img class="imgStoryboard" src="'+sezCor.storyboard+'"/>';
+								$('.presentationLevel').html(imgz);
+							}
 			    		}
 					}
 				});

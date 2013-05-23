@@ -268,6 +268,12 @@
 			if(this.getGameMode() == "GAME") {
 				//Faccio partire il tempo
 				INVENKTION.TimerManager.start();
+				if (true) {
+					INVENKTION.TimerManager.pause();
+					//APRO il POPUP DEL TUTORIAL
+					INVENKTION.PageShowManager.popUpStart($('#MS_tutorial').html());
+					$('.tutorialSlider li').css('width',$('.MS_popUp').css('width'));
+				}
 			}else if(this.getGameMode() == "ATELIER") {
 				//Nascondo il tempo e mostro il bottone di CHECK
 				//TODO

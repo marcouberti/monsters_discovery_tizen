@@ -37,6 +37,7 @@
 					INVENKTION.PageShowManager.popUpStart($('#MS_credits').html());
 				}
 			});
+			
 			$(".JS_quit").bind("tap", function (event) {
 				if(event.handled !== true) {
 					event.handled = true;

@@ -38,6 +38,7 @@
 	            	   nome:			"mondo1",
 	            	   sfondo:			"images/sfondi/sfondo1.png",
 	            	   immagine:		"images/sezioni/sec1presentation.png",
+	            	   storyboard:		"images/sezioni/sec1storyboard.png",
 	            	   immagineBlocked: "images/sezioni/sec1locked.png",
 	            	   livelli:	[
 	            	           	 {
@@ -119,6 +120,7 @@
 	            	   nome:			"mondo2",
 	            	   sfondo:			"images/sfondi/sfondo2.png",
 	            	   immagine:		"images/sezioni/sec2presentation.png",
+	            	   storyboard:		"images/sezioni/sec2storyboard.png",
 	            	   immagineBlocked: "images/sezioni/sec2locked.png",
 	            	   livelli:	[
 	            	           	 {
@@ -200,6 +202,7 @@
 	            	   nome:			"mondo3",
 	            	   sfondo:			"images/sfondi/sfondo3.png",
 	            	   immagine:		"images/sezioni/sec3presentation.png",
+	            	   storyboard:		"images/sezioni/sec3storyboard.png",
 	            	   immagineBlocked: "images/sezioni/sec3locked.png",
 	            	   livelli:	[
 	            	           	 {
@@ -281,6 +284,7 @@
 	            	   nome:			"mondo4",
 	            	   sfondo:			"images/sfondi/sfondo4.png",
 	            	   immagine:		"images/sezioni/sec4presentation.png",
+	            	   storyboard:		"images/sezioni/sec4storyboard.png",
 	            	   immagineBlocked: "images/sezioni/sec4locked.png",
 	            	   livelli:	[
 	            	           	 {
@@ -362,6 +366,7 @@
 	            	   nome:			"mondo5",
 	            	   sfondo:			"images/sfondi/sfondo5.png",
 	            	   immagine:		"images/sezioni/sec5presentation.png",
+	            	   storyboard:		"images/sezioni/sec5storyboard.png",
 	            	   immagineBlocked: "images/sezioni/sec5locked.png",
 	            	   livelli:	[
 	            	           	 {

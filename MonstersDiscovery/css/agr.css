@@ -39,7 +39,7 @@
 	height:100%;
 	width:100%;
 }
-{
+body,html {
 	margin:0;
 	width:100%;
 	overflow:hidden;
@@ -259,7 +259,12 @@ h4 {
 	font: 25px/45px 'KOMIKAX', Arial, sans-serif;
 	color:#fff;
 }
-
+.presentationLevel {
+	text-align:center;
+}
+.presentationLevel img {
+	height:100%;
+}
 /* ========================================*/
 /* ================= CANVAS ===============*/
 /* ========================================*/
@@ -504,6 +509,26 @@ h4 {
 .showHELP {
 	display:block;
 }
+
+/* TUTORIAL */
+.tutorialSlider {
+	width:100000px;
+	position:relative;
+	top:0;
+	left:0;
+	height:100%;
+}
+.tutorialSlider img,
+.tutorialSlider li {
+	height:100%;
+	
+}
+.tutorialSlider li {
+	width:100%;
+	float:left;
+	text-align:center;
+}
+/************/
 /* ================================================*/
 /* ============== UI E DIALOG e VARIE =============*/
 /* ================================================*/
@@ -525,7 +550,7 @@ h4 {
 	width:100%;
 	height:100%;
 	position:fixed;
-	z-index:9999;
+	z-index:99999999;
 }
 .MS_popUpInn {
 	display:none;
@@ -611,3 +636,17 @@ h4 {
 #swipeview-slider span {
 	padding:5px 0;
 }
+
+/* pulizia dei float*/
+.XclearAll:after {
+	content: ".";
+	display:block;
+	height:0;
+	clear:both;
+	visibility:hidden;
+	_height: 1%;
+}
+*:first-child+html .XclearAll {
+	min-height:1px;
+}
+/* fine della pulizia*/
