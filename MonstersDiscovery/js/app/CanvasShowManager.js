@@ -177,6 +177,8 @@
 					var spostamento = $('.MS_popUp').width();
 					if (step == 5) {
 						INVENKTION.PageShowManager.popUpClose();
+						step = 1;
+						$('.tutorialSlider').css("left","0px");
 						INVENKTION.TimerManager.resume();
 					}else{
 						$('.tutorialSlider').animate({

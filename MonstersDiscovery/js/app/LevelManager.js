@@ -17,15 +17,15 @@
         	           	 {
         	           		 codice: 		"atm1",
         	           		 nome:	 		"atm1",
-        	           		 immagine:		"images/mostri/atelier1.png",
-        	           		 contorno:		"images/mostri/atelier1_tr.png",
+        	           		 immagine:		"images/mostri/aterlier1.png",
+        	           		 contorno:		"images/mostri/aterlier1_tr.png",
         	           		 colori:  [[255,137,0],[176,62,72],[102,120,204]]//ok
         	           	 },
         	           	 {
         	           		 codice: 		"atm2",
         	           		 nome:	 		"atm2",
-        	           		 immagine:		"images/mostri/atelier2.png",
-        	           		 contorno:		"images/mostri/atelier2_tr.png",
+        	           		 immagine:		"images/mostri/aterlier2.png",
+        	           		 contorno:		"images/mostri/aterlier2_tr.png",
         	           		 colori:  [[63,182,255],[255,191,50]]//ok
         	           	 }
         	           	 ]
@@ -491,6 +491,9 @@
 
 	//Il nostro oggetto da esporre
 	var mod = {
+		 getAtelier: function() {
+			 return atelier;
+		 },
 		 getSezioni: function(){
 				return sezioni;
 		 },

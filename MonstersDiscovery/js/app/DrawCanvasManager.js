@@ -268,7 +268,8 @@
 			if(this.getGameMode() == "GAME") {
 				//Faccio partire il tempo
 				INVENKTION.TimerManager.start();
-				if (true) {
+				//Se è il primo livello della prima sezione oppure il primo dell'atelier
+				if (this.getLevel().codice == "w1m1" || this.getLevel().codice == "atm1") {
 					INVENKTION.TimerManager.pause();
 					//APRO il POPUP DEL TUTORIAL
 					INVENKTION.PageShowManager.popUpStart($('#MS_tutorial').html());

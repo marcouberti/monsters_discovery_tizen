@@ -22,6 +22,11 @@
 			$("#wrapper_atelier").css("height",window.innerHeight);
 			
 			var tuttiLivelli = new Array();
+			//Prima ci metto i livelli dell'atelier
+			for(var a=0; a<INVENKTION.LevelManager.getAtelier().livelli.length; a++) {
+				tuttiLivelli.push(INVENKTION.LevelManager.getAtelier().livelli[a]);
+			}
+			//Poi tutti i livelli delle sezioni
 			for(var s=0; s<INVENKTION.LevelManager.getSectionCount(); s++) {
 				var sectionCiclo = INVENKTION.LevelManager.getSection(s);
 				for(var l=0; l<INVENKTION.LevelManager.getSectionLevelCount(sectionCiclo); l++) {
