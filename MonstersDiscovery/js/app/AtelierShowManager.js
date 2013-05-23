@@ -17,6 +17,7 @@
 		
 		//### LIVELLI
 		if(currentPage == 'atelier') {
+			
 			$("#wrapper,#wrapper_livelli,#wrapper_atelier").html("");//svuoto
 			$("#wrapper_atelier").css("width",window.innerWidth);
 			$("#wrapper_atelier").css("height",window.innerHeight);

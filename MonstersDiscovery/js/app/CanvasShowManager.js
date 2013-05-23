@@ -30,6 +30,7 @@
 		//### CANVAS
 		if(currentPage == 'canvas') {
 			mainHeight = $(window).height();
+			
 			$('.imgContainer').css('width',mainHeight);
 			//$('.paletteContainerInn').css('margin-top',(mainHeight*-0.7)/2);
 			
@@ -40,7 +41,6 @@
 					INVENKTION.SoundManager.playSound('plaf');
 			    }
 			});
-
 			//GAME PAUSED // TODO - STOP TIME
 			$(".jsBackLivelli").bind('tap',function(event){
 				if(event.handled !== true) {

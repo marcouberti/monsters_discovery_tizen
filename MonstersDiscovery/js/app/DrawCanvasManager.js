@@ -275,9 +275,12 @@
 					INVENKTION.PageShowManager.popUpStart($('#MS_tutorial').html());
 					$('.tutorialSlider li').css('width',$('.MS_popUp').css('width'));
 				}
+				$('.canvas_check').hide();
+				$('.canvas_timer').show();
 			}else if(this.getGameMode() == "ATELIER") {
 				//Nascondo il tempo e mostro il bottone di CHECK
-				//TODO
+				$('.canvas_check').show();
+				$('.canvas_timer').hide();
 			}
 		 },
 		 restartLevel: function(level) {
