@@ -533,6 +533,22 @@
 		 unlockSection: function(sec) {
 			 INVENKTION.StorageManager.setItem(sec.codice+"_unlocked", "true");
 		 },
+		 getNextLevel: function(lev) {
+			 var section = this.getLevelSection(lev.codice);
+			 var levelCount = this.getSectionLevelCount(section);
+			 for(var i=0; i<levelCount; i++){
+				 if(section.livelli[i].codice == lev.codice) {//livello corrente
+					 if(i == levelCount-1) {//siamo alla fine della sezione, devo prendere la successiva
+						 var nextSection = this.getSection(parseInt(section.index)+1);
+						 if(nextSection == undefined) return undefined;
+						 return nextSection.livelli[0];
+					 }else {
+						 return section.livelli[i+1];
+					 }
+				 }
+			 }
+			 return undefined;
+		 },
 		 //Verifica se ci sono livelli da sbloccare, sezioni da sbloccare o
 		 //quadri bonus da sbloccare. Ritorna un oggetto con questa struttura che il
 		 //chiamante può analizzare per effettuare le operazioni del caso:
