@@ -96,9 +96,20 @@
 		    		event.handled = true;
 		    		console.log('Next');
 		    		INVENKTION.PageShowManager.popUpClose();
-		    		//var nextLevel = INVENKTION.LevelManager
 		    		
-					//INVENKTION.DrawCanvasManager.initCanvas();
+		    		var currLevel = INVENKTION.DrawCanvasManager.getLevel();
+		    		var nextLevel = INVENKTION.LevelManager.getNextLevel(currLevel);
+		    		if(nextLevel == undefined) alert("non ci sono livelli successivi");
+		    		else {
+		    			if(INVENKTION.LevelManager.isLevelUnlocked(nextLevel)) {
+		    				var nextLevelSection = INVENKTION.LevelManager.getLevelSection(nextLevel.codice);
+		    				INVENKTION.DrawCanvasManager.setSection(nextLevelSection);
+							INVENKTION.DrawCanvasManager.setLevel(nextLevel);
+		    				INVENKTION.DrawCanvasManager.initCanvas();
+		    			}else {
+		    				alert("il livello successivo è locked");
+		    			}
+		    		}
 				}
 		    });
 			/*
