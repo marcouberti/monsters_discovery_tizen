@@ -154,10 +154,11 @@
 							var index = $(this).attr('data-page-index');
 							var sezCor = INVENKTION.LevelManager.getSection(index);
 							INVENKTION.LevelManager.setLastSectionUsed(index+"");
-							INVENKTION.PageShowManager.popUpStart($('#MS_presentation').html());
+							//La sezione bonus non ha storyboard, vado diretto ai livelli
 							if (sezCor.codice == 'wb') {
 								$.mobile.changePage( "#livelli");
 							}else {
+								INVENKTION.PageShowManager.popUpStart($('#MS_presentation').html());
 								var imgz = '<img class="imgStoryboard" src="'+sezCor.storyboard+'"/>';
 								$('.presentationLevel').html(imgz);
 							}
