@@ -8,7 +8,53 @@
  */
 (function($, exports){
 	
-	//Metodi e variabili private
+	$(".home_btn1").live('tap', function (event) {
+		if(event.handled !== true) {
+    		event.handled = true;
+    		$.mobile.changePage( "#sezioni");
+		}
+	});
+	$(".home_btn3").live('tap', function (event) {
+		if(event.handled !== true) {
+    		event.handled = true;
+    		$.mobile.changePage( "#atelier");
+		}
+	});
+	$(".home_creditsBtn").live("tap", function (event) {
+		if(event.handled !== true) {
+			event.handled = true;
+			//INVENKTION.PageShowManager.popUpStart($('#MS_credits').html(),'MS_sectionUnlock','MS_gamePaused');
+			INVENKTION.PageShowManager.popUpStart($('#MS_credits').html());
+		}
+	});
+	
+	$(".JS_quit").live("tap", function (event) {
+		if(event.handled !== true) {
+			event.handled = true;
+			INVENKTION.PageShowManager.popUpStart($('#MS_quit').html());
+		}
+	});
+	$(".home_logoInvenktion").live("tap", function (event) {
+		if(event.handled !== true) {
+			event.handled = true;
+    		location.replace("http://www.invenktion.com");
+		}
+	});
+	
+	//TOGGLE AUDIO
+	$('.home_audioBtn').live('tap', function (event) {
+		if(event.handled !== true) {
+    		event.handled = true;
+			$('.home_audioBtn').toggleClass('hidden');
+			if (!$(this).hasClass('mute')){
+				INVENKTION.SoundManager.setAudio(false);
+				INVENKTION.SoundManager.stopBackgroundMusic();
+			}else{
+				INVENKTION.SoundManager.setAudio(true);
+				INVENKTION.SoundManager.playBackgroundMusic();
+			}			
+		}
+	});
 
 	//Con questo metodo riesco a intercettare quando una pagina sta per essere mostrata
 	//e di conseguenza fare gli aggiornamenti alla UI del caso
@@ -16,57 +62,7 @@
 		currentPage = $(event.target).attr("id");
 		
 		//### HOME
-		if(currentPage == 'home') {
-		
-			$(".home_btn1").bind('tap', function (event) {
-				if(event.handled !== true) {
-		    		event.handled = true;
-		    		$.mobile.changePage( "#sezioni");
-				}
-			});
-			$(".home_btn3").bind('tap', function (event) {
-				if(event.handled !== true) {
-		    		event.handled = true;
-		    		$.mobile.changePage( "#atelier");
-				}
-			});
-			$(".home_creditsBtn").bind("tap", function (event) {
-				if(event.handled !== true) {
-					event.handled = true;
-					//INVENKTION.PageShowManager.popUpStart($('#MS_credits').html(),'MS_sectionUnlock','MS_gamePaused');
-					INVENKTION.PageShowManager.popUpStart($('#MS_credits').html());
-				}
-			});
-			
-			$(".JS_quit").bind("tap", function (event) {
-				if(event.handled !== true) {
-					event.handled = true;
-					INVENKTION.PageShowManager.popUpStart($('#MS_quit').html());
-				}
-			});
-			$(".home_logoInvenktion").bind("tap", function (event) {
-				if(event.handled !== true) {
-					event.handled = true;
-		    		location.replace("http://www.invenktion.com");
-				}
-			});
-			
-			//TOGGLE AUDIO
-			$('.home_audioBtn').bind('tap', function (event) {
-				if(event.handled !== true) {
-		    		event.handled = true;
-					$('.home_audioBtn').toggleClass('hidden');
-					if (!$(this).hasClass('mute')){
-						INVENKTION.SoundManager.setAudio(false);
-						INVENKTION.SoundManager.stopBackgroundMusic();
-					}else{
-						INVENKTION.SoundManager.setAudio(true);
-						INVENKTION.SoundManager.playBackgroundMusic();
-					}			
-				}
-			});
-
-		}
+		if(currentPage == 'home') {}
 		
 	});
 

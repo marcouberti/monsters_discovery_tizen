@@ -8,7 +8,13 @@
  */
 (function($, exports){
 	
-	//Metodi e variabili private
+	//BACK BUTTON
+	$(".jsAtelierBackHome").live('tap',function(event){
+		if(event.handled !== true) {
+    		event.handled = true;
+			$.mobile.changePage( "#home");
+		}
+	});
 
 	//Con questo metodo riesco a intercettare quando una pagina sta per essere mostrata
 	//e di conseguenza fare gli aggiornamenti alla UI del caso
@@ -145,14 +151,6 @@
 						INVENKTION.DrawCanvasManager.setAtelierLevel(tuttiLivelli[levelindex]);
 						$.mobile.changePage( "#canvas");
 		    		}
-				}
-			});
-			
-			//BACK BUTTON
-			$(".jsAtelierBackHome").bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					$.mobile.changePage( "#home");
 				}
 			});
 		}

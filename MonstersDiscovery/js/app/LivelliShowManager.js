@@ -8,7 +8,13 @@
  */
 (function($, exports){
 	
-	//Metodi e variabili private
+	//BACK BUTTON
+	$(".jsBackSezioni").live('tap',function(event){
+		if(event.handled !== true) {
+    		event.handled = true;
+			$.mobile.changePage( "#sezioni");
+		}
+	});
 
 	//Con questo metodo riesco a intercettare quando una pagina sta per essere mostrata
 	//e di conseguenza fare gli aggiornamenti alla UI del caso
@@ -140,13 +146,7 @@
 				}
 			});
 			
-			//BACK BUTTON
-			$(".jsBackSezioni").bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					$.mobile.changePage( "#sezioni");
-				}
-			});
+			
 		}
 		
 	});

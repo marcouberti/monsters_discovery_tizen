@@ -8,7 +8,21 @@
  */
 (function($, exports){
 	
-	//Metodi e variabili private
+	//BACK BUTTON
+	$(".jsBackHome").live('tap',function(event){
+		if(event.handled !== true) {
+    		event.handled = true;
+			$.mobile.changePage( "#home");
+		}
+	});
+	
+	$('.presentationLevel img').live('tap', function(event) {
+		if(event.handled !== true) {
+    		event.handled = true;
+    		INVENKTION.PageShowManager.popUpClose();
+    		$.mobile.changePage( "#livelli");
+		}
+    });
 
 	//Con questo metodo riesco a intercettare quando una pagina sta per essere mostrata
 	//e di conseguenza fare gli aggiornamenti alla UI del caso
@@ -137,14 +151,6 @@
 					gallery.goToPage(parseInt(lastSectionUsed));
 				}
 				
-				$('.presentationLevel img').live('tap', function(event) {
-					if(event.handled !== true) {
-			    		event.handled = true;
-			    		INVENKTION.PageShowManager.popUpClose();
-			    		$.mobile.changePage( "#livelli");
-					}
-			    });
-				
 				//Evento selezione gallery
 				$("#wrapper .swipeview-active").live('tap',function(event){
 					if(event.handled !== true) {
@@ -163,14 +169,6 @@
 								$('.presentationLevel').html(imgz);
 							}
 			    		}
-					}
-				});
-				
-				//BACK BUTTON
-				$(".jsBackHome").bind('tap',function(event){
-					if(event.handled !== true) {
-			    		event.handled = true;
-						$.mobile.changePage( "#home");
 					}
 				});
 		}
