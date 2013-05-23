@@ -480,6 +480,18 @@
 			 $('.resultTitle').html(currentResultTitle);
 			 $(".resultsStars").html('<img class="setStars" src="images/setStars'+currentStars+'.png"/>');
 			 
+			 //Se siamo in atelier, non mostro il bottone NEXT
+			 if(!this.isGame()) {
+				 $(".gamePause_next").hide();
+			 }else {
+				 //Se il livello successivo non c'è o è ancora bloccato non mostro il botton NEXT
+				 if(INVENKTION.LevelManager.getNextLevel(this.getLevel()) == undefined){
+					 $(".gamePause_next").hide();
+				 }else {
+					 $(".gamePause_next").show();
+				 }
+			 }
+			 
 			 return percentage;
 		 },
 		 setGameMode: function(mode) {

@@ -17,6 +17,7 @@
         	           	 {
         	           		 codice: 		"atm1",
         	           		 nome:	 		"atm1",
+        	           		 unlocked: true,
         	           		 immagine:		"images/mostri/aterlier1.png",
         	           		 contorno:		"images/mostri/aterlier1_tr.png",
         	           		 colori:  [[255,137,0],[176,62,72],[102,120,204]]//ok
@@ -24,6 +25,7 @@
         	           	 {
         	           		 codice: 		"atm2",
         	           		 nome:	 		"atm2",
+        	           		 unlocked: true,
         	           		 immagine:		"images/mostri/aterlier2.png",
         	           		 contorno:		"images/mostri/aterlier2_tr.png",
         	           		 colori:  [[63,182,255],[255,191,50]]//ok
@@ -529,6 +531,7 @@
 			 if(INVENKTION.debug) {
 				 return true;
 			 }
+			 if(level.unlocked == true) return true;//solo caso livelli atelier
 			 //Il primissimo livello è sempre sbloccato
 			 if(level.codice=="w1m1") return true;
 			 var unlocked = INVENKTION.StorageManager.getItem(level.codice+"_unlocked");
