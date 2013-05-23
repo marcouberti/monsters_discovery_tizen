@@ -169,6 +169,23 @@
 				}
 			});
 			
+			/*TUTORIAL*/
+			var step = 1;
+			$(".tutorialSlider img").live("tap", function (event) {
+				if(event.handled !== true) {
+					event.handled = true;
+					var spostamento = $('.MS_popUp').width();
+					if (step == 5) {
+						INVENKTION.PageShowManager.popUpClose();
+						INVENKTION.TimerManager.resume();
+					}else{
+						$('.tutorialSlider').animate({
+							left: step*-(spostamento)
+						});
+						step++;
+					}
+				}
+			});
 			//Inizializzo il canvas (che fa partire il tempo)
 			INVENKTION.DrawCanvasManager.initCanvas();
 		}
