@@ -618,7 +618,7 @@ h4 {
 }
 .MS_popUp a:hover {
 	background:#6BC5EB;
-	
+	border:2px solid #6BC5EB!important;
 }
 .showPopUpCont,
 .showPopUpInn {
@@ -637,6 +637,9 @@ h4 {
 	color: #fff;
 	text-decoration: none;
 	width: 69px;
+}
+.quitContainer li a:hover {
+	border: 2px solid #6BC5EB!important;
 }
 #swipeview-slider span {
 	padding:5px 0;
