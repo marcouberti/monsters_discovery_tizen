@@ -438,11 +438,24 @@
 					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"3");
 					 currentStars = 3;
 					 currentResultTitle = 'Excellent!';
-					 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+					 var resultObj = INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+					 if(resultObj.sezione && resultObj.bonus) {
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_bonusPaint','MS_resultOk');
+					 }else if(resultObj.sezione){
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_resultOk');
+					 }else if(resultObj.bonus){
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_bonusPaint').html(),'MS_resultOk');
+					 }else {
+						 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
+					 }
+				 }else{
+					 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
 				 }
 				 console.log("3 star");
-				 
-				 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
 			 }
 			 else if(percentage >= 80) {
 				 INVENKTION.SoundManager.playSound('positive');
@@ -450,10 +463,24 @@
 					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"2");
 					 currentStars = 2;
 					 currentResultTitle = 'Good';
-					 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+					 var resultObj = INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+					 if(resultObj.sezione && resultObj.bonus) {
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_bonusPaint','MS_resultOk');
+					 }else if(resultObj.sezione){
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_resultOk');
+					 }else if(resultObj.bonus){
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_bonusPaint').html(),'MS_resultOk');
+					 }else {
+						 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
+					 }
+				 }else{
+					 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
 				 }
 				 
-				 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
 				 console.log("2 star");
 			 }
 			 else if(percentage >= 75) {
@@ -462,10 +489,24 @@
 					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"1");
 					 currentStars = 1;
 					 currentResultTitle = 'Not Bad..';
-					 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+					 var resultObj = INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+					 if(resultObj.sezione && resultObj.bonus) {
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_bonusPaint','MS_resultOk');
+					 }else if(resultObj.sezione){
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_resultOk');
+					 }else if(resultObj.bonus){
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_bonusPaint').html(),'MS_resultOk');
+					 }else {
+						 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
+					 }
+				 }else{
+					 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
 				 }
 				 
-				 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
 				 console.log("1 star");
 			 }
 			 else {
