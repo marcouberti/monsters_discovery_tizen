@@ -8,7 +8,7 @@
  */
 (function($, exports){
 	
-	var isMobile = true;//touch event or mouse events support
+	var isMobile = false;//touch event or mouse events support
 	var paint = false;//only for mouse events
 
 	var canvas = null;
