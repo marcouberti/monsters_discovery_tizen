@@ -8,7 +8,7 @@
  */
 (function($, exports){
 	
-	var isMobile = false;//touch event or mouse events support
+	var isMobile = true;//touch event or mouse events support
 	var paint = false;//only for mouse events
 
 	var canvas = null;
@@ -223,6 +223,11 @@
 				$(".colours"+(c+1)).show();
 				$(".colours"+(c+1)).css("background-color","rgb("+r+","+g+","+b+")");
 				$('.colorsContainer').removeClass('maxColor'+c);
+				
+				//imposto il primo colore come colore corrente del pennello
+				if(c == 0) {
+					this.setBrushColor("rgb("+r+","+g+","+b+")");
+				}
 			}
 			$('.colorsContainer').addClass('maxColor'+numColori);
 			$("#canvascontainer").html("");
