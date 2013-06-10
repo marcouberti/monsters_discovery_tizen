@@ -34,7 +34,7 @@
 			INVENKTION.PageShowManager.popUpStart($('#MS_quit').html());
 		}
 	});
-	$(".home_logoInvenktion").live("tap", function (event) {
+	$(".home_logoInvenktion, .credits_Invenktion").live("tap", function (event) {
 		if(event.handled !== true) {
 			event.handled = true;
     		location.replace("http://www.invenktion.com");
