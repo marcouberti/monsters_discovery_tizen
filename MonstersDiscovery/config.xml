@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://www.invenktion.com/monstersdiscoverytizen" version="1.0.0" viewmodes="fullscreen">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://www.invenktion.com/monstersdiscoverytizen" version="1.0.1" viewmodes="fullscreen">
     <tizen:application id="FEuob1PeZh.MonstersDiscovery" package="FEuob1PeZh" required_version="2.1"/>
     <author href="http://www.invenktion.com" email="invenktion@gmail.com">Invenktion</author>
     <content src="index.html"/>
     <description>Monsters Discovery for TIZEN is a drawing game made by Invenktion.</description>
     <icon src="icon.png"/>
     <name>Monsters Discovery</name>
-    <tizen:privilege name="http://tizen.org/privilege/tizen"/>
-    <tizen:privilege name="http://tizen.org/privilege/application.kill"/>
-    <tizen:setting screen-orientation="landscape" context-menu="disable" background-support="disable" encryption="disable" install-location="auto"/>
+    <tizen:setting screen-orientation="landscape" context-menu="disable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="disable"/>
+    <tizen:setting hwkey-event="disable"/>
+	 
 </widget>

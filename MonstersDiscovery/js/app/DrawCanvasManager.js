@@ -7,7 +7,7 @@
  * 
  */
 (function($, exports){
-	var debug = false;//utility variable
+	
 	var isMobile = true;//touch event or mouse events support
 	var paint = false;//only for mouse events
 
@@ -21,6 +21,8 @@
 	var current_color = "#F00";
 	var brush_size = 15;
 	var brush_type = 'BRUSH';//BRUSH , ERASER
+	
+	var gameMode = "GAME";//GAME,ATELIER
 	
 	//Line from the last position to current position
 	function drawLine(x, y) {
@@ -69,13 +71,6 @@
 	{
 		event.preventDefault();
 
-		if(debug) {//da rimuovere al rilascio
-			drawOnTouchMove(10,10);
-			drawOnTouchMove(100,100);
-			drawOnTouchMove(40,50);
-			drawOnTouchMove(10,100);
-		}
-		
 		var touchEvent, x, y;
 		touchEvent = event.changedTouches[0];
 		x = touchEvent.pageX;
@@ -160,6 +155,7 @@
 	}
 	*/
 	var level;
+	var atelierLevel;
 	var section;
 	var originalImage;
 	var trImage;
@@ -178,13 +174,18 @@
 	    	 return section;
 	     },
 		 initCanvas: function(){
-			console.log("### INVENKTION initCanvas");
 			//Prelevo la sezione e livello corrente
-			var sectionindex = INVENKTION.StorageManager.getItem("currentSection");
-			var levindex = INVENKTION.StorageManager.getItem("currentLevel");
-			var section = INVENKTION.LevelManager.getSection(parseInt(sectionindex));
-			var level = INVENKTION.LevelManager.getSectionLevel(section, parseInt(levindex));
+			var section;
+			var level;
 			
+			if(this.isGame()) {
+				section = this.getSection();
+				level = this.getLevel();
+				
+			}else {
+				section = this.getSection();
+				level = this.getAtelierLevel();
+			}
 			INVENKTION.DrawCanvasManager.setSection(section);
 			INVENKTION.DrawCanvasManager.setLevel(level);
 			
@@ -199,6 +200,8 @@
 			//Setto le immagini di sfondo e i contorni giusti
 			$(".imgBG").attr("src",level.immagine);
 			$(".imgTR").attr("src",level.contorno);
+			$(".canvasImgHelp").attr("src",level.immagine);
+			
 			$(".canvas_bgContainer").css("background","url("+section.sfondo+") no-repeat fixed center center / cover");
 			
 			//Popolo la tavolozza colori
@@ -221,6 +224,11 @@
 				$(".colours"+(c+1)).show();
 				$(".colours"+(c+1)).css("background-color","rgb("+r+","+g+","+b+")");
 				$('.colorsContainer').removeClass('maxColor'+c);
+				
+				//imposto il primo colore come colore corrente del pennello
+				if(c == 0) {
+					this.setBrushColor("rgb("+r+","+g+","+b+")");
+				}
 			}
 			$('.colorsContainer').addClass('maxColor'+numColori);
 			$("#canvascontainer").html("");
@@ -259,6 +267,27 @@
 				document.addEventListener("mouseup", onMouseEnd, false);
 				document.addEventListener("mouseleave", onMouseCancel, false);
 			}
+			
+			this.initBrushSize();
+			
+			//A seconda della modalità di gioco faccio azioni diverse
+			if(this.getGameMode() == "GAME") {
+				//Faccio partire il tempo
+				INVENKTION.TimerManager.start();
+				//Se è il primo livello della prima sezione oppure il primo dell'atelier
+				if (this.getLevel().codice == "w1m1" || this.getLevel().codice == "atm1") {
+					INVENKTION.TimerManager.pause();
+					//APRO il POPUP DEL TUTORIAL
+					INVENKTION.PageShowManager.popUpStart($('#MS_tutorial').html());
+					$('.tutorialSlider li').css('width',$('.MS_popUp').css('width'));
+				}
+				$('.canvas_check').hide();
+				$('.canvas_timer').show();
+			}else if(this.getGameMode() == "ATELIER") {
+				//Nascondo il tempo e mostro il bottone di CHECK
+				$('.canvas_check').show();
+				$('.canvas_timer').hide();
+			}
 		 },
 		 restartLevel: function(level) {
 			 this.clearCanvas();
@@ -278,13 +307,19 @@
 		 setBrushType: function(type) {
 			 brush_type = type;
 		 },
+		 initBrushSize: function() {
+			 brush_size = 15;
+			 $('.brushSize').html(brush_size);
+		 },
 		 increaseBrushSize: function() {
 			 brush_size += 5;
 			 if(brush_size > 50) brush_size = 50;//non può andare oltre 50 il pennello
+			 $('.brushSize').html(brush_size);
 		 },
 		 decreaseBrushSize: function() {
 			 brush_size -= 5;
 			 if(brush_size < 5) brush_size = 5;//non può andare sotto 5 il pennello
+			 $('.brushSize').html(brush_size);
 		 },
 		 getBrushColor : function() {
 			 return current_color;
@@ -392,34 +427,166 @@
 			 
 			 var currLevel = INVENKTION.DrawCanvasManager.getLevel();
 			 var currSection = INVENKTION.DrawCanvasManager.getSection();
+			 var currentStars = 0;
+			 var currentResultTitle = '';
+			 if(this.getGameMode()) {
+				 INVENKTION.LevelManager.setLevelBestResult(currLevel,percentage);
+			 }
 			 
-			 INVENKTION.LevelManager.setLevelBestResult(currLevel,percentage);
+			 if(INVENKTION.debug) {
+				 percentage  =100;
+			 }
+			 
 			 
 			 if(percentage >= 85) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"3");
+				 if(this.getGameMode()) {
+					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"3");
+					 currentStars = 3;
+					 currentResultTitle = 'Excellent!';
+					 var resultObj = INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+					 if(resultObj.sezione && resultObj.bonus) {
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_bonusPaint','MS_resultOk');
+					 }else if(resultObj.sezione){
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_resultOk');
+					 }else if(resultObj.bonus){
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_bonusPaint').html(),'MS_resultOk');
+					 }else {
+						 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
+					 }
+				 }else{
+					 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
+				 }
 				 console.log("3 star");
-				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 			 }
 			 else if(percentage >= 80) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"2");
+				 if(this.getGameMode()) {
+					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"2");
+					 currentStars = 2;
+					 currentResultTitle = 'Good';
+					 var resultObj = INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+					 if(resultObj.sezione && resultObj.bonus) {
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_bonusPaint','MS_resultOk');
+					 }else if(resultObj.sezione){
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_resultOk');
+					 }else if(resultObj.bonus){
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_bonusPaint').html(),'MS_resultOk');
+					 }else {
+						 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
+					 }
+				 }else{
+					 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
+				 }
+				 
 				 console.log("2 star");
-				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 			 }
 			 else if(percentage >= 75) {
 				 INVENKTION.SoundManager.playSound('positive');
-				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"1");
+				 if(this.getGameMode()) {
+					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"1");
+					 currentStars = 1;
+					 currentResultTitle = 'Not Bad..';
+					 var resultObj = INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
+					 if(resultObj.sezione && resultObj.bonus) {
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_bonusPaint','MS_resultOk');
+					 }else if(resultObj.sezione){
+						 $(".imgSectionUnlocked").attr("src",resultObj.sezione.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_sectionUnlock').html(),'MS_resultOk');
+					 }else if(resultObj.bonus){
+						 $(".imgBonusUnlocked").attr("src",resultObj.bonus.immagine);
+						 INVENKTION.PageShowManager.popUpStart($('#MS_bonusPaint').html(),'MS_resultOk');
+					 }else {
+						 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
+					 }
+				 }else{
+					 INVENKTION.PageShowManager.popUpStart($('#MS_resultOk').html());
+				 }
+				 
 				 console.log("1 star");
-				 INVENKTION.LevelManager.unlockNextLevel(currLevel,currSection);
 			 }
 			 else {
 				 INVENKTION.SoundManager.playSound('negative');
-				 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"0");
+				 if(this.getGameMode()) {
+					 INVENKTION.LevelManager.setLevelStars(currSection,currLevel,"0");
+				 }
+				 INVENKTION.PageShowManager.popUpStart($('#MS_resultBad').html());
+				 $("#gameResult").html("bad!!!");
 				 console.log("bad result");
+			 }
+			 $('.resultTitle').html(currentResultTitle);
+			 $(".resultsStars").html('<img class="setStars" src="images/setStars'+currentStars+'.png"/>');
+			 
+			 //Se siamo in atelier, non mostro il bottone NEXT
+			 if(!this.isGame()) {
+				 $(".gamePause_next").hide();
+			 }else {
+				 //Se il livello successivo non c'è o è ancora bloccato non mostro il botton NEXT
+				 if(INVENKTION.LevelManager.getNextLevel(this.getLevel()) == undefined){
+					 $(".gamePause_next").hide();
+				 }else {
+					 $(".gamePause_next").show();
+				 }
 			 }
 			 
 			 return percentage;
+		 },
+		 setGameMode: function(mode) {
+			 gameMode = mode;
+		 },
+		 getGameMode: function() {
+			 return gameMode;
+		 },
+		 isGame: function() {
+			 return this.getGameMode() == "GAME";
+		 },
+		 setAtelierLevel: function(levObj) {
+			 atelierLevel = levObj;
+		 },
+		 getAtelierLevel: function() {
+			 return atelierLevel;
+		 },
+		 showTrickOrTrap: function(trickOrTrap) {//input "trick" or "trap"
+			 var imgPath;
+			 if(trickOrTrap == "trick") {
+				 imgPath = "images/cutter.png";
+			 }else {
+				 imgPath = "images/bomb.png";
+			 }
+			 
+			 var aElContainer = $("<a href='#' class='"+trickOrTrap+" trickTrap'></a>");
+			 var trickEL = $("<img/>");
+				 trickEL.attr("src",imgPath);
+				 trickEL.addClass("trickTrapImg");
+				 trickEL.addClass("animatedTrickTrap");
+				 var top = parseInt(Math.random()*window.innerHeight);
+				 var left = parseInt(Math.random()*window.innerWidth);
+				 aElContainer.css("top",top+"px");
+				 aElContainer.css("left",left+"px");
+				 var H = window.innerHeight / 10;
+				 trickEL.css("width",H+"px");
+				 trickEL.css("height",H+"px");
+				 aElContainer.css("width",H+"px");
+				 aElContainer.css("height",H+"px");
+				 
+			 aElContainer.append(trickEL);
+			 $("#canvas").append(aElContainer);
+		 },
+		 showTrick: function() {
+			 this.showTrickOrTrap("trick");	 
+		 },
+		 showTrap: function() {
+			 this.showTrickOrTrap("trap");			
 		 }
 	};
 

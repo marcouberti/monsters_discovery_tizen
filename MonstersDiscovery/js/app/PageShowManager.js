@@ -34,7 +34,10 @@
 	        switch (document[visibilityState]) {
 	        case "visible":
 	        	INVENKTION.SoundManager.playBackgroundMusic();
-	        	INVENKTION.TimerManager.resume();
+	        	//Faccio ripartire se e solo se non è aperto un POPUP
+				if($('.MS_popUpContainer').css("display") != "block") {
+					 INVENKTION.TimerManager.resume();
+				}
 	            break;
 	        case "hidden":
 	        	INVENKTION.SoundManager.stopBackgroundMusic();
@@ -55,8 +58,6 @@
 	//Evento dopo che la pagina è stata lasciata
 	$(document).bind('pagehide', function(event){
 		currentPage = $(event.target).attr("id");
-		console.log("--> uscito dalla pagina..."+currentPage);
-		//### HOME
 		if(currentPage == 'canvas') {
 			console.log("fermo eventuale worker timer");
 			INVENKTION.TimerManager.stop();
@@ -67,412 +68,84 @@
 	//e di conseguenza fare gli aggiornamenti alla UI del caso
 	$(document).bind('pagebeforeshow', function(event){
 		currentPage = $(event.target).attr("id");
-		console.log("sono nella pagina..."+currentPage);
-		
-		//### HOME
-		if(currentPage == 'home') {
-			$(".home_btn1").bind('tap', function (event) {
-				if(event.handled !== true) {
-		    		event.handled = true;
-		    		$.mobile.changePage( "#sezioni");
-				}
-			});
-			$(".home_creditsBtn").bind("tap", function (event) {
-				if(event.handled !== true) {
-					event.handled = true;
-					popUpStart($('#MS_credits').html());
-				}
-			});
-			$(".JS_quit").bind("tap", function (event) {
-				if(event.handled !== true) {
-					event.handled = true;
-					popUpStart($('#MS_quit').html());
-				}
-			});
-			$(".credit_close").bind("tap", function (event) {
-				if(event.handled !== true) {
-					event.handled = true;
-					$("#credits").popup("close");
-				}
-			});
-			$(".home_logoInvenktion").bind("tap", function (event) {
-				if(event.handled !== true) {
-					event.handled = true;
-		    		location.replace("http://www.invenktion.com");
-				}
-			});
-			
-			$(".JS_popUpClose, .MS_popUpContainer").bind("tap", function (event) {
-				if(event.handled !== true) {
-					event.handled = true;
-		    		popUpClose();
-				}
-			});
-						
-			//TOGGLE AUDIO
-			$('.home_audioBtn').bind('tap', function (event) {
-				if(event.handled !== true) {
-		    		event.handled = true;
-					$('.home_audioBtn').toggleClass('hidden');
-					if (!$(this).hasClass('mute')){
-						INVENKTION.SoundManager.setAudio(false);
-						INVENKTION.SoundManager.stopBackgroundMusic();
-					}else{
-						INVENKTION.SoundManager.setAudio(true);
-						INVENKTION.SoundManager.playBackgroundMusic();
-					}			
-				}
-			});
-			//Setto il PopUp
-		    function popUpStart (msg) {
-		    	//Variabili
-		    	_W = window.innerWidth*0.6;
-		    	_H = window.innerHeight*0.7;
-		    	
-		    	//Carico il contenuto
-		    	$('.MS_popUpInn').html(msg);
-		    	//Visualizzo il popUp con qualche effetto speciale
-		    	$('.MS_popUpContainer').show('fast', function() {
-		    		// Animation complete.
-		    		$('.MS_popUp').animate({
-		    			left:(window.innerWidth/2)-(_W/2),
-		    			top:(window.innerHeight/2)-(_H/2),
-		    			width: _W,
-		    			height: _H
-		    		}, 1000, function() {
-		    			//Animation Complete
-		    			$('.MS_popUpInn').show('fast');
-		    		});
-		    	});
-		    }
-			//Chiudo il PopUp
-			function popUpClose () {
-				$('.MS_popUpInn').hide('fast');
-				$('.MS_popUpContainer').hide('fast');
-			}
-		}
-		
-		//### SEZIONI
-		if(currentPage == 'sezioni') {
-				$("#wrapper, #wrapper_livelli").html("");//svuoto
-				$("#wrapper").css("width",window.innerWidth);
-				$("#wrapper").css("height",window.innerHeight);
-				var	gallery,
-					el,
-					i,
-					page,
-					slides = INVENKTION.LevelManager.getSezioni();
-	
-				gallery = new SwipeView('#wrapper', { numberOfPages: slides.length });
-		
-				// Load initial data
-				for (i=0; i<3; i++) {
-					page = i==0 ? slides.length-1 : i-1;
-					el = document.createElement('img');
-					
-					//Controllo se la sezione è sbloccata o meno
-					var sec = INVENKTION.LevelManager.getSection(page);
-					var stars = INVENKTION.LevelManager.getSectionTotalStars(sec);
-					var unlocked = INVENKTION.LevelManager.isSectionUnlocked(sec);
-					var statusImage;
-					var correctClass = "sectionImage";
-					if(unlocked) {
-						statusImage = sec.immagine;
-					}else {
-						statusImage = sec.immagineBlocked;
-						correctClass = "lockedSection";
-					}
-					
-					el.src = statusImage;
-					el.width = window.innerHeight;
-					el.height = window.innerHeight;
-					
-					gallery.masterPages[i].appendChild(el);
-					
-					var secImg = $(el);
-					secImg.removeClass("lockedSection");
-					secImg.removeClass("sectionImage");
-					secImg.addClass(correctClass);
-					
-					el = document.createElement('span');
-					el.innerHTML = stars+"/"+(sec.livelli.length)*3 +" Stars";
-					gallery.masterPages[i].appendChild(el)
-				}
-		
-				gallery.onFlip(function () {
-					var el,
-						upcoming,
-						i;
-		
-					for (i=0; i<3; i++) {
-						upcoming = gallery.masterPages[i].dataset.upcomingPageIndex;
-		
-						if (upcoming != gallery.masterPages[i].dataset.pageIndex) {
-							el = gallery.masterPages[i].querySelector('img');
-							
-							//Controllo se la sezione è sbloccata o meno
-							var sec = INVENKTION.LevelManager.getSection(upcoming);//non page come sopra!
-							var stars = INVENKTION.LevelManager.getSectionTotalStars(sec);
-							var unlocked = INVENKTION.LevelManager.isSectionUnlocked(sec);
-							var statusImage;
-							var correctClass = "sectionImage";
-							if(unlocked) {
-								statusImage = sec.immagine;
-							}else {
-								statusImage = sec.immagineBlocked;
-								correctClass = "lockedSection";
-							}
-							
-							el.src = statusImage;
-							el.width = window.innerHeight;
-							el.height = window.innerHeight;
-	
-							var secImg = $(el);
-							secImg.removeClass("lockedSection");
-							secImg.removeClass("sectionImage");
-							secImg.addClass(correctClass);
-							el = gallery.masterPages[i].querySelector('span');
-							el.innerHTML = stars+"/"+(sec.livelli.length)*3 +" Stars";
-						}
-					}
-				});
-		
-				gallery.onMoveOut(function () {
-					gallery.masterPages[gallery.currentMasterPage].className = gallery.masterPages[gallery.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
-				});
-		
-				gallery.onMoveIn(function () {
-					var className = gallery.masterPages[gallery.currentMasterPage].className;
-					/(^|\s)swipeview-active(\s|$)/.test(className) || (gallery.masterPages[gallery.currentMasterPage].className = !className ? 'swipeview-active' : className + ' swipeview-active');
-				});
-				
-				//Se esiste tra le variabili salvate l'ultima sezione cliccata, mi posiziono li
-				var lastSectionUsed = INVENKTION.StorageManager.getItem("currentSection");
-				if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
-					console.log("Ultima sezione visitata = "+lastSectionUsed);
-					gallery.goToPage(parseInt(lastSectionUsed));
-				}
-				
-				//Evento selezione gallery
-				$("#wrapper .swipeview-active").live('tap',function(event){
-					if(event.handled !== true) {
-			    		event.handled = true;
-						//estraggo l'indice dell'immagine della gallery corrente
-			    		if($(this).find(".sectionImage").size() > 0) {
-							var index = $(this).attr('data-page-index');
-							console.log("sezione selezionata: "+index);
-							INVENKTION.StorageManager.setItem("currentSection",index+"");
-							$.mobile.changePage( "#livelli");
-			    		}
-					}
-				});
-				
-				//BACK BUTTON
-				$(".jsBackHome").bind('tap',function(event){
-					if(event.handled !== true) {
-			    		event.handled = true;
-						$.mobile.changePage( "#home");
-					}
-				});
-		}
-		
-		//### LIVELLI
-		if(currentPage == 'livelli') {
-			$("#wrapper,#wrapper_livelli").html("");//svuoto
-			$("#wrapper_livelli").css("width",window.innerWidth);
-			$("#wrapper_livelli").css("height",window.innerHeight);
-			
-			var index = INVENKTION.StorageManager.getItem("currentSection");
-			var section = INVENKTION.LevelManager.getSection(parseInt(index));
-			
-			var	gallery,
-				el,
-				i,
-				page,
-				slides = section.livelli;
-
-			gallery = new SwipeView('#wrapper_livelli', { numberOfPages: slides.length });
-	
-			// Load initial data
-			for (i=0; i<3; i++) {
-				page = i==0 ? slides.length-1 : i-1;
-				el = document.createElement('img');
-				
-				//Controllo se il livello è sbloccato o meno
-				var lev = INVENKTION.LevelManager.getSectionLevel(section,page);
-				var stars = INVENKTION.LevelManager.getLevelStars(section,lev);
-				var unlocked = INVENKTION.LevelManager.isLevelUnlocked(lev);
-				var statusImage;
-				var correctClass = "levelImage";
-				if(unlocked) {
-					statusImage = lev.immagine;
-				}else {
-					statusImage = lev.immagine;
-					correctClass = "lockedLevel";
-				}
-				
-				el.src = statusImage;
-				el.width = window.innerHeight;
-				el.height = window.innerHeight;
-				
-				gallery.masterPages[i].appendChild(el);
-				
-				var secImg = $(el);
-				secImg.removeClass("levelImage");
-				secImg.removeClass("lockedLevel");
-				secImg.addClass(correctClass);
-				
-				el = document.createElement('span');
-				el.innerHTML = "Stars : "+stars;
-				gallery.masterPages[i].appendChild(el)
-			}
-	
-			gallery.onFlip(function () {
-				var el,
-					upcoming,
-					i;
-	
-				for (i=0; i<3; i++) {
-					upcoming = gallery.masterPages[i].dataset.upcomingPageIndex;
-	
-					if (upcoming != gallery.masterPages[i].dataset.pageIndex) {
-						el = gallery.masterPages[i].querySelector('img');
-						
-						//Controllo se il livello è sbloccato o meno
-						var lev = INVENKTION.LevelManager.getSectionLevel(section,upcoming);
-						var stars = INVENKTION.LevelManager.getLevelStars(section,lev);
-						var unlocked = INVENKTION.LevelManager.isLevelUnlocked(lev);
-						var statusImage;
-						var correctClass = "levelImage";
-						if(unlocked) {
-							statusImage = lev.immagine;
-						}else {
-							statusImage = lev.immagine;
-							correctClass = "lockedLevel";
-						}
-						
-						el.src = statusImage;
-						el.width = window.innerHeight;
-						el.height = window.innerHeight;
-	
-						var secImg = $(el);
-						secImg.removeClass("levelImage");
-						secImg.removeClass("lockedLevel");
-						secImg.addClass(correctClass);
-						el = gallery.masterPages[i].querySelector('span');
-						el.innerHTML = "Stars : "+stars;
-					}
-				}
-			});
-	
-			gallery.onMoveOut(function () {
-				gallery.masterPages[gallery.currentMasterPage].className = gallery.masterPages[gallery.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
-			});
-	
-			gallery.onMoveIn(function () {
-				var className = gallery.masterPages[gallery.currentMasterPage].className;
-				/(^|\s)swipeview-active(\s|$)/.test(className) || (gallery.masterPages[gallery.currentMasterPage].className = !className ? 'swipeview-active' : className + ' swipeview-active');
-			});
-			
-			//Se esiste tra le variabili salvate l'ultima sezione cliccata, mi posiziono li
-			var lastSectionUsed = INVENKTION.StorageManager.getItem("currentLevel");
-			if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
-				console.log("Ultimo livello visitato = "+lastSectionUsed);
-				gallery.goToPage(parseInt(lastSectionUsed));
-			}
-			
-			//Evento selezione gallery
-			$("#wrapper_livelli .swipeview-active").live('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					//estraggo l'indice dell'immagine della gallery corrente
-		    		if($(this).find(".levelImage").size() > 0) {
-						var index = $(this).attr('data-page-index');
-						console.log("livello selezionata: "+index);
-						INVENKTION.StorageManager.setItem("currentLevel",index+"");
-						$.mobile.changePage( "#canvas");
-		    		}
-				}
-			});
-			
-			//BACK BUTTON
-			$(".jsBackSezioni").bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					$.mobile.changePage( "#sezioni");
-				}
-			});
-		}
-		
-		//### CANVAS
-		if(currentPage == 'canvas') {
-			mainHeight = $(window).height();
-			$('.imgContainer').css('width',mainHeight);
-			//$('.paletteContainerInn').css('margin-top',(mainHeight*-0.7)/2);
-			
-			//BACK BUTTON
-			$(".jsBackLivelli").bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					$.mobile.changePage( "#livelli");
-				}
-			});
-			
-			$(document).bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					if($(event.target).attr("class") && $(event.target).attr("class").indexOf("tavcol") != -1) {
-						INVENKTION.DrawCanvasManager.setBrushColor($(event.target).css("background-color"));
-						INVENKTION.SoundManager.playSound('plaf');
-					}
-				}
-			});
-			
-			$(".gommaBtn").bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					INVENKTION.DrawCanvasManager.setBrushType('ERASER');
-					INVENKTION.SoundManager.playSound('plaf');
-				}
-			});
-			
-			$(".checkBtn").bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-		    		INVENKTION.DrawCanvasManager.checkUserDrawing();
-		    		//$(".mubcanvas").width($(".mubcanvas").width()-50);
-		    		//$("canvas").width($("canvas").width()-50);
-		    		//console.log($("canvas").width());
-				}
-			});
-			
-			$(".sizer_add").bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					INVENKTION.DrawCanvasManager.increaseBrushSize();
-					INVENKTION.SoundManager.playSound('plaf');
-				}
-			});
-			
-			$(".sizer_less").bind('tap',function(event){
-				if(event.handled !== true) {
-		    		event.handled = true;
-					INVENKTION.DrawCanvasManager.decreaseBrushSize();
-					INVENKTION.SoundManager.playSound('plaf');
-				}
-			});
-			
-			//Inizializzo il canvas
-			INVENKTION.DrawCanvasManager.initCanvas();
-			//Faccio partire il tempo
-			INVENKTION.TimerManager.start();
-		}
 	});
 
 	//Il nostro oggetto da esporre
 	var mod = {
 			getCurrentPage: function(){
 				return currentPage;
+			},
+			//Setto il PopUp
+			popUpStart: function (msg,msg2,msg3) {
+		    	//Variabili
+		    	_W = window.innerWidth*0.6;
+		    	_H = window.innerHeight*0.7;
+		    	//PULISCO
+		    	$('.MS_popUpInn').html("");
+		    	$('.MS_popUpInn').removeAttr("data-pop2");
+		    	$('.MS_popUpInn').removeAttr("data-pop3");
+		    	//Carico il contenuto
+		    	$('.MS_popUpInn').html(msg);
+		    	if (msg2) {
+		    		$('.MS_popUpInn').attr('data-pop2',msg2);
+		    	}
+		    	if (msg3) {
+		    		$('.MS_popUpInn').attr('data-pop3',msg3);
+		    	}
+		    	//Visualizzo il popUp con qualche effetto speciale
+		    	/*$('.MS_popUpContainer').show(100, function() {
+		    		// Animation complete.
+		    		$('.MS_popUp').animate({
+		    			left:(window.innerWidth/2)-(_W/2),
+		    			top:(window.innerHeight/2)-(_H/2),
+		    			width: _W,
+		    			height: _H
+		    		}, 100, function() {
+		    			//Animation Complete
+		    			$('.MS_popUpInn').show('fast');
+		    		});
+		    	});
+		    	*/
+		    	$('.MS_popUpContainer').addClass('showPopUpCont');
+		    	$('.MS_popUp').css('left',(window.innerWidth/2)-(_W/2));
+		    	$('.MS_popUp').css('top',(window.innerHeight/2)-(_H/2));
+		    	$('.MS_popUp').css('width',_W);
+		    	$('.MS_popUp').css('height',_H);
+		    	$('.MS_popUpInn').addClass('showPopUpInn animatedPopUpInn');
+		    },
+		    popUpClose: function  () {
+		    	$('.MS_popUpInn').removeClass('showPopUpInn');
+		    	if ($('.MS_popUpInn').attr('data-pop2')) {
+					var secPop = $('.MS_popUpInn').attr('data-pop2');
+					$('.MS_popUpInn').html($('#'+secPop).html());
+					$('.MS_popUpInn').addClass('showPopUpInn animatedPopUpInn');
+					$('.MS_popUpInn').removeAttr("data-pop2");
+				}else if ($('.MS_popUpInn').attr('data-pop3')) {//Controllo se ci sono altri PopUP (Terzo)
+					var secPop = $('.MS_popUpInn').attr('data-pop3');
+					$('.MS_popUpInn').html($('#'+secPop).html());
+					$('.MS_popUpInn').addClass('showPopUpInn animatedPopUpInn');
+					$('.MS_popUpInn').removeAttr("data-pop3");
+				}else{
+					$('.MS_popUpContainer').removeClass('showPopUpCont');
+				}
+				/*$('.MS_popUpInn').hide(100,function() {
+		    		// Animation complete.
+					//Controllo se ci sono altri PopUP (Secondo)
+					if ($('.MS_popUpInn').attr('data-pop2')) {
+						var secPop = $('.MS_popUpInn').attr('data-pop2');
+						$('.MS_popUpInn').html($('#'+secPop).html());
+						$('.MS_popUpInn').show();
+						$('.MS_popUpInn').removeAttr("data-pop2");
+					}else if ($('.MS_popUpInn').attr('data-pop3')) {//Controllo se ci sono altri PopUP (Terzo)
+						var secPop = $('.MS_popUpInn').attr('data-pop3');
+						$('.MS_popUpInn').html($('#'+secPop).html());
+						$('.MS_popUpInn').show();
+						$('.MS_popUpInn').removeAttr("data-pop3");
+					}else{
+						$('.MS_popUpContainer').hide(100);
+					}
+				});
+				*/
 			}
 	};
 

@@ -17,15 +17,17 @@
         	           	 {
         	           		 codice: 		"atm1",
         	           		 nome:	 		"atm1",
-        	           		 immagine:		"images/mostri/atelier1.png",
-        	           		 contorno:		"images/mostri/atelier1_tr.png",
+        	           		 unlocked: true,
+        	           		 immagine:		"images/mostri/aterlier1.png",
+        	           		 contorno:		"images/mostri/aterlier1_tr.png",
         	           		 colori:  [[255,137,0],[176,62,72],[102,120,204]]//ok
         	           	 },
         	           	 {
         	           		 codice: 		"atm2",
         	           		 nome:	 		"atm2",
-        	           		 immagine:		"images/mostri/atelier2.png",
-        	           		 contorno:		"images/mostri/atelier2_tr.png",
+        	           		 unlocked: true,
+        	           		 immagine:		"images/mostri/aterlier2.png",
+        	           		 contorno:		"images/mostri/aterlier2_tr.png",
         	           		 colori:  [[63,182,255],[255,191,50]]//ok
         	           	 }
         	           	 ]
@@ -38,6 +40,7 @@
 	            	   nome:			"mondo1",
 	            	   sfondo:			"images/sfondi/sfondo1.png",
 	            	   immagine:		"images/sezioni/sec1presentation.png",
+	            	   storyboard:		"images/sezioni/sec1storyboard.png",
 	            	   immagineBlocked: "images/sezioni/sec1locked.png",
 	            	   livelli:	[
 	            	           	 {
@@ -119,6 +122,7 @@
 	            	   nome:			"mondo2",
 	            	   sfondo:			"images/sfondi/sfondo2.png",
 	            	   immagine:		"images/sezioni/sec2presentation.png",
+	            	   storyboard:		"images/sezioni/sec2storyboard.png",
 	            	   immagineBlocked: "images/sezioni/sec2locked.png",
 	            	   livelli:	[
 	            	           	 {
@@ -200,6 +204,7 @@
 	            	   nome:			"mondo3",
 	            	   sfondo:			"images/sfondi/sfondo3.png",
 	            	   immagine:		"images/sezioni/sec3presentation.png",
+	            	   storyboard:		"images/sezioni/sec3storyboard.png",
 	            	   immagineBlocked: "images/sezioni/sec3locked.png",
 	            	   livelli:	[
 	            	           	 {
@@ -281,6 +286,7 @@
 	            	   nome:			"mondo4",
 	            	   sfondo:			"images/sfondi/sfondo4.png",
 	            	   immagine:		"images/sezioni/sec4presentation.png",
+	            	   storyboard:		"images/sezioni/sec4storyboard.png",
 	            	   immagineBlocked: "images/sezioni/sec4locked.png",
 	            	   livelli:	[
 	            	           	 {
@@ -362,6 +368,7 @@
 	            	   nome:			"mondo5",
 	            	   sfondo:			"images/sfondi/sfondo5.png",
 	            	   immagine:		"images/sezioni/sec5presentation.png",
+	            	   storyboard:		"images/sezioni/sec5storyboard.png",
 	            	   immagineBlocked: "images/sezioni/sec5locked.png",
 	            	   livelli:	[
 	            	           	 {
@@ -486,6 +493,9 @@
 
 	//Il nostro oggetto da esporre
 	var mod = {
+		 getAtelier: function() {
+			 return atelier;
+		 },
 		 getSezioni: function(){
 				return sezioni;
 		 },
@@ -504,6 +514,9 @@
 			 }else return undefined;
 		 },
 		 isSectionUnlocked: function(section) {
+			 if(INVENKTION.debug) {
+				 return true;
+			 }
 			 //la prima sezione e il bonus sono sempre sbloccate
 			 if(section.codice=="w1" || section.codice=="wb") return true;
 			 var unlocked = INVENKTION.StorageManager.getItem(section.codice+"_unlocked");
@@ -515,6 +528,10 @@
 			 return section.livelli[index];
 		 },
 		 isLevelUnlocked: function(level) {
+			 if(INVENKTION.debug) {
+				 return true;
+			 }
+			 if(level.unlocked == true) return true;//solo caso livelli atelier
 			 //Il primissimo livello è sempre sbloccato
 			 if(level.codice=="w1m1") return true;
 			 var unlocked = INVENKTION.StorageManager.getItem(level.codice+"_unlocked");
@@ -527,9 +544,34 @@
 		 unlockSection: function(sec) {
 			 INVENKTION.StorageManager.setItem(sec.codice+"_unlocked", "true");
 		 },
+		 getNextLevel: function(lev) {
+			 var section = this.getLevelSection(lev.codice);
+			 var levelCount = this.getSectionLevelCount(section);
+			 for(var i=0; i<levelCount; i++){
+				 if(section.livelli[i].codice == lev.codice) {//livello corrente
+					 if(i == levelCount-1) {//siamo alla fine della sezione, devo prendere la successiva
+						 var nextSection = this.getSection(parseInt(section.index)+1);
+						 if(nextSection == undefined) return undefined;
+						 return nextSection.livelli[0];
+					 }else {
+						 return section.livelli[i+1];
+					 }
+				 }
+			 }
+			 return undefined;
+		 },
+		 //Verifica se ci sono livelli da sbloccare, sezioni da sbloccare o
+		 //quadri bonus da sbloccare. Ritorna un oggetto con questa struttura che il
+		 //chiamante può analizzare per effettuare le operazioni del caso:
+		 //{
+		 //		livello: {...} OR undefined 
+		 //		sezione: {...} OR undefined (lo metto solo se è la prima volta che viene sbloccata)
+		 //		bonus  : {...} OR undefined (lo metto solo se è la prima volta che viene sbloccata)
+		 //}
 		 unlockNextLevel: function(lev,sec) {
+			 var resultObj = {};
 			 //se bonus non sblocco nulla
-			 if(sec.codice == "wb") return;
+			 if(sec.codice == "wb") return resultObj;
 			 //Se il livello è l'ultimo della sezione controllo se c'è una sezione successiva
 			 //nel caso positivo sblocco la sezione nuova e il suo primo livello
 			 if(sec.livelli[sec.livelli.length-1].codice == lev.codice) {
@@ -542,11 +584,15 @@
 						 //prendo la successiva se esiste
 						 var nextSection = this.getSection(i+1);
 						 if(nextSection) {//se esiste sblocco anche il suo primo livello oltre a lei
-							 this.unlockSection(nextSection);
+							 if(!this.isSectionUnlocked(nextSection)) {
+								 this.unlockSection(nextSection);
+								 resultObj.sezione = nextSection;
+							 }
 							 //se è la sezione bonus non sblocco il primo livello
 							 if(nextSection.codice !="wb"){
 								 var firstLevel = this.getSectionLevel(nextSection, 0);
 								 this.unlockLevel(firstLevel);
+								 resultObj.livello = firstLevel;
 							 }
 						 }
 					 }
@@ -562,6 +608,7 @@
 						 var nextLevel = this.getSectionLevel(sec,i+1);
 						 if(nextLevel) {//se esiste sblocco
 							 this.unlockLevel(nextLevel);
+							 resultObj.livello = nextLevel;
 						 }
 					 }
 				 }
@@ -570,8 +617,13 @@
 			 var sectionStars = this.getSectionTotalStars(sec);
 			 if(parseInt(sectionStars) == parseInt(this.getSectionLevelCount(sec))*3) {
 				 var index = sec.index;
-				 this.unlockBonus(index);
+				 var bonusLevel = this.getBonusLevel(index);
+				 if(!this.isLevelUnlocked(bonusLevel)) {
+					this.unlockBonus(index);
+				 	resultObj.bonus = bonusLevel;
+				 }
 			 }
+			 return resultObj;
 		 },
 		 getLevelBestResult: function(level) {
 			 var percentage = INVENKTION.StorageManager.getItem(level.codice+"_best");
@@ -586,9 +638,13 @@
 			 }
 		 },
 		 getLevelStars: function(section, level) {
-			 var stars =  INVENKTION.StorageManager.getItem("star_"+section.codice+"_"+level.codice);
-			 if(!stars) stars = "0";
-			 return stars;
+			 try {
+				 var stars =  INVENKTION.StorageManager.getItem("star_"+section.codice+"_"+level.codice);
+				 if(!stars) stars = "0";
+				 return stars;
+			 }catch(err) {
+				 return 0;
+			 }
 		 },
 		 setLevelStars: function(section, level, stars) {
 			 //Aggiorno se e solo se il risultato è migliore di quello esistente
@@ -608,11 +664,59 @@
 			 
 			 return total;
 		 },
+		 getBonusLevel: function(index) {
+			 var bonusSection = this.getSection(5);
+			 var level = bonusSection.livelli[parseInt(index)];
+			 return level;
+		 },
 		 unlockBonus: function(index) {
 			 var bonusSection = this.getSection(5);
 			 var level = bonusSection.livelli[parseInt(index)];
 			 if(level) {
 				 this.unlockLevel(level);
+			 }
+		 },
+		 setLastSectionUsed: function(sectionIndex) {
+			 INVENKTION.StorageManager.setItem("lastUsedSection",sectionIndex);
+		 },
+		 getLastSectionUsed: function() {
+			 var lastSectionUsed = INVENKTION.StorageManager.getItem("lastUsedSection");
+			 if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+				return lastSectionUsed;
+			 }
+			 return 0;
+		 },
+		 setLastSectionLevelUsed: function(sectionIndex,levelIndex) {
+			 INVENKTION.StorageManager.setItem("lastUsedLevelSection_"+sectionIndex,levelIndex);
+		 },
+		 getLastAtelierLevelUsed: function() {
+			 var lastSectionUsed = INVENKTION.StorageManager.getItem("lastAtelierLevelUsed");
+			 if(lastSectionUsed && parseInt(lastSectionUsed) > 0) {
+				return lastSectionUsed;
+			 }
+			 return 0;
+		 },
+		 setLastAtelierLevelUsed: function(levelIndex) {
+			 INVENKTION.StorageManager.setItem("lastAtelierLevelUsed",levelIndex);
+		 },
+		 getLastSectionLevelUsed: function(sectionIndex) {
+			 var lastSectionLevelUsed = INVENKTION.StorageManager.getItem("lastUsedLevelSection_"+sectionIndex);
+			 if(lastSectionLevelUsed && parseInt(lastSectionLevelUsed) > 0) {
+				return lastSectionLevelUsed;
+			 }
+			 return 0;
+		 },
+		 getLevelSection: function(levelCode) {
+			 var numSection = this.getSectionCount();
+			 for(var i=0; i<numSection; i++) {
+				 var s = this.getSection(i);
+				 var secLevelsCount = this.getSectionLevelCount(s);
+				 for(var j=0; j<secLevelsCount; j++) {
+					 var l = s.livelli[j];
+					 if(l.codice == levelCode) {
+						 return s;
+					 }
+				 }
 			 }
 		 }
 	};

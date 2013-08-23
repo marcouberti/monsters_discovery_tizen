@@ -15,14 +15,30 @@
 	//Il nostro oggetto da esporre
 	var mod = {
 		 start : function() {
+			 this.stop();//termino un eventuale worker in corso
 			 worker=new Worker("js/app/webworker/timer.js");
 			 worker.onmessage=function(event){
 				 var secondRemaining = event.data;
 				 $("#timer").html(secondRemaining);
 				 
-				 if(secondRemaining == 0) {
+				 if(secondRemaining <= 0) {
 					 INVENKTION.TimerManager.stop();
 					 INVENKTION.DrawCanvasManager.checkUserDrawing();
+				 }else {
+					 //Se siamo in modalità GIOCO, lancio in modalità
+					 //random un TRICKS&TRAP
+					 if(INVENKTION.DrawCanvasManager.isGame()) {
+						 //Probabilità 50%
+						 var binary = parseInt(Math.random()*2);
+						 if(binary == 1) {
+							 var binaryTrickOrTrap = parseInt(Math.random()*2);
+							 if(binaryTrickOrTrap == 1) {//TRICK
+								 INVENKTION.DrawCanvasManager.showTrick();
+							 }else {//TRAP
+								 INVENKTION.DrawCanvasManager.showTrap();
+							 }
+						 }
+					 }
 				 }
 			 }; 
 		 },
