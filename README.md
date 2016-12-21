@@ -1,4 +1,4 @@
-mdtztest
+Monsters Discovery Game for TIZEN
 ======================
 
-HTML5 mdtztest
+HTML5 TIZEN project
